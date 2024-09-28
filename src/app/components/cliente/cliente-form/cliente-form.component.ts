@@ -24,8 +24,6 @@ import { MatTable } from '@angular/material/table';
 })
 export class ClienteFormComponent {
   formGroup!: FormGroup;
-  clienteForm!: FormGroup;
-  clienteSelecionado: Cliente | null = null;
 
   constructor(private formBuilder: FormBuilder,
     private clienteService: ClienteService,
@@ -33,22 +31,20 @@ export class ClienteFormComponent {
       this.formGroup = this.formBuilder.group({
         nome:['', Validators.required],
         cep:['', Validators.required],
+        cpf:['' , Validators.required]
       }) 
   }
-
-  cancelarEdicao(): void {
-    this.clienteSelecionado = null;
-    this.clienteForm.reset();  // Reseta o formulário
-  }
-
-  editarCliente(cliente: Cliente): void {
-    this.clienteSelecionado = cliente;
-
-    // Preencher o formulário com os dados do funcionário selecionado
-    this.clienteForm.patchValue({
-      nome: cliente.nome,
-      cep: cliente.cep,
-      cpf: cliente.cpf,
-    });
+  onSubmit() {
+    if (this.formGroup.valid) {
+      const novoCliente = this.formGroup.value;
+      this.clienteService.insert(novoCliente).subscribe({
+        next: (clienteCadastrado) => {
+          this.router.navigateByUrl('/clientes');
+        },
+        error: (err) => {
+          console.log('Erro ao salvar', + JSON.stringify(err));
+        }
+      })
+    }
   }
 }
