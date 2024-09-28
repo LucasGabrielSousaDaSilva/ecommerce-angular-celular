@@ -32,7 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 export class ClienteListComponent implements OnInit{
   
   clientes: Cliente[] = [];
-  displayerColemns: string[] = ['id', 'nome', 'cpf', 'cep', 'acao'];
+  displayerColumns: string[] = ['id', 'nome', 'cep', 'cpf', 'acao'];
 
   clienteForm!: FormGroup;
   clienteSelecionado: Cliente | null = null;
@@ -57,7 +57,7 @@ export class ClienteListComponent implements OnInit{
     });
   }
 
-  salvarcliente(): void {
+  salvarCliente(): void {
     if (this.clienteForm.valid && this.clienteSelecionado) {
       const clienteEditado = {
         ...this.clienteSelecionado,
