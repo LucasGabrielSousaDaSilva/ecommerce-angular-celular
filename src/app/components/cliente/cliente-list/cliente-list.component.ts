@@ -37,8 +37,13 @@ export class ClienteListComponent implements OnInit{
   clienteForm!: FormGroup;
   clienteSelecionado: Cliente | null = null;
 
-    constructor(private clienteService: ClienteService){}
- 
+    constructor(private clienteService: ClienteService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
+      this.clienteForm = this.formBuilder.group({
+        nome: ['', Validators.required],
+        cep: ['', Validators.required],
+        cpf: ['', Validators.required],
+      });
+    }
  
   ngOnInit(): void {
     this.clienteService.findAll().subscribe(data => {
@@ -46,10 +51,23 @@ export class ClienteListComponent implements OnInit{
     });
   }
 
+  delete(id: number): void {
+    this.clienteService.delete(id).subscribe(
+      () => {
+        this.snackBar.open('Cliente deletado com sucesso', 'Fechar', { duration: 3000 });
+        this.ngOnInit();
+      },
+      (error) => {
+        console.error('Erro ao deletar Cliente:', error);
+        this.snackBar.open('Erro ao deletar cliente', 'Fechar', { duration: 3000 });
+      }
+    );
+  }
+
   editarCliente(cliente: Cliente): void {
     this.clienteSelecionado = cliente;
 
-    // Preencher o formulário com os dados do funcionário selecionado
+    // Preencher o formulário com os dados do cliente selecionado
     this.clienteForm.patchValue({
       nome: cliente.nome,
       cep: cliente.cep,

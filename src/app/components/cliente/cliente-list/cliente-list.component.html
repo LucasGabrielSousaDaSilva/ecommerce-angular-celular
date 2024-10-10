@@ -10,6 +10,11 @@
 <table mat-table [dataSource]="clientes" class="mat-elevation-z8">
 
     <!-- Nome Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
+    </ng-container>
+
     <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef> Nome </th>
         <td mat-cell *matCellDef="let cliente"> {{cliente.nome}} </td>
@@ -32,11 +37,11 @@
             <button mat-icon-button color="primary" (click)="editarCliente(cliente)">
                 <mat-icon>edit</mat-icon>
             </button>
-            <!-- <button mat-icon-button
+            <button mat-icon-button
                 color="warn"
                 (click)="delete(cliente.id)">
             <mat-icon>delete</mat-icon>
-            </button> -->
+            </button>
         </td>
     </ng-container>
 
@@ -45,7 +50,7 @@
 </table>
 
 <mat-card *ngIf="clienteSelecionado">
-    <mat-card-title>Edição de Funcionário</mat-card-title>
+    <mat-card-title>Edição de Cliente</mat-card-title>
     <mat-card-content>
         <form [formGroup]="clienteForm" (ngSubmit)="salvarCliente()">
             <mat-form-field appearance="fill">
