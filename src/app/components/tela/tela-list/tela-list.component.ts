@@ -30,7 +30,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class TelaListComponent implements OnInit{
 
-  displayedColumns : string[] = ['id', 'tamanho', 'resolucao', 'acao']
+  displayedColumns : string[] = ['id', 'tamanho', 'resolucao', 'acao'];
 
   telaForm!: FormGroup;
   telaSelecionado: Tela | null = null;

@@ -1,1 +1,43 @@
-<p>processador-form works!</p>
+<mat-toolbar color="primary">
+    <div class="toolbar-title"> Cadastro de Processadores</div>
+</mat-toolbar>
+<div class="form-container">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup">
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Marca</mat-label>
+                    <input matInput type="text" formControlName="Marca">
+                    <mat-error *ngIf="formGroup.get('marca') 
+                                   && formGroup.get('marca')?.invalid
+                                   && formGroup.get('marca')?.touched">
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Modelo</mat-label>
+                    <input matInput type="text" formControlName="Modelo">
+                    <mat-error *ngIf="formGroup.get('modelo') 
+                                   && formGroup.get('modelo')?.invalid
+                                   && formGroup.get('modelo')?.touched">
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button routerLink="/processadores">
+                Cancelar
+            </button>
+
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
+                [disabled]="formGroup.invalid">
+                Excluir
+            </button>
+
+            <button mat-raised-button color="primary" (click)="salvar()" >
+                Salvar
+            </button>
+
+        </mat-card-actions>
+    </mat-card>
+</div>
