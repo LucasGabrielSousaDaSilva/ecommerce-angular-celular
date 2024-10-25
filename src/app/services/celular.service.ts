@@ -8,7 +8,7 @@ import { Celular } from '../models/celular.model';
   providedIn: 'root'
 })
 export class CelularService {
-  private baseUrl = 'http://localhost:8080/clientes';
+  private baseUrl = 'http://localhost:8080/Celular';
 
   constructor(private httpClient: HttpClient) { }
 
