@@ -18,36 +18,59 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-tela-list',
   standalone: true,
   imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
-    MatInputModule],
+    MatInputModule, MatPaginatorModule],
   templateUrl: './tela-list.component.html',
   styleUrl: './tela-list.component.css'
 })
 export class TelaListComponent implements OnInit{
 
-  displayedColumns : string[] = ['id', 'tamanho', 'resolucao', 'acao'];
+  totalRecords = 0;
+  pageSize = 2;
+  page = 0;
+
+  displayedColumns : string[] = ['tamanho', 'resolucao', 'acao'];
 
   telaForm!: FormGroup;
   telaSelecionado: Tela | null = null;
 
   telas : Tela[] = [];
 
-  constructor(private telaService : TelaService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {}
+  constructor(private telaService : TelaService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
+    this.telaForm = this.formBuilder.group({
+      tamanho : ['', Validators.required],
+      resolucao : ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
-    this.telaService.findAll().subscribe(data => {
+    this.telaService.findAll(this.page, this.pageSize).subscribe(data => {
       this.telas = data;
-    })
+    });
+
+    this.telaService.count().subscribe(data => {
+      this.totalRecords = data;
+    });
+  }
+
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   delete(id: number): void {
     this.telaService.delete(id).subscribe(
       () => {
+        this.telas = this.telas.filter(tela => tela.id !== id);
         this.snackBar.open('Tela deletado com sucesso', 'Fechar', { duration: 3000 });
         this.ngOnInit();
       },
@@ -75,11 +98,12 @@ export class TelaListComponent implements OnInit{
         ...this.telaForm.value
       };
 
-      // Aqui, envie os dados editados para o serviço
-      this.telaService.update(telaEditado).subscribe(() => {
-        this.ngOnInit();  // Atualizar a lista após a edição
-        this.cancelarEdicao();        // Fechar o card de edição
-      });
+      if (telaEditado.id) {
+              this.telaService.update(telaEditado).subscribe(() => {
+              this.ngOnInit();  // Atualizar a lista após a edição
+              this.cancelarEdicao();        // Fechar o card de edição
+            });
+      }
     }
   }
 

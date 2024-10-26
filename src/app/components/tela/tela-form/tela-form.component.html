@@ -4,37 +4,33 @@
 <div class="form-container">
     <mat-card>
         <mat-card-content>
-            <form [formGroup]="formGroup">
-                <mat-form-field appearance="fill" class="full-width-input">
+            <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" >
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Tamanho</mat-label>
-                    <input matInput type="text" formControlName="Tamanho">
+                    <input matInput type="text" formControlName="tamanho">
                     <mat-error *ngIf="formGroup.get('tamanho') 
                                    && formGroup.get('tamanho')?.invalid
                                    && formGroup.get('tamanho')?.touched">
+                                   O campo tamanho é obrigatório
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Resolucao</mat-label>
-                    <input matInput type="text" formControlName="Resolucao">
-                    <mat-error *ngIf="formGroup.get('Resolucao') 
-                                   && formGroup.get('Resolucao')?.invalid
-                                   && formGroup.get('Resolucao')?.touched">
+                    <input matInput type="text" formControlName="resolucao">
+                    <mat-error *ngIf="formGroup.get('resolucao') 
+                                   && formGroup.get('resolucao')?.invalid
+                                   && formGroup.get('resolucao')?.touched">
+                                   O campo resolucao é obrigatório
                     </mat-error>
                 </mat-form-field>
             </form>
         </mat-card-content>
-        <mat-card-actions>
+        <mat-card-actions class="button-container">
             <button mat-raised-button routerLink="/telas">
                 Cancelar
             </button>
-
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
-                [disabled]="formGroup.invalid">
-                Excluir
-            </button>
-
-            <button mat-raised-button color="primary" (click)="salvar()" >
+            <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">
                 Salvar
             </button>
 

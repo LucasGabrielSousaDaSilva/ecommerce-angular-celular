@@ -18,6 +18,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @Component({
@@ -25,40 +27,55 @@ import { MatInputModule } from '@angular/material/input';
   standalone: true,
   imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
-    MatInputModule],
+    MatInputModule, MatPaginatorModule],
   templateUrl: './cliente-list.component.html',
   styleUrl: './cliente-list.component.css'
 })
 export class ClienteListComponent implements OnInit{
   
+  totalRecords = 0;
+  pageSize = 2;
+  page = 0;
+
   clientes: Cliente[] = [];
-  displayerColumns: string[] = ['id', 'nome', 'cep', 'cpf', 'acao'];
+  displayedColumns: string[] = ['nome', 'cep', 'cpf', 'acao'];
 
   clienteForm!: FormGroup;
   clienteSelecionado: Cliente | null = null;
 
-    constructor(private clienteService: ClienteService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
+    constructor(private clienteService: ClienteService, private snackBar: MatSnackBar, private formBuilder: FormBuilder){
       this.clienteForm = this.formBuilder.group({
-        nome: ['', Validators.required],
-        cep: ['', Validators.required],
-        cpf: ['', Validators.required],
+        nome:['', Validators.required],
+        cep:['', Validators.required],
+        cpf:['' , Validators.required]
       });
     }
  
+ 
   ngOnInit(): void {
-    this.clienteService.findAll().subscribe(data => {
+    this.clienteService.findAll(this.page, this.pageSize).subscribe(data => {
       this.clientes = data;
     });
+
+    this.clienteService.count().subscribe(data => {
+      this.totalRecords = data;
+    });
+  }
+
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   delete(id: number): void {
     this.clienteService.delete(id).subscribe(
       () => {
-        this.snackBar.open('Cliente deletado com sucesso', 'Fechar', { duration: 3000 });
+        this.snackBar.open('cliente deletada com sucesso', 'Fechar', { duration: 3000 });
         this.ngOnInit();
       },
       (error) => {
-        console.error('Erro ao deletar Cliente:', error);
+        console.error('Erro ao deletar cliente:', error);
         this.snackBar.open('Erro ao deletar cliente', 'Fechar', { duration: 3000 });
       }
     );
@@ -67,7 +84,7 @@ export class ClienteListComponent implements OnInit{
   editarCliente(cliente: Cliente): void {
     this.clienteSelecionado = cliente;
 
-    // Preencher o formulário com os dados do cliente selecionado
+    // Preencher o formulário com os dados do funcionário selecionado
     this.clienteForm.patchValue({
       nome: cliente.nome,
       cep: cliente.cep,
@@ -82,11 +99,14 @@ export class ClienteListComponent implements OnInit{
         ...this.clienteForm.value
       };
 
-      // Aqui, envie os dados editados para o serviço
-      this.clienteService.update(clienteEditado).subscribe(() => {
-        this.ngOnInit();  // Atualizar a lista após a edição
-        this.cancelarEdicao();        // Fechar o card de edição
-      });
+      if (clienteEditado.id) {
+          this.clienteService.update(clienteEditado).subscribe(() => {
+          this.ngOnInit();  // Atualizar a lista após a edição
+          this.cancelarEdicao();        // Fechar o card de edição
+        });
+      }else {
+        console.error('ID do processador não encontrado!');
+        }
     }
   }
 

@@ -47,48 +47,4 @@ export class ClienteFormComponent {
       })
     }
   }
-
-  salvar() {
-    this.formGroup.markAllAsTouched();
-    if (this.formGroup.valid) {
-      const cliente = this.formGroup.value;
-      if (cliente.id ==null) {
-        this.clienteService.insert(cliente).subscribe({
-          next: (clienteCadastrado) => {
-            this.router.navigateByUrl('/clientes');
-          },
-          error: (err) => {
-            console.log('Erro ao Incluir' + JSON.stringify(err));
-          }
-        });
-      } else {
-    this.clienteService.update(cliente).subscribe({
-          next: (clienteAlterado) => {
-            this.router.navigateByUrl('/clientes');
-          },
-          error: (err) => {
-            console.log('Erro ao Editar' + JSON.stringify(err));
-          }
-        });
-      }
-    } else {
-      console.log("Formulário inválido.")
-    }
-  }
-
-  excluir() {
-    if (this.formGroup.valid) {
-      const cliente = this.formGroup.value;
-      if (cliente.id != null) {
-      this.clienteService.delete(cliente).subscribe({
-          next: () => {
-            this.router.navigateByUrl('/clientes');
-          },
-          error: (err) => {
-            console.log('Erro ao Excluir' + JSON.stringify(err));
-          }
-        });
-      }
-    }
-  }
 }
