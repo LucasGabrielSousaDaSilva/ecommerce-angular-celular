@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcessadorService } from '../../../services/processador.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Processador } from '../../../models/processador.model';
 import { NgFor } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,28 +18,50 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-processador-list',
   standalone: true,
   imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
-    MatInputModule],
+    MatInputModule, MatPaginatorModule],
   templateUrl: './processador-list.component.html',
   styleUrl: './processador-list.component.css'
 })
 export class ProcessadorListComponent implements OnInit{
 
-  displayedColumns : string[] = ['id', 'marca', 'modelo', 'acao'];
+  totalRecords = 0;
+  pageSize = [2, 5, 10];
+  page = 0;
+
+  displayedColumns : string[] = ['marca', 'modelo', 'acao'];
   processadorForm!: FormGroup;
   processadorSelecionado: Processador | null = null;
   processadores : Processador [] = [];
-  constructor(private processadorService : ProcessadorService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {}
+  constructor(private processadorService : ProcessadorService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
+    this.processadorForm = this.formBuilder.group({
+      marca: ['', Validators.required],
+      modelo: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
-    this.processadorService.findAll().subscribe(data => {
+    this.processadorService.findAll(this.page, this.pageSize[0]).subscribe(data => {
       this.processadores = data;
-    })
+    });
+
+    this.processadorService.count().subscribe(data => {
+      this.totalRecords = data;
+    });
+}
+
+paginar(event: PageEvent): void {
+  this.page = event.pageIndex;
+  const pageSize = event.pageSize;
+  this.ngOnInit();
 }
 
 delete(id: number): void {
@@ -49,8 +71,8 @@ delete(id: number): void {
       this.ngOnInit();
     },
     (error) => {
-      console.error('Erro ao deletar Tela:', error);
-      this.snackBar.open('Erro ao deletar tela', 'Fechar', { duration: 3000 });
+      console.error('Erro ao deletar Processador:', error);
+      this.snackBar.open('Erro ao deletar processador', 'Fechar', { duration: 3000 });
     }
   );
 }
@@ -60,8 +82,8 @@ editarProcessador(processador : Processador): void {
 
   // Preencher o formulário com os dados do processador selecionado
   this.processadorForm.patchValue({
-    marca: processador.marca,
-    modelo: processador.modelo,
+    marca : processador.marca,
+    modelo : processador.modelo,
   });
 }
 
@@ -72,11 +94,14 @@ salvarProcessador(): void {
       ...this.processadorForm.value
     };
 
-    // Aqui, envie os dados editados para o serviço
+  if (processadorEditado.id) {
     this.processadorService.update(processadorEditado).subscribe(() => {
-      this.ngOnInit();  // Atualizar a lista após a edição
-      this.cancelarEdicao();        // Fechar o card de edição
+      this.ngOnInit();  // Atualiza a lista após a edição
+      this.cancelarEdicao();  // Fecha o card de edição
     });
+  } else {
+    console.error('ID do processador não encontrado!');
+    }
   }
 }
 

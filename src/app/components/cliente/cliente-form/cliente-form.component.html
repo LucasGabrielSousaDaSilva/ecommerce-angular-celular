@@ -40,17 +40,18 @@
                 </mat-form-field>
             </form>
         </mat-card-content>
+
         <mat-card-actions>
             <button mat-raised-button routerLink="/clientes">
                 Cancelar
             </button>
 
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
+            <!-- <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
                 [disabled]="formGroup.invalid">
                 Excluir
-            </button>
+            </button> -->
 
-            <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="formGroup.invalid">
+            <button mat-raised-button color="primary" (click)="onSubmit()" >
                 Salvar
             </button>
 

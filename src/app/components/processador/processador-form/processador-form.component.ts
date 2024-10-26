@@ -22,23 +22,27 @@ import { MatSelectModule } from '@angular/material/select';
 export class ProcessadorFormComponent {
   formGroup!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
-    private processadorService: ProcessadorService,
-    private router: Router) {
-      this.formGroup = this.formBuilder.group({
-        marca:['', Validators.required],
-        modelo:['', Validators.required]
-      }) 
-  }
+constructor(
+  private formBuilder: FormBuilder,
+  private processadorService: ProcessadorService,
+  private router: Router
+) {
+    this.formGroup = this.formBuilder.group({
+      id: [null],
+      marca:['', Validators.required],
+      modelo:['', Validators.required]
+    }) 
+}
+
   onSubmit() {
     if (this.formGroup.valid) {
-      const novaProcessador = this.formGroup.value;
-      this.processadorService.insert(novaProcessador).subscribe({
+      const novoProcessador = this.formGroup.value;
+      this.processadorService.insert(novoProcessador).subscribe({
         next: (processadorCadastrado) => {
           this.router.navigateByUrl('/processadores');
         },
         error: (err) => {
-          console.log('Erro ao salvar', + JSON.stringify(err));
+          console.log('Erro ao salvar: ' + JSON.stringify(err));
         }
       })
     }
@@ -48,7 +52,7 @@ export class ProcessadorFormComponent {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
       const processador = this.formGroup.value;
-      if (processador.id ==null) {
+      if (processador.id == null) {
         this.processadorService.insert(processador).subscribe({
           next: (processadorCadastrado) => {
             this.router.navigateByUrl('/processadores');
@@ -60,7 +64,7 @@ export class ProcessadorFormComponent {
       } else {
           this.processadorService.update(processador).subscribe({
             next: (processadorAlterado) => {
-              this.router.navigateByUrl('/porcessadores');
+              this.router.navigateByUrl('/processadores');
             },
             error: (err) => {
               console.log('Erro ao Editar' + JSON.stringify(err));
@@ -69,22 +73,28 @@ export class ProcessadorFormComponent {
       }
     } else {
       console.log("Formulário inválido.")
+      this.onSubmit();
     }
   }
 
-  excluir() {
-    if (this.formGroup.valid) {
-      const processador = this.formGroup.value;
-      if (processador.id != null) {
-      this.processadorService.delete(processador).subscribe({
-          next: () => {
-            this.router.navigateByUrl('/porcessadores');
-          },
-          error: (err) => {
-            console.log('Erro ao Excluir' + JSON.stringify(err));
-          }
-        });
-      }
+  confirmarExclusao() {
+    const confirmacao = window.confirm('Tem certeza que deseja excluir este item?');
+    if (confirmacao) {
+        this.excluir();
     }
+}
+
+  excluir() {
+      const id = this.formGroup.get('id')?.value;
+      if (id) {
+          this.processadorService.delete(id).subscribe({
+              next: () => {
+                  this.router.navigateByUrl('/processadores');
+              },
+              error: (err) => {
+                  console.log('Erro ao excluir: ' + JSON.stringify(err));
+              }
+          });
+      }
   }
 }

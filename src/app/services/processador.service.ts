@@ -11,20 +11,36 @@ export class ProcessadorService {
 
   constructor(private httpClient: HttpClient) { }
 
-  findAll(): Observable<Processador[]> {
+  findAll(page?: number, pageSize?: number): Observable<Processador[]> {
+    let params = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
     return this.httpClient.get<Processador[]>(this.baseUrl); 
+  }
+
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
   findById(id: string): Observable<Processador> {
     return this.httpClient.get<Processador>(`${this.baseUrl}/${id}`); 
   }
 
-  insert(Processador: Processador): Observable<Processador> {
-    return this.httpClient.post<Processador>(this.baseUrl, Processador);
+  insert(processador: Processador): Observable<Processador> {
+    return this.httpClient.post<Processador>(this.baseUrl, processador);
   }
 
-  update(Processador: Processador): Observable<Processador> {
-    return this.httpClient.put<any>(`${this.baseUrl}/${Processador.id}`, Processador); 
+  update(processador: Processador): Observable<Processador> {
+    const data = {
+      marca : processador.marca,
+      modelo : processador.modelo,
+    }
+    return this.httpClient.put<Processador>(`${this.baseUrl}/${processador.id}`, data); 
   }
 
   delete(id: number): Observable<any>{

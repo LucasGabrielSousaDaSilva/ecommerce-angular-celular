@@ -24,7 +24,8 @@ export class TelaFormComponent {
 
   constructor(private formBuilder: FormBuilder,
     private telaService: TelaService,
-    private router: Router) {
+    private router: Router,
+  private activatedRoute: ActivatedRoute) {
       this.formGroup = this.formBuilder.group({
         tamanho:['', Validators.required],
         resolucao:['', Validators.required]
@@ -33,58 +34,16 @@ export class TelaFormComponent {
   onSubmit() {
     if (this.formGroup.valid) {
       const novaTela = this.formGroup.value;
-      this.telaService.insert(novaTela).subscribe({
+      this.telaService.create(novaTela).subscribe({
         next: (telaCadastrado) => {
           this.router.navigateByUrl('/telas');
         },
         error: (err) => {
           console.log('Erro ao salvar', + JSON.stringify(err));
         }
-      })
-    }
-  }
-
-  salvar() {
-    this.formGroup.markAllAsTouched();
-    if (this.formGroup.valid) {
-      const tela = this.formGroup.value;
-      if (tela.id ==null) {
-        this.telaService.insert(tela).subscribe({
-          next: (telaCadastrado) => {
-            this.router.navigateByUrl('/telas');
-          },
-          error: (err) => {
-            console.log('Erro ao Incluir' + JSON.stringify(err));
-          }
-        });
-      } else {
-    this.telaService.update(tela).subscribe({
-          next: (telaAlterado) => {
-            this.router.navigateByUrl('/telas');
-          },
-          error: (err) => {
-            console.log('Erro ao Editar' + JSON.stringify(err));
-          }
-        });
-      }
+      });
     } else {
-      console.log("Formulário inválido.")
-    }
-  }
-
-  excluir() {
-    if (this.formGroup.valid) {
-      const tela = this.formGroup.value;
-      if (tela.id != null) {
-      this.telaService.delete(tela).subscribe({
-          next: () => {
-            this.router.navigateByUrl('/telas');
-          },
-          error: (err) => {
-            console.log('Erro ao Excluir' + JSON.stringify(err));
-          }
-        });
-      }
+      console.log('Formulário inválido');
     }
   }
 }

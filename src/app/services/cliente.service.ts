@@ -11,8 +11,21 @@ export class ClienteService {
 
   constructor(private httpClient: HttpClient) { }
   
-  findAll(): Observable<Cliente[]> {
+  findAll(page?: number, pageSize?: number): Observable<Cliente[]> {
+    let params = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+
     return this.httpClient.get<Cliente[]>(this.baseUrl); 
+  }
+
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
   findById(id: string): Observable<Cliente> {
