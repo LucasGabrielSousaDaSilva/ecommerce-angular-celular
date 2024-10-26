@@ -19,17 +19,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-camera-list',
   standalone: true,
   imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
-    MatInputModule, MatDivider],
+    MatInputModule, MatDivider, MatPaginatorModule],
   templateUrl: './camera-list.component.html',
   styleUrl: './camera-list.component.css'
 })
 export class CameraListComponent {
+
+  totalRecords = 0;
+  pageSize = 2;
+  page = 0;
 
   cameras: Camera[] = [];
   displayedColumns: string[] = ['resolucao', 'frontal', 'acao'];
@@ -44,9 +50,19 @@ export class CameraListComponent {
   }
 
   ngOnInit(): void {
-    this.cameraService.findAll().subscribe(data => {
-      this.cameras = data
-    })
+    this.cameraService.findAll(this.page, this.pageSize).subscribe(data => {
+      this.cameras = data;
+    });
+
+    this.cameraService.count().subscribe(data => {
+      this.totalRecords = data;
+    });
+  }
+
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   delete(id: number): void {

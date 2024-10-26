@@ -12,8 +12,21 @@ export class CameraService {
 
   constructor(private httpClient: HttpClient) { }
 
-  findAll(): Observable<Camera[]> {
-    return this.httpClient.get<Camera[]>(this.baseUrl);
+  findAll(page?: number, pageSize?: number): Observable<Camera[]> {
+    let params = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+
+    return this.httpClient.get<Camera[]>(this.baseUrl); 
+  }
+
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
   create(camera: Camera): Observable<Camera> {
