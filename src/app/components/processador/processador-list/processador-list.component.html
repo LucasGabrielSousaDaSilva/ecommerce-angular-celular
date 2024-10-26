@@ -9,6 +9,18 @@
 
 <table mat-table [dataSource]="processadores" class="mat-elevation-z8">
 
+    <div class="container">
+        <div class="input-container">
+            <mat-form-field appearance="outline" class="input-field">
+                <mat-label>Pesquisar pelo Nome do Fornecedor</mat-label>
+                <!-- <input [(ngModel)]="filtro" matInput placeholder="Ex: Sextante Ltda" #input (keyup.enter)="filtrar()"> -->
+            </mat-form-field>
+            <!-- <button mat-icon-button color="primary" class="search-button" id="meuBotaoPesquisar" (click)="filtrar()"> -->
+              <mat-icon>search</mat-icon>
+          <!-- </button> -->
+        </div>
+      </div>
+
     <!-- Nome Column -->
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> No. </th>
