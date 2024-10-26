@@ -1,0 +1,27 @@
+<mat-card class="form-card">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form-container">
+      
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Tipo</mat-label>
+            <input matInput type="text" formControlName="tipo">
+            <mat-error *ngIf="formGroup.get('tipo')?.invalid && formGroup.get('tipo')?.touched">
+              A Tipo é obrigatória.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">
+          Salvar
+        </button>
+  
+        <button mat-raised-button color="warn" type="button" routerLink="/portaSlots">
+          Cancelar
+        </button>
+      </div>
+  
+    </form>
+  </mat-card>

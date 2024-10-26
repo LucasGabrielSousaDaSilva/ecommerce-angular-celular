@@ -1,0 +1,64 @@
+<mat-toolbar color="primary">
+    <div class="flex-container">
+        <span class="toolbar-title">Controle de Cameras</span>
+        <button mat-fab color="accent" routerLink="new" class="add-button">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<div class="table-container">
+    <table mat-table [dataSource]="cameras" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="resolucao">
+            <th mat-header-cell *matHeaderCellDef> Resolucao </th>
+            <td mat-cell *matCellDef="let camera"> {{camera.resolucao}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="frontal">
+            <th mat-header-cell *matHeaderCellDef> Frontal </th>
+            <td mat-cell *matCellDef="let camera"> {{camera.frontal}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acao">
+            <th mat-header-cell *matHeaderCellDef> Ação </th>
+            <td mat-cell *matCellDef="let camera"> 
+                <button mat-icon-button color="primary" (click)="editarCamera(camera)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="delete(camera.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<mat-divider></mat-divider>
+
+<mat-card *ngIf="cameraSelecionado" class="form-card">
+    <mat-card-title class="custom-title">Edição de Funcionário</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="cameraForm" (ngSubmit)="salvarCamera()">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Resolucao</mat-label>
+                <input matInput formControlName="resolucao">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Frontal</mat-label>
+                <input matInput formControlName="frontal">
+            </mat-form-field>
+
+            <mat-card-actions class="actions">
+                <button mat-raised-button type="submit" color="primary">Salvar</button>
+                <button mat-button type="button" color="warn" (click)="cancelarEdicao()">Cancelar</button>
+            </mat-card-actions>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,54 @@
+<mat-toolbar color="primary">
+    <div class="flex-container">
+        <span class="toolbar-title">Controle de Portas</span>
+        <button mat-fab color="accent" routerLink="new" class="add-button">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<div class="table-container">
+    <table mat-table [dataSource]="portaSlots" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="tipo">
+            <th mat-header-cell *matHeaderCellDef> Tipo </th>
+            <td mat-cell *matCellDef="let portaSlot"> {{portaSlot.tipo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acao">
+            <th mat-header-cell *matHeaderCellDef> Ação </th>
+            <td mat-cell *matCellDef="let portaSlot"> 
+                <button mat-icon-button color="primary" (click)="editarPortaSlot(portaSlot)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="delete(portaSlot.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+
+<mat-divider></mat-divider>
+
+<mat-card *ngIf="portaSlotSelecionado" class="form-card">
+    <mat-card-title class="custom-title">Edição de Portas</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="portaSlotForm" (ngSubmit)="salvarPortaSlot()">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Tipo</mat-label>
+                <input matInput formControlName="tipo">
+            </mat-form-field>
+
+            <mat-card-actions class="actions">
+                <button mat-raised-button type="submit" color="primary">Salvar</button>
+                <button mat-button type="button" color="warn" (click)="cancelarEdicao()">Cancelar</button>
+            </mat-card-actions>
+        </form>
+    </mat-card-content>
+</mat-card>

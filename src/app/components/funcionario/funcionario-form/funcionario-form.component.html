@@ -1,0 +1,81 @@
+<mat-card class="form-card">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form-container">
+      
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="nome">
+            <mat-error *ngIf="formGroup.get('nome')?.invalid && formGroup.get('nome')?.touched">
+              O nome é obrigatório.
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>CEP</mat-label>
+            <input matInput type="text" formControlName="cep">
+            <mat-error *ngIf="formGroup.get('cep')?.invalid && formGroup.get('cep')?.touched">
+              O CEP é obrigatório.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>CPF</mat-label>
+            <input matInput type="text" formControlName="cpf">
+            <mat-error *ngIf="formGroup.get('cpf')?.invalid && formGroup.get('cpf')?.touched">
+              O CPF é obrigatório.
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>CNPJ</mat-label>
+            <input matInput type="text" formControlName="cnpj">
+            <mat-error *ngIf="formGroup.get('cnpj')?.invalid && formGroup.get('cnpj')?.touched">
+              O CNPJ é obrigatório.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Login</mat-label>
+            <input matInput type="text" formControlName="login">
+            <mat-error *ngIf="formGroup.get('login')?.invalid && formGroup.get('login')?.touched">
+              O login é obrigatório.
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="col">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" formControlName="senha" matSuffix mat-icon-button>
+            <mat-error *ngIf="formGroup.get('senha')?.invalid && formGroup.get('senha')?.touched">
+              A senha é obrigatória.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">
+          Salvar
+        </button>
+  
+        <button mat-raised-button color="warn" type="button" routerLink="/funcionarios">
+          Cancelar
+        </button>
+      </div>
+  
+    </form>
+  </mat-card>
