@@ -19,17 +19,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-portaSlot-list',
   standalone: true,
   imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
-    MatInputModule, MatDivider],
+    MatInputModule, MatDivider, MatPaginatorModule],
   templateUrl: './portaSlot-list.component.html',
   styleUrl: './portaSlot-list.component.css'
 })
 export class PortaSlotListComponent {
+
+  totalRecords = 0;
+  pageSize = 2;
+  page = 0;
 
   portaSlots: PortaSlot[] = [];
   displayedColumns: string[] = ['tipo', 'acao'];
@@ -43,9 +49,19 @@ export class PortaSlotListComponent {
   }
 
   ngOnInit(): void {
-    this.portaSlotService.findAll().subscribe(data => {
-      this.portaSlots = data
-    })
+    this.portaSlotService.findAll(this.page, this.pageSize).subscribe(data => {
+      this.portaSlots = data;
+    });
+
+    this.portaSlotService.count().subscribe(data => {
+      this.totalRecords = data;
+    });
+  }
+
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   delete(id: number): void {
