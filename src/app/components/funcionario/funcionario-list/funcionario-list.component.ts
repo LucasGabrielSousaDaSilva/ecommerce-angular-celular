@@ -19,18 +19,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-funcionario-list',
   standalone: true,
   imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
-    MatInputModule, MatDivider 
+    MatInputModule, MatDivider, MatPaginatorModule
   ],
   templateUrl: './funcionario-list.component.html',
   styleUrl: './funcionario-list.component.css'
 })
 export class FuncionarioListComponent implements OnInit{
+
+  totalRecords = 0;
+  pageSize = 2;
+  page = 0;
 
   funcionarios: Funcionario[] = [];
   displayedColumns: string[] = ['nome', 'cep', 'cpf', 'cnpj', 'acao'];
@@ -48,9 +54,19 @@ export class FuncionarioListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.funcionarioService.findAll().subscribe(data => {
-      this.funcionarios = data
-    })
+    this.funcionarioService.findAll(this.page, this.pageSize).subscribe(data => {
+      this.funcionarios = data;
+    });
+
+    this.funcionarioService.count().subscribe(data => {
+      this.totalRecords = data;
+    });
+  }
+
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   delete(id: number): void {
