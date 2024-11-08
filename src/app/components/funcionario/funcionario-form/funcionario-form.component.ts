@@ -36,7 +36,7 @@ export class FuncionarioFormComponent {
       const novoFuncionario = this.formGroup.value;
       this.funcionarioService.create(novoFuncionario).subscribe({
         next: (funcionarioCadastrado) => {
-          this.router.navigateByUrl('/funcionarios');
+          this.router.navigateByUrl('/admin/funcionarios');
         },
         error: (err) => {
           console.log('Erro ao salvar', + JSON.stringify(err));

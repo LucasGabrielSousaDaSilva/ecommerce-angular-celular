@@ -31,7 +31,7 @@ export class PortaSlotFormComponent {
       const novoPortaSlot = this.formGroup.value;
       this.portaSlotService.create(novoPortaSlot).subscribe({
         next: (portaSlotCadastrado) => {
-          this.router.navigateByUrl('/portaSlots');
+          this.router.navigateByUrl('/admin/portaSlots');
         },
         error: (err) => {
           console.log('Erro ao salvar', + JSON.stringify(err));

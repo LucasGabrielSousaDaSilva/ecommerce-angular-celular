@@ -36,7 +36,7 @@ export class TelaFormComponent {
       const novaTela = this.formGroup.value;
       this.telaService.create(novaTela).subscribe({
         next: (telaCadastrado) => {
-          this.router.navigateByUrl('/telas');
+          this.router.navigateByUrl('/admin/telas');
         },
         error: (err) => {
           console.log('Erro ao salvar', + JSON.stringify(err));

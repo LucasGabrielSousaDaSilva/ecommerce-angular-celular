@@ -39,7 +39,7 @@ export class ClienteFormComponent {
       const novoCliente = this.formGroup.value;
       this.clienteService.insert(novoCliente).subscribe({
         next: (clienteCadastrado) => {
-          this.router.navigateByUrl('/clientes');
+          this.router.navigateByUrl('/admin/clientes');
         },
         error: (err) => {
           console.log('Erro ao salvar', + JSON.stringify(err));

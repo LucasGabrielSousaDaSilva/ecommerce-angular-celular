@@ -21,7 +21,7 @@ export class TelaService {
       };
     }
 
-    return this.httpClient.get<Tela[]>(this.baseUrl); 
+    return this.httpClient.get<Tela[]>(`${this.baseUrl}`, {params}); 
   }
 
   count(): Observable<number> {

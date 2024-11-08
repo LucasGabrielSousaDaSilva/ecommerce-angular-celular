@@ -16,8 +16,16 @@ import { ProcessadorListComponent } from './components/processador/processador-l
 // import { processadorResolver } from './components/processador/processador.resolver';
 import { CelularFormComponent } from './components/celular/celular-form/celular-form.component';
 import { CelularListComponent } from './components/celular/celular-list/celular-list.component';
+import { AdminTemplateComponent } from './components/template/admin-template/admin-template.component';
 
 export const routes: Routes = [
+    { 
+        path: 'admin', 
+        component: AdminTemplateComponent, 
+        title: 'e-commerce',
+        children: [
+
+    // {path: '', pathMatch: 'full', redirectTo: 'clientes'},
 
     // {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{Cliente: clienteResolver}},
     {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
@@ -36,4 +44,7 @@ export const routes: Routes = [
     {path: 'processadores/new', component: ProcessadorFormComponent, title: 'Novos processadores'},
     {path: 'celulares',component: CelularListComponent, title: 'Lista de Celulares'},
     {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular'}
+
+        ]
+    }
 ];

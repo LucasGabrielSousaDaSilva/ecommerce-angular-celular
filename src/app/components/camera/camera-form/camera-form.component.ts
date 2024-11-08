@@ -32,7 +32,7 @@ export class CameraFormComponent {
       const novoCamera = this.formGroup.value;
       this.cameraService.create(novoCamera).subscribe({
         next: (cameraCadastrado) => {
-          this.router.navigateByUrl('/cameras');
+          this.router.navigateByUrl('/admin/cameras');
         },
         error: (err) => {
           console.log('Erro ao salvar', + JSON.stringify(err));

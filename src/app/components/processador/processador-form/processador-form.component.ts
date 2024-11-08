@@ -39,7 +39,7 @@ constructor(
       const novoProcessador = this.formGroup.value;
       this.processadorService.insert(novoProcessador).subscribe({
         next: (processadorCadastrado) => {
-          this.router.navigateByUrl('/processadores');
+          this.router.navigateByUrl('/admin/processadores');
         },
         error: (err) => {
           console.log('Erro ao salvar: ' + JSON.stringify(err));
@@ -55,7 +55,7 @@ constructor(
       if (processador.id == null) {
         this.processadorService.insert(processador).subscribe({
           next: (processadorCadastrado) => {
-            this.router.navigateByUrl('/processadores');
+            this.router.navigateByUrl('/admin/processadores');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -64,7 +64,7 @@ constructor(
       } else {
           this.processadorService.update(processador).subscribe({
             next: (processadorAlterado) => {
-              this.router.navigateByUrl('/processadores');
+              this.router.navigateByUrl('/admin/processadores');
             },
             error: (err) => {
               console.log('Erro ao Editar' + JSON.stringify(err));
@@ -89,7 +89,7 @@ constructor(
       if (id) {
           this.processadorService.delete(id).subscribe({
               next: () => {
-                  this.router.navigateByUrl('/processadores');
+                  this.router.navigateByUrl('/admin/processadores');
               },
               error: (err) => {
                   console.log('Erro ao excluir: ' + JSON.stringify(err));
