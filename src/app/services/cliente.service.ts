@@ -21,7 +21,7 @@ export class ClienteService {
       };
     }
 
-    return this.httpClient.get<Cliente[]>(this.baseUrl); 
+    return this.httpClient.get<Cliente[]>(`${this.baseUrl}`, {params}); 
   }
 
   count(): Observable<number> {
