@@ -22,7 +22,7 @@ export class PortaSlotService {
       };
     }
 
-    return this.httpClient.get<PortaSlot[]>(this.baseUrl); 
+    return this.httpClient.get<PortaSlot[]>(`${this.baseUrl}`, {params}); 
   }
 
   count(): Observable<number> {
