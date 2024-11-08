@@ -22,7 +22,7 @@ export class CameraService {
       };
     }
 
-    return this.httpClient.get<Camera[]>(this.baseUrl); 
+    return this.httpClient.get<Camera[]>(`${this.baseUrl}/count`); 
   }
 
   count(): Observable<number> {
