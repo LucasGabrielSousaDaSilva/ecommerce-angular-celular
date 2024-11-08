@@ -22,7 +22,7 @@ export class FuncionarioService {
       };
     }
 
-    return this.httpClient.get<Funcionario[]>(this.baseUrl); 
+    return this.httpClient.get<Funcionario[]>(`${this.baseUrl}`, {params}); 
   }
 
   count(): Observable<number> {
