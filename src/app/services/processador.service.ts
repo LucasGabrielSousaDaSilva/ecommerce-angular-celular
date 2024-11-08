@@ -20,7 +20,7 @@ export class ProcessadorService {
         pageSize: pageSize.toString()
       };
     }
-    return this.httpClient.get<Processador[]>(this.baseUrl); 
+    return this.httpClient.get<Processador[]>(`${this.baseUrl}`, {params}); 
   }
 
   count(): Observable<number> {
