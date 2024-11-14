@@ -46,5 +46,14 @@ export const routes: Routes = [
     {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular'}
 
         ]
+    },
+    { 
+        path: '', 
+        title: 'e-commerce',
+        children: [
+            {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
+        
+            { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
+        ]
     }
 ];
