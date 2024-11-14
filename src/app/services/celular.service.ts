@@ -17,8 +17,25 @@ export class CelularService {
   }
 
   findAll(page?: number, pageSize?: number): Observable<Celular[]> {
-    return this.httpClient.get<Celular[]>(this.baseUrl); 
+    let params = {};
+
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      };
+    }
+
+    return this.httpClient.get<Celular[]>(`${this.baseUrl}`, {params}); 
   }
+
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count`); 
+  }
+
+  // findAll(page?: number, pageSize?: number): Observable<Celular[]> {
+  //   return this.httpClient.get<Celular[]>(this.baseUrl); 
+  // }
 
   findById(id: string): Observable<Celular> {
     return this.httpClient.get<Celular>(`${this.baseUrl}/${id}`); 

@@ -25,7 +25,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 @Component({
   selector: 'app-tela-list',
   standalone: true,
-  imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
     MatInputModule, MatPaginatorModule],
   templateUrl: './tela-list.component.html',

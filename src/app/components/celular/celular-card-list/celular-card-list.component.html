@@ -1,3 +1,5 @@
+<div><h1>Seleção de Celulares</h1></div>
+
 <div class="container responsive-grid">
     <mat-card *ngFor="let card of cards()">
         
@@ -27,3 +29,10 @@
 
     </mat-card>
 </div>
+
+<mat-paginator 
+[pageSizeOptions]="[4, 6, 10]" showFirstLastButtons
+[pageSize]="pageSize"
+[length]="totalRecords"
+(page)="paginar($event)">
+</mat-paginator>

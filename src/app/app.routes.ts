@@ -17,6 +17,7 @@ import { ProcessadorListComponent } from './components/processador/processador-l
 import { CelularFormComponent } from './components/celular/celular-form/celular-form.component';
 import { CelularListComponent } from './components/celular/celular-list/celular-list.component';
 import { AdminTemplateComponent } from './components/template/admin-template/admin-template.component';
+import { CelularCardListComponent } from './components/celular/celular-card-list/celular-card-list.component';
 
 export const routes: Routes = [
     { 
