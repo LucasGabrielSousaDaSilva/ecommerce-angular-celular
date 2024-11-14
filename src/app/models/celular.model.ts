@@ -14,6 +14,7 @@ export class Celular {
     // camera! : Camera;
     // portaSlot! : PortaSlot;
     // sensor! : Sensor;
+    nomeImagem! : string;
     marca! : string;
     nome! : string;
     anoLacamento! : any;

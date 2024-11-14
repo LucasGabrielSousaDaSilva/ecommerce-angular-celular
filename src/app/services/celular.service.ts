@@ -8,11 +8,15 @@ import { Celular } from '../models/celular.model';
   providedIn: 'root'
 })
 export class CelularService {
-  private baseUrl = 'http://localhost:8080/Celular';
+  private baseUrl = 'http://localhost:8080/celulares';
 
   constructor(private httpClient: HttpClient) { }
 
-  findAll(): Observable<Celular[]> {
+  getUrlImage(nomeImagem: string): string {
+    return `${this.baseUrl}/image/download/${nomeImagem}`; 
+  }
+
+  findAll(page?: number, pageSize?: number): Observable<Celular[]> {
     return this.httpClient.get<Celular[]>(this.baseUrl); 
   }
 
@@ -33,3 +37,4 @@ export class CelularService {
   }
 
 }
+
