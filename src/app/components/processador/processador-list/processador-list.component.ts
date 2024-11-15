@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { PageEvent } from '@angular/material/paginator';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDivider } from '@angular/material/divider';
 
 
 @Component({
@@ -27,20 +28,21 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   standalone: true,
   imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
-    MatInputModule, MatPaginatorModule],
+    MatInputModule, MatPaginatorModule, MatDivider],
   templateUrl: './processador-list.component.html',
   styleUrl: './processador-list.component.css'
 })
 export class ProcessadorListComponent implements OnInit{
 
   totalRecords = 0;
-  pageSize = [2, 5, 10];
+  pageSize = 3;
   page = 0;
 
   displayedColumns : string[] = ['marca', 'modelo', 'acao'];
   processadorForm!: FormGroup;
   processadorSelecionado: Processador | null = null;
   processadores : Processador [] = [];
+
   constructor(private processadorService : ProcessadorService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
     this.processadorForm = this.formBuilder.group({
       marca: ['', Validators.required],
@@ -49,7 +51,7 @@ export class ProcessadorListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.processadorService.findAll(this.page, this.pageSize[0]).subscribe(data => {
+    this.processadorService.findAll(this.page, this.pageSize).subscribe(data => {
       this.processadores = data;
     });
 
