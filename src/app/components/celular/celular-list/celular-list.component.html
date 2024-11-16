@@ -72,3 +72,10 @@
         </form>
     </mat-card-content>
 </mat-card>
+
+<mat-paginator 
+[pageSizeOptions]="[4, 6, 10]" showFirstLastButtons
+[pageSize]="pageSize"
+[length]="totalRecords"
+(page)="paginar($event)">
+</mat-paginator>

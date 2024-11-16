@@ -19,18 +19,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-celular-list',
   standalone: true,
   imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
-    MatInputModule, MatDivider
+    MatInputModule, MatDivider, MatPaginatorModule
   ],
   templateUrl: './celular-list.component.html',
   styleUrl: './celular-list.component.css'
 })
 export class CelularListComponent {
+
+  totalRecords = 0;
+  pageSize = 4;
+  page = 0;
 
   celulars: Celular[] = [];
   displayedColumns: string[] = ['nome', 'preco', 'estoque'];
@@ -46,9 +51,19 @@ export class CelularListComponent {
   }
 
   ngOnInit(): void {
-    this.celularService.findAll().subscribe(data => {
-      this.celulars = data
-    })
+    this.celularService.findAll(this.page, this.pageSize).subscribe(data => {
+      this.celulars = data;
+    });
+
+    this.celularService.count().subscribe(data => {
+      this.totalRecords = data;
+    });
+  }
+
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   delete(id: number): void {

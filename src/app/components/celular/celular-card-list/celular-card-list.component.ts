@@ -5,6 +5,11 @@ import { MatCardActions, MatCardContent, MatCardFooter, MatCardModule, MatCardTi
 import { MatButtonModule } from '@angular/material/button';
 import { NgFor } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 type Card = {
   titulo: string;
@@ -17,7 +22,8 @@ type Card = {
   selector: 'app-celular-card-list',
   standalone: true,
   imports: [MatCardModule, MatButtonModule, NgFor, 
-    MatCardActions, MatCardContent, MatCardTitle, MatCardFooter, MatCardModule, MatPaginatorModule],
+    MatCardActions, MatCardContent, MatCardTitle, MatCardFooter, MatCardModule, MatPaginatorModule, MatFormField, MatInputModule,
+    MatIconModule, BrowserModule, FormsModule],
   templateUrl: './celular-card-list.component.html',
   styleUrl: './celular-card-list.component.css'
 })
@@ -28,6 +34,8 @@ export class CelularCardListComponent implements OnInit {
   totalRecords = 0;
   pageSize = 4;
   page = 0;
+
+  filtro: string = '';
 
   constructor(private celularService: CelularService) {
 
@@ -48,6 +56,20 @@ export class CelularCardListComponent implements OnInit {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
     this.ngOnInit();
+  }
+
+  filtrar() {
+    // Lógica de filtragem
+    console.log('Filtro aplicado:', this.filtro);
+    // Aqui você pode adicionar a lógica para filtrar os cards com base no valor de `filtro`
+  }
+
+  // Método para retornar os cards filtrados
+  getFilteredCards() {
+    if (!this.filtro) {
+      return this.cards;
+    }
+    return this.cards().filter((card: Card) => card.titulo.toLowerCase().includes(this.filtro.toLowerCase()));
   }
 
   carregarCelulars() {
