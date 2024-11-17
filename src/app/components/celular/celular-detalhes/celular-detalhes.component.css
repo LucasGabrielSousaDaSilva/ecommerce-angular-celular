@@ -1,0 +1,62 @@
+.celular-detalhe-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 40px;
+    border: 2px solid #ddd; /* Borda ao redor de todo o conteúdo */
+    border-radius: 10px;
+    background-color: #f9f9f9; /* Fundo leve para destaque */
+    margin: 20px;
+    height: 90vh; /* Aumenta a altura para cobrir quase toda a página */
+  }
+  
+  .imagem-container {
+    flex: 1; /* Aumenta o espaço ocupado pela imagem */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .celular-imagem {
+    width: 100%; /* Faz a imagem ocupar todo o espaço disponível */
+    height: auto;
+    border: 2px solid #ccc; /* Borda ao redor da imagem */
+    border-radius: 10px;
+    padding: 10px; /* Espaçamento interno entre a imagem e a borda */
+    background-color: white; /* Fundo branco para a imagem */
+  }
+  
+  .informacoes-container {
+    flex: 1;
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  p {
+    font-size: 18px;
+    margin: 8px 0;
+  }
+  
+  .adicionar-carrinho-botao {
+    padding: 12px 24px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: start; /* Posiciona o botão à esquerda */
+  }
+  
+  .adicionar-carrinho-botao:hover {
+    background-color: #0056b3;
+  }

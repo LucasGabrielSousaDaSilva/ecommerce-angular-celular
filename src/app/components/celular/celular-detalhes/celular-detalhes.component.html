@@ -1,0 +1,19 @@
+<div class="celular-detalhe-container">
+    <div class="imagem-container">
+        <img
+        [src]="'http://localhost:8080/celulares/image/download/' + celular.nomeImagem"
+        alt="{{ celular.nome }}"
+        class="celular-imagem"
+      />
+    </div>
+    <div class="informacoes-container">
+      <h1>{{ celular.nome }}</h1>
+      <p><strong>Marca:</strong> {{ celular.marca }}</p>
+      <p><strong>Ano de Lançamento:</strong> {{ celular.anoLacamento }}</p>
+      <p><strong>Armazenamento:</strong> {{ celular.armazenamento }} GB</p>
+      <p><strong>RAM:</strong> {{ celular.ram }} GB</p>
+      <p><strong>Preço:</strong> R$ {{ celular.preco }}</p>
+      <p><strong>Estoque:</strong> {{ celular.estoque }}</p>
+      <button class="adicionar-carrinho-botao">Adicionar ao Carrinho</button>
+    </div>
+  </div>

@@ -18,6 +18,7 @@ import { CelularFormComponent } from './components/celular/celular-form/celular-
 import { CelularListComponent } from './components/celular/celular-list/celular-list.component';
 import { AdminTemplateComponent } from './components/template/admin-template/admin-template.component';
 import { CelularCardListComponent } from './components/celular/celular-card-list/celular-card-list.component';
+import { CelularDetalhesComponent } from './components/celular/celular-detalhes/celular-detalhes.component';
 
 export const routes: Routes = [
     { 
@@ -55,6 +56,7 @@ export const routes: Routes = [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
             { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
+            { path: 'celular/:id', component: CelularDetalhesComponent, title: 'detalhes'}
         ]
     }
 ];
