@@ -20,6 +20,8 @@ import { AdminTemplateComponent } from './components/template/admin-template/adm
 import { CelularCardListComponent } from './components/celular/celular-card-list/celular-card-list.component';
 import { UserTemplateComponent } from './components/template/user-template/user-template.component';
 import { LoginComponent } from './components/login/login.component';
+import { CelularDetalhesComponent } from './components/celular/celular-detalhes/celular-detalhes.component';
+
 
 export const routes: Routes = [
     { 
@@ -58,7 +60,9 @@ export const routes: Routes = [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
             { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
+
             { path: 'login', component: LoginComponent, title: 'Login'},
+            { path: 'celular/:id', component: CelularDetalhesComponent, title: 'detalhes'}
         ]
     }
 ];
