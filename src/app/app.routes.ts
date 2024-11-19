@@ -21,7 +21,7 @@ import { CelularCardListComponent } from './components/celular/celular-card-list
 import { UserTemplateComponent } from './components/template/user-template/user-template.component';
 import { LoginComponent } from './components/login/login.component';
 import { CelularDetalhesComponent } from './components/celular/celular-detalhes/celular-detalhes.component';
-
+import { HomeComponentComponent } from './pagina/home/home-component/home-component.component';
 
 export const routes: Routes = [
     { 
@@ -30,7 +30,7 @@ export const routes: Routes = [
         title: 'e-commerce',
         children: [
 
-    // {path: '', pathMatch: 'full', redirectTo: 'clientes'},
+    {path: '', pathMatch: 'full', redirectTo: 'clientes'},
 
     // {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{Cliente: clienteResolver}},
     {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
@@ -53,16 +53,23 @@ export const routes: Routes = [
         ]
     },
     { 
-        path: '', 
-        title: 'e-commerce',
+        path: 'user', 
         component: UserTemplateComponent,
+        title: 'e-commerce',
         children: [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
             { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
 
             { path: 'login', component: LoginComponent, title: 'Login'},
-            { path: 'celular/:id', component: CelularDetalhesComponent, title: 'detalhes'}
+            { path: 'ecommerce/:id', component: CelularDetalhesComponent, title: 'detalhes'}
         ]
+    },
+    {
+    path:'',
+    title: 'home',
+    children: [
+    { path: '', component: HomeComponentComponent, title: 'Home'}
+    ]
     }
 ];

@@ -3,8 +3,8 @@
 <div class="container">
     <div class="input-container">
         <mat-form-field appearance="outline" class="input-field">
-            <mat-label>Pesquisar pelo Nome do Fornecedor</mat-label> 
-            <input [(ngModel)]="filtro" matInput placeholder="Ex: Sextante Ltda" #input (keyup.enter)="filtrar()">
+            <mat-label>Pesquisar pelo Nome</mat-label> 
+            <input [(ngModel)]="filtro" matInput placeholder="Ex: LG" #input (keyup.enter)="filtrar()">
         </mat-form-field>
         <button mat-icon-button color="primary" class="search-button" id="meuBotaoPesquisar" (click)="filtrar()">
         <mat-icon>search</mat-icon>
@@ -41,6 +41,10 @@
 
     </mat-card>
 </div>
+
+<ng-template #noData>
+    <p>Nenhum celular encontrado.</p>
+  </ng-template>
 
 <mat-paginator 
 [pageSizeOptions]="[4, 6, 10]" showFirstLastButtons

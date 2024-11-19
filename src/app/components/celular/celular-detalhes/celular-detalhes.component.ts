@@ -21,7 +21,7 @@ export class CelularDetalhesComponent {
   ) {}
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id')!;
+    const id = this.route.snapshot.paramMap.get('id')!;
     this.celularService.findById(id).subscribe(
       (data: Celular) => {
         this.celular = data;
