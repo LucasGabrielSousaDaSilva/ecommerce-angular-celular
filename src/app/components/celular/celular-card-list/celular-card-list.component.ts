@@ -3,19 +3,20 @@ import { Celular } from '../../../models/celular.model';
 import { CelularService } from '../../../services/celular.service';
 import { MatCardActions, MatCardContent, MatCardFooter, MatCardModule, MatCardTitle } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 type Card = {
   titulo: string;
-  marca: string
-  preco: number
-  imageUrl: string
+  marca: string;
+  preco: number;
+  imageUrl: string;
+  id: number;
 }
 
 @Component({
@@ -23,7 +24,7 @@ type Card = {
   standalone: true,
   imports: [MatCardModule, MatButtonModule, NgFor, 
     MatCardActions, MatCardContent, MatCardTitle, MatCardFooter, MatCardModule, MatPaginatorModule, MatFormField, MatInputModule,
-    MatIconModule, BrowserModule, FormsModule],
+    MatIconModule, CommonModule, FormsModule, RouterLink],
   templateUrl: './celular-card-list.component.html',
   styleUrl: './celular-card-list.component.css'
 })
@@ -87,7 +88,8 @@ export class CelularCardListComponent implements OnInit {
         titulo: celular.nome,
         marca: celular.marca,
         preco: celular.preco,
-        imageUrl: this.celularService.getUrlImage(celular.nomeImagem)
+        imageUrl: this.celularService.getUrlImage(celular.nomeImagem),
+        id: celular.id
       })
     });
     this.cards.set(cards);
