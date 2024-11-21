@@ -28,13 +28,13 @@
         </mat-card-content>
 
         <mat-card-actions class="centered-text">
-            <button mat-button color="primary">Ver Mais ...</button>
+            <a mat-stroked-button [routerLink]="['/user/ecommerce', card.id]" target="_blank">Ver Mais...</a>
         </mat-card-actions>
 
         <mat-card-footer>
-            <button mat-button 
+            <button mat-flat-button
                 color="accent"
-                style="width: 100%; padding: 16px;">
+                class="centralizar-botao">
                 Adicionar ao Carrinho
             </button>
         </mat-card-footer>
