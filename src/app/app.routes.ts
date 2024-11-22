@@ -60,16 +60,18 @@ export const routes: Routes = [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
             { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
-
+            { path: 'ecommerce/:id', component: CelularDetalhesComponent, title: 'Detalhes'},
             { path: 'login', component: LoginComponent, title: 'Login'},
-            { path: 'ecommerce/:id', component: CelularDetalhesComponent, title: 'Detalhes'}
         ]
     },
     {
-    path:'',
-    title: 'home',
+    path: '',
+    component: HomeComponentComponent,
+    title: 'e-commerce',
     children: [
-    { path: '', component: HomeComponentComponent, title: 'Home'}
+        { path: '', pathMatch: 'full', redirectTo: 'home' },
+        { path: 'home', component: CelularCardListComponent, title: 'Lista de Cards de Celulares' },
+        { path: 'login', component: LoginComponent, title: 'Login' },
     ]
-    }
+}
 ];

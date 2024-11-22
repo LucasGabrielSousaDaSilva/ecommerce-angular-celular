@@ -1,10 +1,19 @@
 <nav class="navbar">
-    <div class="logo">E-Shop</div>
-    <mat-icon>search</mat-icon>
-    <input type="text" class="search-bar" placeholder="O que você está procurando?">
+    <button mat-icon-button>
+        <div class="logo" routerLink="/">E-Shop</div>
+    </button>
+    <div class="search">
+        <input type="text" class="search-bar" placeholder="O que você está procurando?">
+        <button mat-icon-button>
+        <mat-icon class="nav-icon">search</mat-icon>
+        </button>
+    </div>
     <div class="nav-icons">
-        <span class="nav-icon">🛒</span>
-        <span class="nav-icon">🔔</span>
-        <span class="nav-icon">👤</span>
+        <!-- <span class="nav-icon">🛒</span> -->
+        <!-- <span class="nav-icon">🔔</span> -->
+        <!-- <span class="nav-icon">👤</span> -->
+        <mat-icon class="nav-icon">shopping_cart</mat-icon>        
+        <mat-icon class="nav-icon">notifications</mat-icon>
+        <mat-icon class="nav-icon" routerLink="/login">account_box</mat-icon>
     </div>
 </nav>

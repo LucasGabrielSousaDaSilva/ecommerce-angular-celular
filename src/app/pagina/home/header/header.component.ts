@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SidebarService } from '../../../services/sidebar.service';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -11,11 +10,4 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  
-  constructor(private sideBarService: SidebarService) {
-  }
-
-  clickMenu() {
-    this.sideBarService.toggle();
-  }
 }
