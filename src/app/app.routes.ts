@@ -62,7 +62,7 @@ export const routes: Routes = [
             { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
 
             { path: 'login', component: LoginComponent, title: 'Login'},
-            { path: 'ecommerce/:id', component: CelularDetalhesComponent, title: 'detalhes'}
+            { path: 'ecommerce/:id', component: CelularDetalhesComponent, title: 'Detalhes'}
         ]
     },
     {

@@ -3,13 +3,14 @@ import { Celular } from '../../../models/celular.model';
 import { CelularService } from '../../../services/celular.service';
 import { MatCardActions, MatCardContent, MatCardFooter, MatCardModule, MatCardTitle } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute} from '@angular/router';
 
 type Card = {
   titulo: string;
@@ -22,13 +23,13 @@ type Card = {
   selector: 'app-celular-card-list',
   standalone: true,
   imports: [MatCardModule, MatButtonModule, NgFor, 
-    MatCardActions, MatCardContent, MatCardTitle, MatCardFooter, MatCardModule, MatPaginatorModule, MatFormField, MatInputModule,
-    MatIconModule, BrowserModule, FormsModule],
+    MatCardActions, MatCardContent, MatCardTitle, MatCardFooter, MatCardModule, MatPaginatorModule, MatInputModule,
+    MatIconModule, FormsModule, MatFormField],
   templateUrl: './celular-card-list.component.html',
-  styleUrl: './celular-card-list.component.css'
+  styleUrls: ['./celular-card-list.component.css']
 })
 export class CelularCardListComponent implements OnInit {
-  celulars: Celular[] = [];
+  celulares: Celular[] = [];
   cards = signal<Card[]>([]);
 
   totalRecords = 0;
@@ -44,7 +45,7 @@ export class CelularCardListComponent implements OnInit {
     this.carregarCelulars();
 
     this.celularService.findAll(this.page, this.pageSize).subscribe(data => {
-      this.celulars = data;
+      this.celulares = data;
     });
 
     this.celularService.count().subscribe(data => {
@@ -75,14 +76,14 @@ export class CelularCardListComponent implements OnInit {
   carregarCelulars() {
     // buscando as celulars
     this.celularService.findAll(0,10).subscribe (data => {
-      this.celulars = data;
+      this.celulares = data;
       this.carregarCards();
     })
   }
 
   carregarCards() {
     const cards: Card[] = [];
-    this.celulars.forEach(celular => {
+    this.celulares.forEach(celular => {
       cards.push({
         titulo: celular.nome,
         marca: celular.marca,
