@@ -29,6 +29,10 @@ export class PortaSlotService {
     return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
+  findById(id: string): Observable<PortaSlot> {
+    return this.httpClient.get<PortaSlot>(`${this.baseUrl}/${id}`); 
+  }
+
   create(portaSlot: PortaSlot): Observable<PortaSlot> {
     return this.httpClient.post<PortaSlot>(this.baseUrl, portaSlot);
   }

@@ -29,6 +29,10 @@ export class FuncionarioService {
     return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
+  findById(id: string): Observable<Funcionario> {
+    return this.httpClient.get<Funcionario>(`${this.baseUrl}/${id}`); 
+  }
+
   create(funcionario: Funcionario): Observable<Funcionario> {
     return this.httpClient.post<Funcionario>(this.baseUrl, funcionario);
   }

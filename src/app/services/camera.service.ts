@@ -29,6 +29,10 @@ export class CameraService {
     return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
+  findById(id: string): Observable<Camera> {
+    return this.httpClient.get<Camera>(`${this.baseUrl}/${id}`); 
+  }
+
   create(camera: Camera): Observable<Camera> {
     return this.httpClient.post<Camera>(this.baseUrl, camera);
   }
