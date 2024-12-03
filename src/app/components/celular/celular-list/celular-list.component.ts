@@ -38,12 +38,13 @@ export class CelularListComponent {
   page = 0;
 
   celulars: Celular[] = [];
-  displayedColumns: string[] = ['nome', 'preco', 'estoque'];
+  displayedColumns: string[] = ['nome', 'preco', 'estoque', 'acao'];
   celularForm!: FormGroup;
   celularSelecionado: Celular | null = null;
 
   constructor(private celularService: CelularService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
     this.celularForm = this.formBuilder.group({
+      id: [null],
       nome: ['', Validators.required],
       preco: ['', Validators.required],
       estoque: ['', Validators.required]

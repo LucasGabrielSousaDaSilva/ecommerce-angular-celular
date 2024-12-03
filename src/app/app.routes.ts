@@ -8,12 +8,12 @@ import { CameraListComponent } from './components/camera/camera-list/camera-list
 import { CameraFormComponent } from './components/camera/camera-form/camera-form.component';
 import { PortaSlotListComponent } from './components/portaSlot/portaSlot-list/portaSlot-list.component';
 import { PortaSlotFormComponent } from './components/portaSlot/portaSlot-form/portaSlot-form.component';
-// import { telaResolver } from './components/tela/tela.resolver';
+import { telaResolver } from './components/tela/tela.resolver';
 import { TelaFormComponent } from './components/tela/tela-form/tela-form.component';
 import { TelaListComponent } from './components/tela/tela-list/tela-list.component';
 import { ProcessadorFormComponent } from './components/processador/processador-form/processador-form.component';
 import { ProcessadorListComponent } from './components/processador/processador-list/processador-list.component';
-// import { processadorResolver } from './components/processador/processador.resolver';
+import { processadorResolver } from './components/processador/processador.resolver';
 import { CelularFormComponent } from './components/celular/celular-form/celular-form.component';
 import { CelularListComponent } from './components/celular/celular-list/celular-list.component';
 import { AdminTemplateComponent } from './components/template/admin-template/admin-template.component';
@@ -22,6 +22,8 @@ import { UserTemplateComponent } from './components/template/user-template/user-
 import { LoginComponent } from './components/login/login.component';
 import { CelularDetalhesComponent } from './components/celular/celular-detalhes/celular-detalhes.component';
 import { HomeComponentComponent } from './pagina/home/home-component/home-component.component';
+import { celularResolver } from './components/celular/celular.resolver';
+import { clienteResolver } from './components/cliente/resolver/cliente.resolver';
 
 export const routes: Routes = [
     { 
@@ -32,7 +34,7 @@ export const routes: Routes = [
 
     {path: '', pathMatch: 'full', redirectTo: 'clientes'},
 
-    // {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{Cliente: clienteResolver}},
+    {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{Cliente: clienteResolver}},
     {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
     {path: 'clientes/new', component: ClienteFormComponent, title: 'Novos Clientes'},
     {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios'},
@@ -41,14 +43,15 @@ export const routes: Routes = [
     {path: 'cameras/new',component: CameraFormComponent, title: 'Nova Camera'},
     {path: 'portaSlots',component: PortaSlotListComponent, title: 'Lista de Portas'},
     {path: 'portaSlots/new',component: PortaSlotFormComponent, title: 'Nova Porta'},
-    // {path: 'telas/edit/:id', component: TelaFormComponent, resolve:{Telas: telaResolver}},
+    {path: 'telas/edit/:id', component: TelaFormComponent, resolve:{Telas: telaResolver}},
     {path: 'telas', component: TelaListComponent, title: 'Lista de Telas'},
     {path: 'telas/new', component: TelaFormComponent, title: 'Novos Telas'},
-    // {path: 'processadores/edit/:id', component: TelaFormComponent, resolve:{Processador: processadorResolver}},
+    {path: 'processadores/edit/:id', component: TelaFormComponent, resolve:{Processador: processadorResolver}},
     {path: 'processadores', component: ProcessadorListComponent, title: 'Lista de processadores'},
     {path: 'processadores/new', component: ProcessadorFormComponent, title: 'Novos processadores'},
     {path: 'celulares',component: CelularListComponent, title: 'Lista de Celulares'},
-    {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular'}
+    {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular'},
+    {path: 'celulares/edit/:id',component: CelularFormComponent, resolve:{Celular: celularResolver}},
 
         ]
     },
