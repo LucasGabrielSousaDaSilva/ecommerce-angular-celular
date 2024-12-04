@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { CarrinhoService } from '../../../services/carrinho.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 type Card = {
   titulo: string;
@@ -38,7 +40,9 @@ export class CelularCardListComponent implements OnInit {
 
   filtro: string = '';
 
-  constructor(private celularService: CelularService) {
+  constructor(private celularService: CelularService, 
+    private carrinhoService: CarrinhoService, 
+    private snackBar: MatSnackBar) {
 
   }
   ngOnInit(): void {
@@ -95,6 +99,21 @@ export class CelularCardListComponent implements OnInit {
     this.cards.set(cards);
   }
 
-  
+  adicionarAoCarrinho(card: Card) {
+    this.showSnackbarTopPosition('produto adicionado ao carrinho');
+    this.carrinhoService.adicionar({
+      id: card.id,
+      nome: card.titulo,
+      preco: card.preco,
+      quantidade: 1
+    });
+  }
 
+  showSnackbarTopPosition(content: any) {
+    this.snackBar.open(content, 'fechar', {
+      duration: 3000,
+      verticalPosition: "top",
+      horizontalPosition: "center"
+    });
+  }
 }

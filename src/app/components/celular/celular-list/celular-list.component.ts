@@ -1,17 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Celular } from '../../../models/celular.model';
 import { CelularService } from '../../../services/celular.service';
-import { NgFor } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { MatLabel } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
-import { MatCardActions } from '@angular/material/card';
-import { MatFormField } from '@angular/material/form-field';
-import { MatCardContent } from '@angular/material/card';
-import { MatCardTitle } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,8 +18,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-celular-list',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
-    MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, CommonModule, MatCardModule, ReactiveFormsModule,
     MatInputModule, MatDivider, MatPaginatorModule
   ],
   templateUrl: './celular-list.component.html',

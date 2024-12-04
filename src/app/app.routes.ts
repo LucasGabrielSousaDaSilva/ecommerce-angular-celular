@@ -24,6 +24,7 @@ import { CelularDetalhesComponent } from './components/celular/celular-detalhes/
 import { HomeComponentComponent } from './pagina/home/home-component/home-component.component';
 import { celularResolver } from './components/celular/celular.resolver';
 import { clienteResolver } from './components/cliente/resolver/cliente.resolver';
+import { CarrinhoComponent } from './components/carrinho/carrinho.component';
 
 export const routes: Routes = [
     { 
@@ -65,6 +66,7 @@ export const routes: Routes = [
             { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
             { path: 'ecommerce/:id', component: CelularDetalhesComponent, title: 'Detalhes'},
             { path: 'login', component: LoginComponent, title: 'Login'},
+            {path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho'}
         ]
     },
     {
