@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private authService: AuthService,
+    private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar
   ) { }
@@ -37,23 +38,23 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    // if (this.loginForm.valid) {
-    //   const username = this.loginForm.get('username')?.value;
-    //   const password = this.loginForm.get('password')?.value;
+    if (this.loginForm.valid) {
+      const username = this.loginForm.get('username')?.value;
+      const password = this.loginForm.get('password')?.value;
 
-      // this.authService.loginADM(username, password).subscribe ({
-      //   next: (resp) => {
-      //     // redirecionando para a pagina principal
-      //     this.router.navigateByUrl('/admin');
-      //   },
-      //   error: (err) => {
-      //     console.log(err);
-      //     this.showSnackbarTopPosition("Username ou senha inválido");
-      //   }
-      // })
+      this.authService.loginADM(username, password).subscribe ({
+        next: (resp) => {
+          // redirecionando para a pagina principal
+          this.router.navigateByUrl('/admin');
+        },
+        error: (err) => {
+          console.log(err);
+          this.showSnackbarTopPosition("Username ou senha inválido");
+        }
+      })
 
     }
-// }
+}
 
     onRegister() {
       // criar usuário

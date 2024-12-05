@@ -16,6 +16,15 @@ export class CelularService {
     return `${this.baseUrl}/image/download/${nomeImagem}`; 
   }
 
+  uploadImage(id: number, nomeImagem: string, imagem: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('nomeImagem', imagem.name);
+    formData.append('imagem', imagem, imagem.name);
+    
+    return this.httpClient.patch<Celular>(`${this.baseUrl}/image/upload`, formData);
+  }
+
   findAll(page?: number, pageSize?: number): Observable<Celular[]> {
     let params = {};
 

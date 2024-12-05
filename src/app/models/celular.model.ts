@@ -1,18 +1,19 @@
-// import { Tela } from "./tela.model";
-// import { Processador } from "./processador.model";
 // import { Serie } from "./Serie.model";
-// import { Camera } from "./Camera.model";
-// import { PortaSlot } from "./portaSlot.model";
 // import { Sensor } from "./sensor.model";
+
+import { Camera } from "./camera.model";
+import { PortaSlot } from "./porta-slot.model";
+import { Processador } from "./processador.model";
+import { Tela } from "./tela.model";
 
 
 export class Celular {
     id! : number;
-    // tela! : Tela;
-    // processador! : Processador;
+    tela! : Tela;
+    processador! : Processador;
     // serie! : Serie;
-    // camera! : Camera;
-    // portaSlot! : PortaSlot;
+    camera! : Camera;
+    portaSlot! : PortaSlot;
     // sensor! : Sensor;
     nomeImagem! : string;
     marca! : string;

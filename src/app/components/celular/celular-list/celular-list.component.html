@@ -30,48 +30,23 @@
         <ng-container matColumnDef="acao">
             <th mat-header-cell *matHeaderCellDef> Ação </th>
             <td mat-cell *matCellDef="let celular"> 
-                <button mat-icon-button color="primary" (click)="editarCelular(celular)">
+                <button mat-icon-button
+                    color="primary"
+                    routerLink="../celulares/edit/{{celular.id}}">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button color="warn" (click)="delete(celular.id)">
+                <button mat-icon-button
+                    color="warn"
+                    (click)="delete(celular.id)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
         </ng-container>
-
+    
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>
-
-<mat-divider></mat-divider>
-
-<mat-card *ngIf="celularSelecionado" class="form-card">
-    <mat-card-title class="custom-title">Edição de Funcionário</mat-card-title>
-    <mat-card-content>
-        <form [formGroup]="celularForm" (ngSubmit)="salvarCelular()">
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Nome</mat-label>
-                <input matInput formControlName="nome">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Preco</mat-label>
-                <input matInput formControlName="preco">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Estoque</mat-label>
-                <input matInput formControlName="estoque">
-            </mat-form-field>
-
-            <mat-card-actions class="actions">
-                <button mat-raised-button type="submit" color="primary">Salvar</button>
-                <button mat-button type="button" color="warn" (click)="cancelarEdicao()">Cancelar</button>
-            </mat-card-actions>
-        </form>
-    </mat-card-content>
-</mat-card>
 
 <mat-paginator 
 [pageSizeOptions]="[4, 6, 10]" showFirstLastButtons
