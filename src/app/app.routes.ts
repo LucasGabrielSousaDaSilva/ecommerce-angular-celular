@@ -22,6 +22,8 @@ import { UserTemplateComponent } from './components/template/user-template/user-
 import { LoginComponent } from './components/login/login.component';
 import { CelularDetalhesComponent } from './components/celular/celular-detalhes/celular-detalhes.component';
 import { HomeComponentComponent } from './pagina/home/home-component/home-component.component';
+import { R } from '@angular/cdk/keycodes';
+import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
     { 
@@ -72,6 +74,7 @@ export const routes: Routes = [
         { path: '', pathMatch: 'full', redirectTo: 'home' },
         { path: 'home', component: CelularCardListComponent, title: 'Lista de Cards de Celulares' },
         { path: 'login', component: LoginComponent, title: 'Login' },
+        {path: 'register', component: RegisterComponent, title: 'Register'}
     ]
 }
 ];

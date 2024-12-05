@@ -95,6 +95,4 @@ export class CelularCardListComponent implements OnInit {
     this.cards.set(cards);
   }
 
-  
-
 }
