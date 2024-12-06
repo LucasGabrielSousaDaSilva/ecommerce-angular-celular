@@ -45,6 +45,22 @@ export class CarrinhoService {
     return this.carrinhoSubject.value;
   }
 
+  atualizarQuantidade(item: ItemCarrinho): void {
+    const carrinhoAtual = this.carrinhoSubject.value;
+    const itemExistente = carrinhoAtual.find(i => i.id === item.id);
+  
+    if (itemExistente) {
+      itemExistente.quantidade = item.quantidade;
+    }
+  
+    this.carrinhoSubject.next(carrinhoAtual);
+  }
+  
+  limparCarrinho(): void {
+    this.carrinhoSubject.next([]);
+    this.atualizarArmazenamentoLocal();
+  }
+
   private atualizarArmazenamentoLocal(): void{
     localStorage.setItem('carrinho' , JSON.stringify(this.carrinhoSubject.value));
   }
