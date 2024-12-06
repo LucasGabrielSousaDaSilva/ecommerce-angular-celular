@@ -25,6 +25,7 @@ import { HomeComponentComponent } from './pagina/home/home-component/home-compon
 import { celularResolver } from './components/celular/celular.resolver';
 import { clienteResolver } from './components/cliente/resolver/cliente.resolver';
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
+import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
     { 
@@ -77,6 +78,7 @@ export const routes: Routes = [
         { path: '', pathMatch: 'full', redirectTo: 'home' },
         { path: 'home', component: CelularCardListComponent, title: 'Lista de Cards de Celulares' },
         { path: 'login', component: LoginComponent, title: 'Login' },
+        {path: 'register', component: RegisterComponent, title: 'Register'}
     ]
 }
 ];
