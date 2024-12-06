@@ -1,0 +1,12 @@
+.carrinho-item {
+  margin-bottom: 20px;
+}
+
+mat-card {
+  margin: 20px;
+  padding: 20px;
+}
+
+mat-divider {
+  margin: 10px 0;
+}

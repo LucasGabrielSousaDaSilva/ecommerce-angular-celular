@@ -25,8 +25,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 @Component({
   selector: 'app-tela-list',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
-    MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
+  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, CommonModule, MatCardModule, ReactiveFormsModule,
     MatInputModule, MatPaginatorModule],
   templateUrl: './tela-list.component.html',
   styleUrl: './tela-list.component.css'
@@ -44,11 +43,7 @@ export class TelaListComponent implements OnInit{
 
   telas : Tela[] = [];
 
-  constructor(private telaService : TelaService, private snackBar: MatSnackBar, private formBuilder: FormBuilder) {
-    this.telaForm = this.formBuilder.group({
-      tamanho : ['', Validators.required],
-      resolucao : ['', Validators.required]
-    });
+  constructor(private telaService : TelaService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -79,37 +74,6 @@ export class TelaListComponent implements OnInit{
         this.snackBar.open('Erro ao deletar tela', 'Fechar', { duration: 3000 });
       }
     );
-  }
-
-  editarTela(tela: Tela): void {
-    this.telaSelecionado = tela;
-
-    // Preencher o formulário com os dados do tela selecionado
-    this.telaForm.patchValue({
-      tamanho: tela.tamanho,
-      resolucao: tela.resolucao,
-    });
-  }
-
-  salvarTela(): void {
-    if (this.telaForm.valid && this.telaSelecionado) {
-      const telaEditado = {
-        ...this.telaSelecionado,
-        ...this.telaForm.value
-      };
-
-      if (telaEditado.id) {
-              this.telaService.update(telaEditado).subscribe(() => {
-              this.ngOnInit();  // Atualizar a lista após a edição
-              this.cancelarEdicao();        // Fechar o card de edição
-            });
-      }
-    }
-  }
-
-  cancelarEdicao(): void {
-    this.telaSelecionado = null;
-    this.telaForm.reset();  // Reseta o formulário
   }
 
 }
