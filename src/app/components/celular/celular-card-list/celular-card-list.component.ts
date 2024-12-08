@@ -115,7 +115,8 @@ export class CelularCardListComponent implements OnInit {
       id: card.id,
       nome: card.titulo,
       preco: card.preco,
-      quantidade: 1
+      quantidade: 1,
+      imagem: card.imageUrl
     });
   }
 

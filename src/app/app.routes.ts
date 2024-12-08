@@ -26,19 +26,27 @@ import { celularResolver } from './components/celular/celular.resolver';
 import { clienteResolver } from './components/cliente/resolver/cliente.resolver';
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
 import { RegisterComponent } from './components/register/register.component';
+import { authGuard } from './guard/auth.guard';
+import { SensorListComponent } from './components/sensor/sensor-list/sensor-list.component';
+import { SensorFormComponent } from './components/sensor/sensor-form/sensor-form.component';
+import { sensorResolver } from './components/sensor/resolver/sensor.resolver';
+import { SerieListComponent } from './components/serie/serie-list/serie-list.component';
+import { SerieFormComponent } from './components/serie/serie-form/serie-form.component';
+import { serieResolver } from './components/serie/serie.resolver';
 
 export const routes: Routes = [
     { 
         path: 'admin', 
         component: AdminTemplateComponent, 
         title: 'e-commerce',
+        // canActivate: [authGuard],
         children: [
 
     {path: '', pathMatch: 'full', redirectTo: 'clientes'},
 
     {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{Cliente: clienteResolver}},
     {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
-    {path: 'clientes/new', component: ClienteFormComponent, title: 'Novos Clientes'},
+    {path: 'clientes/new', component: ClienteFormComponent, title: 'Novo Cliente'},
     {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios'},
     {path: 'funcionarios/new',component: FuncionarioFormComponent, title: 'Novo Funcionario'},
     {path: 'cameras',component: CameraListComponent, title: 'Lista de Cameras'},
@@ -47,20 +55,26 @@ export const routes: Routes = [
     {path: 'portaSlots/new',component: PortaSlotFormComponent, title: 'Nova Porta'},
     {path: 'telas/edit/:id', component: TelaFormComponent, resolve:{Telas: telaResolver}},
     {path: 'telas', component: TelaListComponent, title: 'Lista de Telas'},
-    {path: 'telas/new', component: TelaFormComponent, title: 'Novos Telas'},
+    {path: 'telas/new', component: TelaFormComponent, title: 'Novo Tela'},
     {path: 'processadores/edit/:id', component: TelaFormComponent, resolve:{Processador: processadorResolver}},
     {path: 'processadores', component: ProcessadorListComponent, title: 'Lista de processadores'},
-    {path: 'processadores/new', component: ProcessadorFormComponent, title: 'Novos processadores'},
+    {path: 'processadores/new', component: ProcessadorFormComponent, title: 'Novo processadore'},
     {path: 'celulares',component: CelularListComponent, title: 'Lista de Celulares'},
     {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular'},
     {path: 'celulares/edit/:id',component: CelularFormComponent, resolve:{Celular: celularResolver}},
-
+    {path: 'sensores', component: SensorListComponent, title: 'Lista de Sensores'},
+    {path: 'sensores/new', component: SensorFormComponent, title: 'Novo Sensor'},
+    {path: 'sensores/edit/:id', component: SensorFormComponent, resolve:{Sensor: sensorResolver}},
+    {path: 'series', component: SerieListComponent, title: 'Lista de Series'},
+    {path: 'series/new', component: SerieFormComponent, title: 'Nova Serie'},
+    {path: 'series/edit/:id', component: SerieFormComponent, resolve:{Serie: serieResolver}},
         ]
     },
     { 
         path: 'user', 
         component: UserTemplateComponent,
         title: 'e-commerce',
+        // canActivate: [authGuard],
         children: [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
