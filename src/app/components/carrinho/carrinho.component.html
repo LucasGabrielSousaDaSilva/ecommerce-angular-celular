@@ -15,7 +15,7 @@
     <tbody>
       <tr *ngFor="let item of carrinhoItens">
         <td class="produto-detalhes">
-          <!-- <img [src]="item.imagem" alt="{{ item.nome }}" class="produto-imagem" /> -->
+          <img [src]="item.imagem" alt="{{ item.nome }}" class="produto-imagem" />
           <span>{{ item.nome }}</span>
         </td>
         <td>{{ item.preco | currency }}</td>
