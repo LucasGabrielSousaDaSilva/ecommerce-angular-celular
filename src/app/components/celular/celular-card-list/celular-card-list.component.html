@@ -1,24 +1,47 @@
 <h1>Seleção de Celulares</h1>
 
-<mat-form-field appearance="outline" class="input-field">
-    <mat-label>Pesquisar pelo Nome</mat-label>
+<div>
+    <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Pesquisar pelo Nome</mat-label>
+        <input
+        [(ngModel)]="filtro"
+        matInput
+        placeholder="Ex: LG"
+        #input
+        (keyup.enter)="filtrar()"
+        />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Preço Mínimo</mat-label>
+        <input
+          [(ngModel)]="precoMin"
+          matInput
+          type="number"
+          placeholder="Ex: 1000"
+        />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="input-field">
+    <mat-label>Preço Máximo</mat-label>
     <input
-      [(ngModel)]="filtro"
-      matInput
-      placeholder="Ex: LG"
-      #input
-      (keyup.enter)="filtrar()"
+        [(ngModel)]="precoMax"
+        matInput
+        type="number"
+        placeholder="Ex: 5000"
     />
-  </mat-form-field>
-  <button
-    mat-icon-button
-    color="primary"
-    class="search-button"
-    id="meuBotaoPesquisar"
-    (click)="filtrar()"
-  >
-    <mat-icon>search</mat-icon>
-  </button>
+    </mat-form-field>
+
+    <button
+        mat-icon-button
+        color="primary"
+        class="search-button"
+        id="meuBotaoPesquisar"
+        (click)="filtrar()"
+    >
+        <mat-icon>search</mat-icon>
+    </button>
+</div>
 
 <div class="container responsive-grid">
     <mat-card *ngFor="let card of cards()">

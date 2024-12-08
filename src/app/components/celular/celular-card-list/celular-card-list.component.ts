@@ -21,6 +21,8 @@ type Card = {
   id: number;
 }
 
+
+
 @Component({
   selector: 'app-celular-card-list',
   standalone: true,
@@ -31,6 +33,10 @@ type Card = {
   styleUrls: ['./celular-card-list.component.css']
 })
 export class CelularCardListComponent implements OnInit {
+
+  precoMin: number | null = null;
+  precoMax: number | null = null;
+
   celulares: Celular[] = [];
   cards = signal<Card[]>([]);
 
@@ -64,20 +70,30 @@ export class CelularCardListComponent implements OnInit {
   }
 
   filtrar() {
-    const filtroLowerCase = this.filtro.toLowerCase();
-    const filteredCards = this.celulares
-      .filter((celular) =>
-        celular.nome.toLowerCase().includes(filtroLowerCase)
-      )
-      .map((celular) => ({
-        titulo: celular.nome,
-        marca: celular.marca,
-        preco: celular.preco,
-        imageUrl: this.celularService.getUrlImage(celular.nomeImagem),
-        id: celular.id,
-      }));
-    this.cards.set(filteredCards);
+  if (this.precoMin != null && this.precoMax != null && this.precoMin > this.precoMax) {
+    this.showSnackbarTopPosition("O preço mínimo não pode ser maior que o preço máximo.");
+    return;
   }
+  const filtroLowerCase = this.filtro.toLowerCase();
+
+  const filteredCards = this.celulares
+    .filter((celular) => {
+      const nomeMatch = celular.nome.toLowerCase().includes(filtroLowerCase);
+      const precoMatch =
+        (this.precoMin == null || celular.preco >= this.precoMin) &&
+        (this.precoMax == null || celular.preco <= this.precoMax);
+      return nomeMatch && precoMatch;
+    })
+    .map((celular) => ({
+      titulo: celular.nome,
+      marca: celular.marca,
+      preco: celular.preco,
+      imageUrl: this.celularService.getUrlImage(celular.nomeImagem),
+      id: celular.id,
+    }));
+
+  this.cards.set(filteredCards);
+}
 
   // Método para retornar os cards filtrados
   getFilteredCards() {
