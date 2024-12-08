@@ -64,9 +64,19 @@ export class CelularCardListComponent implements OnInit {
   }
 
   filtrar() {
-    // Lógica de filtragem
-    console.log('Filtro aplicado:', this.filtro);
-    // Aqui você pode adicionar a lógica para filtrar os cards com base no valor de `filtro`
+    const filtroLowerCase = this.filtro.toLowerCase();
+    const filteredCards = this.celulares
+      .filter((celular) =>
+        celular.nome.toLowerCase().includes(filtroLowerCase)
+      )
+      .map((celular) => ({
+        titulo: celular.nome,
+        marca: celular.marca,
+        preco: celular.preco,
+        imageUrl: this.celularService.getUrlImage(celular.nomeImagem),
+        id: celular.id,
+      }));
+    this.cards.set(filteredCards);
   }
 
   // Método para retornar os cards filtrados

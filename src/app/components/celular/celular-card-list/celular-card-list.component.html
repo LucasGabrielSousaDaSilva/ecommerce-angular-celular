@@ -1,16 +1,24 @@
 <h1>Seleção de Celulares</h1>
 
-<div class="container">
-    <div class="input-container">
-        <mat-form-field appearance="outline" class="input-field">
-            <mat-label>Pesquisar pelo Nome</mat-label> 
-            <input [(ngModel)]="filtro" matInput placeholder="Ex: LG" #input (keyup.enter)="filtrar()">
-        </mat-form-field>
-        <button mat-icon-button color="primary" class="search-button" id="meuBotaoPesquisar" (click)="filtrar()">
-        <mat-icon>search</mat-icon>
-    </button>
-    </div>
-</div>
+<mat-form-field appearance="outline" class="input-field">
+    <mat-label>Pesquisar pelo Nome</mat-label>
+    <input
+      [(ngModel)]="filtro"
+      matInput
+      placeholder="Ex: LG"
+      #input
+      (keyup.enter)="filtrar()"
+    />
+  </mat-form-field>
+  <button
+    mat-icon-button
+    color="primary"
+    class="search-button"
+    id="meuBotaoPesquisar"
+    (click)="filtrar()"
+  >
+    <mat-icon>search</mat-icon>
+  </button>
 
 <div class="container responsive-grid">
     <mat-card *ngFor="let card of cards()">
