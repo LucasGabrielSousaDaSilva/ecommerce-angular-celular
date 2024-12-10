@@ -53,15 +53,15 @@ export const routes: Routes = [
     {path: 'cameras/new',component: CameraFormComponent, title: 'Nova Camera'},
     {path: 'portaSlots',component: PortaSlotListComponent, title: 'Lista de Portas'},
     {path: 'portaSlots/new',component: PortaSlotFormComponent, title: 'Nova Porta'},
-    {path: 'telas/edit/:id', component: TelaFormComponent, resolve:{Telas: telaResolver}},
+    {path: 'telas/edit/:id', component: TelaFormComponent, resolve: { tela: telaResolver }},
     {path: 'telas', component: TelaListComponent, title: 'Lista de Telas'},
     {path: 'telas/new', component: TelaFormComponent, title: 'Novo Tela'},
-    {path: 'processadores/edit/:id', component: TelaFormComponent, resolve:{Processador: processadorResolver}},
+    {path: 'processadores/edit/:id', component: ProcessadorFormComponent, resolve:{ processador: processadorResolver }},
     {path: 'processadores', component: ProcessadorListComponent, title: 'Lista de processadores'},
     {path: 'processadores/new', component: ProcessadorFormComponent, title: 'Novo processadore'},
     {path: 'celulares',component: CelularListComponent, title: 'Lista de Celulares'},
     {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular'},
-    {path: 'celulares/edit/:id',component: CelularFormComponent, resolve:{Celular: celularResolver}},
+    {path: 'celulares/edit/:id',component: CelularFormComponent, resolve:{ celular: celularResolver}},
     {path: 'sensores', component: SensorListComponent, title: 'Lista de Sensores'},
     {path: 'sensores/new', component: SensorFormComponent, title: 'Novo Sensor'},
     {path: 'sensores/edit/:id', component: SensorFormComponent, resolve:{Sensor: sensorResolver}},
@@ -81,7 +81,7 @@ export const routes: Routes = [
             { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
             { path: 'ecommerce/:id', component: CelularDetalhesComponent, title: 'Detalhes'},
             { path: 'login', component: LoginComponent, title: 'Login'},
-            {path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho'}
+            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho'}
         ]
     },
     {
@@ -92,7 +92,7 @@ export const routes: Routes = [
         { path: '', pathMatch: 'full', redirectTo: 'home' },
         { path: 'home', component: CelularCardListComponent, title: 'Lista de Cards de Celulares' },
         { path: 'login', component: LoginComponent, title: 'Login' },
-        {path: 'register', component: RegisterComponent, title: 'Register'}
+        { path: 'register', component: RegisterComponent, title: 'Register'}
     ]
 }
 ];

@@ -7,7 +7,7 @@
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Marca</mat-label>
-                    <input matInput type="text" formControlName="Marca">
+                    <input matInput type="text" formControlName="marca">
                     <mat-error *ngIf="formGroup.get('marca') 
                                    && formGroup.get('marca')?.invalid
                                    && formGroup.get('marca')?.touched">
@@ -17,7 +17,7 @@
 
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Modelo</mat-label>
-                    <input matInput type="text" formControlName="Modelo">
+                    <input matInput type="text" formControlName="modelo">
                     <mat-error *ngIf="formGroup.get('modelo') 
                                    && formGroup.get('modelo')?.invalid
                                    && formGroup.get('modelo')?.touched">
@@ -26,8 +26,9 @@
                 </mat-form-field>
             </form>
         </mat-card-content>
+
         <mat-card-actions>
-            <button mat-raised-button routerLink="../">
+            <button mat-raised-button routerLink="/admin/processadores">
                 Cancelar
             </button>
         
@@ -40,5 +41,6 @@
                 Salvar
             </button>
         </mat-card-actions>
+
     </mat-card>
 </div>

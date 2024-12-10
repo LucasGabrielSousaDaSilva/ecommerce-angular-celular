@@ -5,6 +5,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SidebarService {
+  getSidebar() {
+    throw new Error('Method not implemented.');
+  }
 
   public sideNavToggleSubject: BehaviorSubject<any> =
     new BehaviorSubject(null);

@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
+    color: var(--mat-sidenav-content-text-color, var(--mat-app-on-background));
   }
   
   h2 {

@@ -4,7 +4,7 @@
 <div class="form-container">
     <mat-card>
         <mat-card-content>
-            <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" >
+            <form [formGroup]="formGroup">
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Tamanho</mat-label>
                     <input matInput type="text" formControlName="tamanho">
@@ -27,7 +27,7 @@
             </form>
         </mat-card-content>
         <mat-card-actions class="button-container">
-            <button mat-raised-button routerLink="../">
+            <button mat-raised-button routerLink="/admin/telas">
                 Cancelar
             </button>
             <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">

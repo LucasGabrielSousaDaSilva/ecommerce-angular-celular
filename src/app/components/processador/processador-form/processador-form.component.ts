@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, model, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProcessadorService } from '../../../services/processador.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
+import { Processador } from '../../../models/processador.model';
 
 @Component({
   selector: 'app-processador-form',
@@ -19,19 +20,35 @@ import { MatSelectModule } from '@angular/material/select';
   templateUrl: './processador-form.component.html',
   styleUrl: './processador-form.component.css'
 })
-export class ProcessadorFormComponent {
+export class ProcessadorFormComponent implements OnInit {
   formGroup!: FormGroup;
 
 constructor(
   private formBuilder: FormBuilder,
   private processadorService: ProcessadorService,
-  private router: Router
+  private router: Router,
+  private activatedRoute: ActivatedRoute
 ) {
     this.formGroup = this.formBuilder.group({
       id: [null],
       marca:['', Validators.required],
       modelo:['', Validators.required]
     }) 
+}
+
+ngOnInit(): void {
+  this.initializeForm();
+}
+
+initializeForm(): void {
+  const processador: Processador = this.activatedRoute.snapshot.data['processador'];
+
+  this.formGroup = this.formBuilder.group({
+    id: [(processador && processador.id) ? processador.id : null],
+    marca: [(processador && processador.marca) ? processador.marca : null],
+    modelo: [(processador && processador.modelo) ? processador.modelo : null]
+  })
+
 }
 
   onSubmit() {

@@ -55,14 +55,20 @@ export class ProcessadorListComponent implements OnInit{
       this.processadores = data;
     });
 
-    this.processadorService.count().subscribe(data => {
-      this.totalRecords = data;
-    });
+    this.processadorService.count().subscribe(
+      data => {
+        this.totalRecords = data;
+      },
+      error => {
+        console.error('Erro ao obter a contagem de registros:', error);
+        // Adicione aqui qualquer lógica adicional de tratamento de erro, se necessário
+      }
+    );
 }
 
 paginar(event: PageEvent): void {
   this.page = event.pageIndex;
-  const pageSize = event.pageSize;
+  this.pageSize = event.pageSize;
   this.ngOnInit();
 }
 

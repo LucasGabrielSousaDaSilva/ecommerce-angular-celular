@@ -12,7 +12,7 @@ import { MatCardActions } from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
 import { MatCardContent } from '@angular/material/card';
 import { MatCardTitle } from '@angular/material/card';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -36,15 +36,16 @@ export class TelaListComponent implements OnInit{
   pageSize = 2;
   page = 0;
 
-  displayedColumns : string[] = ['tamanho', 'resolucao', 'acao'];
+  displayedColumns : string[] = ['id', 'tamanho', 'resolucao', 'acao'];
 
   telaForm!: FormGroup;
   telaSelecionado: Tela | null = null;
 
   telas : Tela[] = [];
 
-  constructor(private telaService : TelaService, private snackBar: MatSnackBar) {
-  }
+  constructor(private telaService : TelaService, 
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit(): void {
     this.telaService.findAll(this.page, this.pageSize).subscribe(data => {
@@ -75,5 +76,4 @@ export class TelaListComponent implements OnInit{
       }
     );
   }
-
 }

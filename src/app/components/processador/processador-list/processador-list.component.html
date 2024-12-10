@@ -45,7 +45,8 @@
         <ng-container matColumnDef="acao">
             <th mat-header-cell *matHeaderCellDef> Ação </th>
             <td mat-cell *matCellDef="let processador"> 
-                <button mat-icon-button color="primary" (click)="editarProcessador(processador)">
+                <button mat-icon-button color="primary" 
+                routerLink="../processadores/edit/{{processador.id}}">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button
