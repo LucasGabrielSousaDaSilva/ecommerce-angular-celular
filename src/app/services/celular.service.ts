@@ -50,6 +50,10 @@ export class CelularService {
     return this.httpClient.get<Celular>(`${this.baseUrl}/${id}`); 
   }
 
+  findByNome(nome: string): Observable<Celular> {
+    return this.httpClient.get<Celular>(`${this.baseUrl}/busca/nome/${nome}`); 
+  }
+
   insert(Celular: Celular): Observable<Celular> {
     return this.httpClient.post<Celular>(this.baseUrl, Celular);
   }
