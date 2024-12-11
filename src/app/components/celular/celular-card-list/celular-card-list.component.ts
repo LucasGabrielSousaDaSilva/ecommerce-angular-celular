@@ -70,30 +70,22 @@ export class CelularCardListComponent implements OnInit {
   }
 
   filtrar() {
-  if (this.precoMin != null && this.precoMax != null && this.precoMin > this.precoMax) {
-    this.showSnackbarTopPosition("O preço mínimo não pode ser maior que o preço máximo.");
-    return;
+    if (!this.filtro.trim()) {
+      this.carregarCelulars(); 
+      return;
+    }
+  
+    this.celularService.findByNome(this.filtro).subscribe({
+      next: (data) => {
+        this.celulares = Array.isArray(data) ? data : [data]; 
+        this.carregarCards();
+      },
+      error: (err) => {
+        console.error('Erro ao buscar celulares por nome:', err);
+        this.cards.set([]); 
+      },
+    });
   }
-  const filtroLowerCase = this.filtro.toLowerCase();
-
-  const filteredCards = this.celulares
-    .filter((celular) => {
-      const nomeMatch = celular.nome.toLowerCase().includes(filtroLowerCase);
-      const precoMatch =
-        (this.precoMin == null || celular.preco >= this.precoMin) &&
-        (this.precoMax == null || celular.preco <= this.precoMax);
-      return nomeMatch && precoMatch;
-    })
-    .map((celular) => ({
-      titulo: celular.nome,
-      marca: celular.marca,
-      preco: celular.preco,
-      imageUrl: this.celularService.getUrlImage(celular.nomeImagem),
-      id: celular.id,
-    }));
-
-  this.cards.set(filteredCards);
-}
 
   // Método para retornar os cards filtrados
   getFilteredCards() {
@@ -104,11 +96,10 @@ export class CelularCardListComponent implements OnInit {
   }
 
   carregarCelulars() {
-    // buscando as celulars
-    this.celularService.findAll(0,10).subscribe (data => {
+    this.celularService.findAll(this.page, this.pageSize).subscribe((data) => {
       this.celulares = data;
       this.carregarCards();
-    })
+    });
   }
 
   carregarCards() {

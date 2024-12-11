@@ -12,6 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(), provideAnimationsAsync(),
     JwtHelperService,
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, provideAnimationsAsync(),
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, provideAnimationsAsync(), provideAnimationsAsync(),
   ]
 };
