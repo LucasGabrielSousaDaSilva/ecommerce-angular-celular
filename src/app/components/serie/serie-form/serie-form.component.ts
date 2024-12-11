@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SerieService } from '../../../services/serie.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { Serie } from '../../../models/serie.model';
 
 @Component({
   selector: 'app-serie-form',
@@ -19,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './serie-form.component.html',
   styleUrl: './serie-form.component.css'
 })
-export class SerieFormComponent {
+export class SerieFormComponent implements OnInit {
   formGroup!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -30,6 +31,20 @@ export class SerieFormComponent {
         nome:['', Validators.required],
         anoLancamento:['', Validators.required]
       }) 
+  }
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+  
+  initializeForm(): void {
+    const serie: Serie = this.activatedRoute.snapshot.data['serie'];
+  
+    this.formGroup = this.formBuilder.group({
+      id: [(serie && serie.id) ? serie.id : null],
+      nome: [(serie && serie.nome) ? serie.nome : null],
+      anoLancamento: [(serie && serie.anoLancamento) ? serie.anoLancamento : null]
+    })
+  
   }
   onSubmit() {
     if (this.formGroup.valid) {

@@ -33,6 +33,11 @@ import { sensorResolver } from './components/sensor/resolver/sensor.resolver';
 import { SerieListComponent } from './components/serie/serie-list/serie-list.component';
 import { SerieFormComponent } from './components/serie/serie-form/serie-form.component';
 import { serieResolver } from './components/serie/serie.resolver';
+import { LinhaListComponent } from './components/linha/linha-list/linha-list.component';
+import { LinhaFormComponent } from './components/linha/linha-form/linha-form.component';
+import { funcionarioResolver } from './components/funcionario/resolver/funcionario.resolver';
+import { cameraResolver } from './components/camera/camera.resolver';
+import { portaSlotResolver } from './components/portaSlot/resolver/porta-slot.resolver';
 
 export const routes: Routes = [
     { 
@@ -44,13 +49,16 @@ export const routes: Routes = [
 
     {path: '', pathMatch: 'full', redirectTo: 'clientes'},
 
-    {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{Cliente: clienteResolver}},
+    {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{cliente: clienteResolver}},
     {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
     {path: 'clientes/new', component: ClienteFormComponent, title: 'Novo Cliente'},
+    {path: 'funcionarios/edit/:id',component: FuncionarioFormComponent, resolve:{funcionario: funcionarioResolver}},
     {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios'},
     {path: 'funcionarios/new',component: FuncionarioFormComponent, title: 'Novo Funcionario'},
+    {path: 'cameras/edit/:id',component: CameraFormComponent, resolve:{camera: cameraResolver}},
     {path: 'cameras',component: CameraListComponent, title: 'Lista de Cameras'},
     {path: 'cameras/new',component: CameraFormComponent, title: 'Nova Camera'},
+    {path: 'portaSlots/edit/:id',component: PortaSlotFormComponent, resolve:{portaSlot: portaSlotResolver}},
     {path: 'portaSlots',component: PortaSlotListComponent, title: 'Lista de Portas'},
     {path: 'portaSlots/new',component: PortaSlotFormComponent, title: 'Nova Porta'},
     {path: 'telas/edit/:id', component: TelaFormComponent, resolve: { tela: telaResolver }},
@@ -64,10 +72,13 @@ export const routes: Routes = [
     {path: 'celulares/edit/:id',component: CelularFormComponent, resolve:{ celular: celularResolver}},
     {path: 'sensores', component: SensorListComponent, title: 'Lista de Sensores'},
     {path: 'sensores/new', component: SensorFormComponent, title: 'Novo Sensor'},
-    {path: 'sensores/edit/:id', component: SensorFormComponent, resolve:{Sensor: sensorResolver}},
+    {path: 'sensores/edit/:id', component: SensorFormComponent, resolve:{sensor: sensorResolver}},
     {path: 'series', component: SerieListComponent, title: 'Lista de Series'},
     {path: 'series/new', component: SerieFormComponent, title: 'Nova Serie'},
-    {path: 'series/edit/:id', component: SerieFormComponent, resolve:{Serie: serieResolver}},
+    {path: 'series/edit/:id', component: SerieFormComponent, resolve:{serie: serieResolver}},
+    {path: 'linha', component: LinhaListComponent, title: 'Lista de Linhas'},
+    {path: 'linha/new', component: LinhaFormComponent, title: 'Nova Linha'},
+    {path: 'linha/edit/:id', component: LinhaFormComponent, resolve:{linha: serieResolver}}
         ]
     },
     { 

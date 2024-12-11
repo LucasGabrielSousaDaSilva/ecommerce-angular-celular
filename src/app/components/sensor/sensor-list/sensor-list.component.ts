@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Sensor } from '../../../models/sensor.model';
 import { SensorService } from '../../../services/sensor.service';
@@ -21,7 +21,7 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './sensor-list.component.html',
   styleUrl: './sensor-list.component.css'
 })
-export class SensorListComponent {
+export class SensorListComponent implements OnInit {
   totalRecords = 0;
   pageSize = 2;
   page = 0;

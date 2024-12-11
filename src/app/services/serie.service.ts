@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 
 export class SerieService {
-  private baseUrl = 'http://localhost:8080/series';
+  private baseUrl = 'http://localhost:8080/Serie';
 
   constructor(private httpClient: HttpClient) { }
 

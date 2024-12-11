@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SensorService } from '../../../services/sensor.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { Sensor } from '../../../models/sensor.model';
 
 @Component({
   selector: 'app-sensor-form',
@@ -19,7 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './sensor-form.component.html',
   styleUrl: './sensor-form.component.css'
 })
-export class SensorFormComponent {
+export class SensorFormComponent implements OnInit {
   formGroup!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -29,6 +30,20 @@ export class SensorFormComponent {
       this.formGroup = this.formBuilder.group({
         tipo:['', Validators.required],
       }) 
+  }
+
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+  
+  initializeForm(): void {
+    const sensor: Sensor = this.activatedRoute.snapshot.data['sensor'];
+  
+    this.formGroup = this.formBuilder.group({
+      id: [(sensor && sensor.id) ? sensor.id : null],
+      tipo: [(sensor && sensor.tipo) ? sensor.tipo : null],
+    })
+  
   }
   onSubmit() {
     if (this.formGroup.valid) {

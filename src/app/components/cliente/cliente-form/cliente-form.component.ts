@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ClienteService } from '../../../services/cliente.service';
-import { Cliente } from "../../../models/cliente.model";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import { NgIf } from '@angular/common';
@@ -14,26 +13,46 @@ import { MatCard } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatTable } from '@angular/material/table';
+import { Cliente } from '../../../models/cliente.model';
 
 @Component({
   selector: 'app-cliente-form',
   standalone: true,
-  imports: [MatFormFieldModule, MatButtonModule, NgIf, MatInputModule, ReactiveFormsModule,MatCardActions, MatCardContent, MatCardTitle, MatCard, MatIcon, MatTable, MatToolbar],
+  imports: [MatFormFieldModule, MatButtonModule, NgIf, MatInputModule, ReactiveFormsModule,MatCardActions, MatCardContent, MatCard, MatIcon, MatToolbar],
   templateUrl: './cliente-form.component.html',
   styleUrl: './cliente-form.component.css'
 })
-export class ClienteFormComponent {
+export class ClienteFormComponent implements OnInit {
   formGroup!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
     private clienteService: ClienteService,
-    private router: Router) {
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
       this.formGroup = this.formBuilder.group({
         nome:['', Validators.required],
         cep:['', Validators.required],
         cpf:['' , Validators.required]
       }) 
   }
+
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+  
+  initializeForm(): void {
+    const cliente: Cliente = this.activatedRoute.snapshot.data['cliente'];
+  
+    this.formGroup = this.formBuilder.group({
+      id: [(cliente && cliente.id) ? cliente.id : null],
+      nome: [(cliente && cliente.nome) ? cliente.nome : null],
+      cep: [(cliente && cliente.cep) ? cliente.cep : null],
+      cpf: [(cliente && cliente.cpf) ? cliente.cpf : null]
+    })
+  
+  }
+
+
   onSubmit() {
     if (this.formGroup.valid) {
       const novoCliente = this.formGroup.value;

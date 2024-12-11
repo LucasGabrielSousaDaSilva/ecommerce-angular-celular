@@ -20,7 +20,8 @@
         <ng-container matColumnDef="acao">
             <th mat-header-cell *matHeaderCellDef> Ação </th>
             <td mat-cell *matCellDef="let portaSlot"> 
-                <button mat-icon-button color="primary" (click)="editarPortaSlot(portaSlot)">
+                <button mat-icon-button color="primary" 
+                routerLink="../portaSlots/edit/{{portaSlot.id}}">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button color="warn" (click)="delete(portaSlot.id)">

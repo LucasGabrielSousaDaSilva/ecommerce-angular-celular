@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { SerieService } from '../../../services/serie.service';
@@ -21,15 +21,15 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: './serie-list.component.html',
   styleUrl: './serie-list.component.css'
 })
-export class SerieListComponent {
+export class SerieListComponent implements OnInit {
   totalRecords = 0;
   pageSize = 2;
   page = 0;
 
   displayedColumns : string[] = ['nome','anoLancamento','acao'];
 
-  telaForm!: FormGroup;
-  telaSelecionado: Serie | null = null;
+  serieForm!: FormGroup;
+  serieSelecionado: Serie | null = null;
 
   series : Serie[] = [];
 

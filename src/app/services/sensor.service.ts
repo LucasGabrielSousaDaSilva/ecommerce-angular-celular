@@ -7,7 +7,7 @@ import { Sensor } from '../models/sensor.model';
   providedIn: 'root'
 })
 export class SensorService {
-  private baseUrl = 'http://localhost:8080/sensores';
+  private baseUrl = 'http://localhost:8080/Sensor';
 
   constructor(private httpClient: HttpClient) { }
 
