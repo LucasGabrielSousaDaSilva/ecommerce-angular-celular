@@ -42,10 +42,10 @@ export class LoginComponent {
       const username = this.loginForm.get('username')?.value;
       const password = this.loginForm.get('password')?.value;
 
-      this.authService.loginADM(username, password).subscribe ({
+      this.authService.login(username, password).subscribe ({
         next: (resp) => {
           // redirecionando para a pagina principal
-          this.router.navigateByUrl('/admin');
+          this.router.navigateByUrl('/user');
         },
         error: (err) => {
           console.log(err);

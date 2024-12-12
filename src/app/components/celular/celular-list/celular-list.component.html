@@ -1,3 +1,4 @@
+<div class="full-height">
 <mat-toolbar color="primary">
     <div class="flex-container">
         <span class="toolbar-title">Controle de Celulares</span>
@@ -9,48 +10,49 @@
 
 <mat-divider></mat-divider>
 
-<div class="table-container">
-    <table mat-table [dataSource]="celulars" class="mat-elevation-z8">
+    <div class="table-container">
+        <table mat-table [dataSource]="celulars" class="mat-elevation-z8">
 
-        <ng-container matColumnDef="nome">
-            <th mat-header-cell *matHeaderCellDef> Nome </th>
-            <td mat-cell *matCellDef="let celular"> {{celular.nome}} </td>
-        </ng-container>
+            <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let celular"> {{celular.nome}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="preco">
-            <th mat-header-cell *matHeaderCellDef> Preco </th>
-            <td mat-cell *matCellDef="let celular"> {{celular.preco}} </td>
-        </ng-container>
+            <ng-container matColumnDef="preco">
+                <th mat-header-cell *matHeaderCellDef> Preco </th>
+                <td mat-cell *matCellDef="let celular"> {{celular.preco}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="estoque">
-            <th mat-header-cell *matHeaderCellDef> Estoque </th>
-            <td mat-cell *matCellDef="let celular"> {{celular.estoque}} </td>
-        </ng-container>
+            <ng-container matColumnDef="estoque">
+                <th mat-header-cell *matHeaderCellDef> Estoque </th>
+                <td mat-cell *matCellDef="let celular"> {{celular.estoque}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="acao">
-            <th mat-header-cell *matHeaderCellDef> Ação </th>
-            <td mat-cell *matCellDef="let celular"> 
-                <button mat-icon-button
-                    color="primary"
-                    routerLink="../celulares/edit/{{celular.id}}">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button
-                    color="warn"
-                    (click)="delete(celular.id)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+            <ng-container matColumnDef="acao">
+                <th mat-header-cell *matHeaderCellDef> Ação </th>
+                <td mat-cell *matCellDef="let celular"> 
+                    <button mat-icon-button
+                        color="primary"
+                        routerLink="../celulares/edit/{{celular.id}}">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button
+                        color="warn"
+                        (click)="delete(celular.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+    <mat-paginator 
+    [pageSizeOptions]="[4, 6, 10]" showFirstLastButtons
+    [pageSize]="pageSize"
+    [length]="totalRecords"
+    (page)="paginar($event)">
+    </mat-paginator>
 </div>
 
-<mat-paginator 
-[pageSizeOptions]="[4, 6, 10]" showFirstLastButtons
-[pageSize]="pageSize"
-[length]="totalRecords"
-(page)="paginar($event)">
-</mat-paginator>

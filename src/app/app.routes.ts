@@ -38,6 +38,7 @@ import { LinhaFormComponent } from './components/linha/linha-form/linha-form.com
 import { funcionarioResolver } from './components/funcionario/resolver/funcionario.resolver';
 import { cameraResolver } from './components/camera/camera.resolver';
 import { portaSlotResolver } from './components/portaSlot/resolver/porta-slot.resolver';
+import { VendaComponent } from './components/venda/venda/venda.component';
 
 export const routes: Routes = [
     { 
@@ -92,7 +93,8 @@ export const routes: Routes = [
             { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
             { path: 'ecommerce/:id', component: CelularDetalhesComponent, title: 'Detalhes'},
             { path: 'login', component: LoginComponent, title: 'Login'},
-            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho'}
+            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho'},
+            { path: 'venda', component: VendaComponent, title: 'Finalizar Venda' }
         ]
     },
     {

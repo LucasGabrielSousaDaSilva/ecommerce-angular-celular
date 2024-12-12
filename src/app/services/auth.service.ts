@@ -9,7 +9,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
     providedIn: 'root'
 })
 export class AuthService {
-    private baseUrl = 'http://localhost:8080/auth';
+    private baseUrl = 'http://localhost:8080/Autorizacao';
     private tokenKey = 'jwt_token';
     private usuarioLogadoKey = 'usuario_logado';
     private usuarioLogadoSubject = new BehaviorSubject<Usuario|null>(null);
