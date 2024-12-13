@@ -1,3 +1,4 @@
+<div class="full-height">
 <mat-toolbar color="primary">
     <div class="flex-container">
         <span class="toolbar-title">Controle de series</span>
@@ -7,6 +8,7 @@
     </div>
 </mat-toolbar>
 
+<div class="content">
 <table mat-table [dataSource]="series" class="mat-elevation-z8">
 
     <!-- Nome Column -->
@@ -53,3 +55,5 @@
 [length]="totalRecords"
 (page)="paginar($event)">
 </mat-paginator>
+</div>
+</div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ItemCarrinho } from '../../models/item-carrinho.model';
 import { CarrinhoService } from '../../services/carrinho.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 // import { MatDivider } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-carrinho',
   standalone: true,
-  imports: [NgFor, NgIf,MatCardModule, CommonModule, FormsModule],
+  imports: [NgFor, NgIf,MatCardModule, CommonModule, FormsModule, RouterLink],
   templateUrl: './carrinho.component.html',
   styleUrl: './carrinho.component.css'
 })

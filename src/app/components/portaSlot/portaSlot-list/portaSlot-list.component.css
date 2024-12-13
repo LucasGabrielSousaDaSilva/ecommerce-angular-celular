@@ -52,3 +52,13 @@
     font-size: 1.5em;
     margin-bottom: 10px;
   }
+
+  .full-height {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+}

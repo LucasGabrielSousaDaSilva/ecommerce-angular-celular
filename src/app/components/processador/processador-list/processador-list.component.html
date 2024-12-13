@@ -1,3 +1,4 @@
+<div class="full-height">
 <mat-toolbar color="primary">
     <div class="flex-container">
         <span class="toolbar-title">Controle de Processadores</span>
@@ -9,19 +10,7 @@
 
 <mat-divider></mat-divider>
 
-<div class="table-container">
-
-    <!-- <div class="container">
-        <div class="input-container">
-            <mat-form-field appearance="outline" class="input-field">
-                <mat-label>Pesquisar pelo Nome do Fornecedor</mat-label> -->
-                <!-- <input [(ngModel)]="filtro" matInput placeholder="Ex: Sextante Ltda" #input (keyup.enter)="filtrar()"> -->
-            <!-- </mat-form-field> -->
-            <!-- <button mat-icon-button color="primary" class="search-button" id="meuBotaoPesquisar" (click)="filtrar()"> -->
-            <!-- <mat-icon>search</mat-icon> -->
-        <!-- </button> -->
-        <!-- </div>
-    </div> -->
+<div class="content table-container">
 
     <table mat-table [dataSource]="processadores" class="mat-elevation-z8">
         <!-- Nome Column -->
@@ -60,33 +49,12 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <mat-paginator 
+    [pageSizeOptions]="[3, 6, 10]" showFirstLastButtons
+    [pageSize]="pageSize"
+    [length]="totalRecords"
+    (page)="paginar($event)">
+    </mat-paginator>
 </div>
-
-<mat-card *ngIf="processadorSelecionado" class="form-card">
-    <mat-card-title>Edição de processadores</mat-card-title>
-    <mat-card-content>
-        <form [formGroup]="processadorForm" (ngSubmit)="salvarProcessador()">
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>marca</mat-label>
-                <input matInput formControlName="marca">
-            </mat-form-field>
-            
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>modelo</mat-label>
-                <input matInput formControlName="modelo">
-            </mat-form-field>
-
-            <mat-card-actions class="actions">
-                <button mat-button type="submit" color="primary">Salvar</button>
-                <button mat-button type="button" color="warn" (click)="cancelarEdicao()">Cancelar</button>
-            </mat-card-actions>
-        </form>
-    </mat-card-content>
-</mat-card>
-
-<mat-paginator 
-[pageSizeOptions]="[3, 6, 10]" showFirstLastButtons
-[pageSize]="pageSize"
-[length]="totalRecords"
-(page)="paginar($event)">
-</mat-paginator>
+</div>
