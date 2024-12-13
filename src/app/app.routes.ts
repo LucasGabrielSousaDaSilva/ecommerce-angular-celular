@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-// import { clienteResolver } from "./components/cliente/resolver/cliente.resolver";
 import { ClienteFormComponent } from './components/cliente/cliente-form/cliente-form.component';
 import { ClienteListComponent } from "./components/cliente/cliente-list/cliente-list.component";
 import { FuncionarioListComponent } from './components/funcionario/funcionario-list/funcionario-list.component';
@@ -50,7 +49,7 @@ export const routes: Routes = [
 
     {path: '', pathMatch: 'full', redirectTo: 'clientes'},
 
-    {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{cliente: clienteResolver}},
+    { path: 'clientes/edit/:id', component: ClienteFormComponent, resolve: { cliente: clienteResolver }, title: 'Editar Cliente' },
     {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
     {path: 'clientes/new', component: ClienteFormComponent, title: 'Novo Cliente'},
     {path: 'funcionarios/edit/:id',component: FuncionarioFormComponent, resolve:{funcionario: funcionarioResolver}},

@@ -36,8 +36,15 @@ export class ClienteService {
     return this.httpClient.post<Cliente>(this.baseUrl, Cliente);
   }
 
-  update(Cliente: Cliente): Observable<Cliente> {
-    return this.httpClient.put<any>(`${this.baseUrl}/${Cliente.id}`, Cliente); 
+  update(cliente: Cliente): Observable<Cliente> {
+    const data = {
+      nome: cliente.nome,
+      cep: cliente.cep,
+      cpf: cliente.cpf,
+      login: cliente.login,
+      senha: cliente.senha
+    }
+    return this.httpClient.put<any>(`${this.baseUrl}/${cliente.id}`, data); 
   }
 
   delete(id: number): Observable<any>{

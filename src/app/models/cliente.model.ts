@@ -4,4 +4,6 @@ export class Cliente {
     nome!: string;
     cpf!: string;
     cep!: string;
+    login!: string;
+    senha!: string;
 }

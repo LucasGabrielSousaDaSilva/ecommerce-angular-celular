@@ -47,7 +47,8 @@ export class ClienteListComponent implements OnInit{
       this.clienteForm = this.formBuilder.group({
         nome:['', Validators.required],
         cep:['', Validators.required],
-        cpf:['' , Validators.required]
+        cpf:['' , Validators.required],
+        login:['', Validators.required],
       });
     }
  

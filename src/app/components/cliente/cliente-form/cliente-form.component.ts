@@ -32,7 +32,9 @@ export class ClienteFormComponent implements OnInit {
       this.formGroup = this.formBuilder.group({
         nome:['', Validators.required],
         cep:['', Validators.required],
-        cpf:['' , Validators.required]
+        cpf:['' , Validators.required],
+        login:['', Validators.required],
+        senha:['', Validators.required],
       }) 
   }
 
@@ -47,7 +49,9 @@ export class ClienteFormComponent implements OnInit {
       id: [(cliente && cliente.id) ? cliente.id : null],
       nome: [(cliente && cliente.nome) ? cliente.nome : null],
       cep: [(cliente && cliente.cep) ? cliente.cep : null],
-      cpf: [(cliente && cliente.cpf) ? cliente.cpf : null]
+      cpf: [(cliente && cliente.cpf) ? cliente.cpf : null],
+      login: [(cliente && cliente.login) ? cliente.login : null],
+      senha: [(cliente && cliente.senha) ? cliente.senha : null],
     })
   
   }

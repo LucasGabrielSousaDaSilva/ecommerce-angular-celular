@@ -1,60 +1,80 @@
-<mat-toolbar color="primary">
-    <div class="flex-container">
-        <span class="toolbar-title">Cadastro de Clientes</span>
-        <button mat-fab color="accent" routerLink="new">
-            <mat-icon>add</mat-icon>
-        </button>
+<div class="full-screen-container">
+    <mat-toolbar color="primary">
+        <div class="flex-container">
+            <span class="toolbar-title">Cadastro de Clientes</span>
+            <button mat-fab color="accent" routerLink="new">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+
+    <div class="form-container">
+        <mat-card>
+            <mat-card-content>
+                <form [formGroup]="formGroup">
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Nome</mat-label>
+                        <input matInput type="text" formControlName="nome">
+                        <mat-error *ngIf="formGroup.get('nome') 
+                                       && formGroup.get('nome')?.invalid
+                                       && formGroup.get('nome')?.touched">
+                            O nome é obrigatorio.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>CEP</mat-label>
+                        <input matInput type="text" formControlName="cep">
+                        <mat-error *ngIf="formGroup.get('cep') 
+                                       && formGroup.get('cep')?.invalid
+                                       && formGroup.get('cep')?.touched">
+                            O cep é obrigatorio.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>CPF</mat-label>
+                        <input matInput type="text" formControlName="cpf">
+                        <mat-error *ngIf="formGroup.get('cpf') 
+                                       && formGroup.get('cpf')?.invalid
+                                       && formGroup.get('cpf')?.touched">
+                            O cpf é obrigatorio.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>LOGIN</mat-label>
+                        <input matInput type="text" formControlName="login">
+                        <mat-error *ngIf="formGroup.get('login') 
+                                       && formGroup.get('login')?.invalid
+                                       && formGroup.get('login')?.touched">
+                            O login é obrigatorio.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>SENHA</mat-label>
+                        <input matInput type="password" formControlName="senha">
+                        <mat-error *ngIf="formGroup.get('senha') 
+                                       && formGroup.get('senha')?.invalid
+                                       && formGroup.get('senha')?.touched">
+                            O senha é obrigatorio.
+                        </mat-error>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+
+            <mat-card-actions>
+                <button mat-raised-button routerLink="/admin/clientes">
+                    Cancelar
+                </button>
+
+                <!-- <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
+                    [disabled]="formGroup.invalid">
+                    Excluir
+                </button> -->
+
+                <button mat-raised-button color="primary" (click)="onSubmit()">
+                    Salvar
+                </button>
+
+            </mat-card-actions>
+        </mat-card>
     </div>
-</mat-toolbar>
-
-<div class="form-container">
-    <mat-card>
-        <mat-card-content>
-            <form [formGroup]="formGroup">
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Nome</mat-label>
-                    <input matInput type="text" formControlName="nome">
-                    <mat-error *ngIf="formGroup.get('nome') 
-                                   && formGroup.get('nome')?.invalid
-                                   && formGroup.get('nome')?.touched">
-                        O nome é obrigatorio.
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>CEP</mat-label>
-                    <input matInput type="text" formControlName="cep">
-                    <mat-error *ngIf="formGroup.get('cep') 
-                                   && formGroup.get('cep')?.invalid
-                                   && formGroup.get('cep')?.touched">
-                        O cep é obrigatorio.
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>CPF</mat-label>
-                    <input matInput type="text" formControlName="cpf">
-                    <mat-error *ngIf="formGroup.get('cpf') 
-                                   && formGroup.get('cpf')?.invalid
-                                   && formGroup.get('cpf')?.touched">
-                        O cpf é obrigatorio.
-                    </mat-error>
-                </mat-form-field>
-            </form>
-        </mat-card-content>
-
-        <mat-card-actions>
-            <button mat-raised-button routerLink="/admin/clientes">
-                Cancelar
-            </button>
-
-            <!-- <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
-                [disabled]="formGroup.invalid">
-                Excluir
-            </button> -->
-
-            <button mat-raised-button color="primary" (click)="onSubmit()" >
-                Salvar
-            </button>
-
-        </mat-card-actions>
-    </mat-card>
 </div>

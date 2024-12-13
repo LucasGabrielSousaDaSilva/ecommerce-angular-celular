@@ -13,7 +13,24 @@
     width: 100%;
 }
 
-
 table {
+    width: 100%;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.mat-card {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.full-width-input {
     width: 100%;
 }

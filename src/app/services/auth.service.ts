@@ -33,7 +33,7 @@ export class AuthService {
         const params = {
             login: username,
             senha: senha,
-            perfil: 1 // ADM
+            perfil: 2 // ADM
         }
 
         //{ observe: 'response' } para garantir que a resposta completa seja retornada (incluindo o cabeçalho)
@@ -57,7 +57,7 @@ export class AuthService {
         const params = {
             login: username,
             senha: senha,
-            perfil: 2 // Cliente
+            perfil: 1 // Cliente
         }
 
       //{ observe: 'response' } para garantir que a resposta completa seja retornada (incluindo o cabeçalho)

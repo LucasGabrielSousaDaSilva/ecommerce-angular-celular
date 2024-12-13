@@ -147,20 +147,21 @@ export class CelularFormComponent implements OnInit {
     }
   
     this.formGroup = this.formBuilder.group({
-      nome: ['', Validators.required],
-      preco: [null, Validators.required],
-      estoque: [null, Validators.required],
-      marca: ['', Validators.required],
-      anoLancamento: [null, Validators.required],
-      armazenamento: [null, Validators.required],
-      ram: [null, Validators.required],
-      idProcessador: [null, Validators.required],
-      idTela: [null, Validators.required],
-      idPortaSlot: [[], Validators.required],
-      idCamera: [[], Validators.required],
-      idSensor: [[], Validators.required],
-      idSerie: [null, Validators.required],
-      id: [null],
+      id: [(celular && celular.id) ? celular.id : null],
+      nome: [(celular && celular.nome) ? celular.nome : null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      preco: [(celular && celular.preco) ? celular.preco : null, Validators.required],
+      estoque: [(celular && celular.estoque) ? celular.estoque : null, Validators.required],
+      marca: [(celular && celular.marca) ? celular.marca : null, Validators.required],
+      anoLancamento: [(celular && celular.anoLancamento) ? celular.anoLancamento : null, Validators.required],
+      armazenamento: [(celular && celular.armazenamento) ? celular.armazenamento : null, Validators.required],
+      ram: [(celular && celular.ram) ? celular.ram : null, Validators.required],
+      idProcessador: [(celular && celular.processador) ? celular.processador : null, Validators.required],
+      idTela: [(celular && celular.tela) ? celular.tela : null, Validators.required],
+      idPortaSlot: [(celular && celular.portaSlot) ? celular.portaSlot : [], Validators.required],
+      idCamera: [(celular && celular.camera) ? celular.camera : [], Validators.required],
+      idSensor: [(celular && celular.sensor) ? celular.sensor : [], Validators.required],
+      idSerie: [(celular && celular.serie) ? celular.serie : null, Validators.required],
+
     });
   }
 
