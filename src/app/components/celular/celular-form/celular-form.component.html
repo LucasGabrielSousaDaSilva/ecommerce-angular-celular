@@ -7,31 +7,129 @@
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Nome</mat-label>
-                    <input matInput type="text" formControlName="nome"  #inputNome>
-                    <mat-error *ngIf="formGroup.get('nome') 
-                                   && formGroup.get('nome')?.invalid
-                                   && formGroup.get('nome')?.touched">
-                                   O campo nome é obrigatório
+                    <input matInput type="text" formControlName="nome">
+                    <mat-error *ngIf="formGroup.get('nome')?.invalid && formGroup.get('nome')?.touched">
+                        {{ getErrorMessage('nome', formGroup.get('nome')?.errors) }}
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="full-width-input"  #inputNome>
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Preço</mat-label>
-                    <input matInput type="text" formControlName="preco">
-                    <mat-error *ngIf="formGroup.get('preco') 
-                                   && formGroup.get('preco')?.invalid
-                                   && formGroup.get('preco')?.touched">
-                                   O campo preco é obrigatório
+                    <input matInput type="number" formControlName="preco">
+                    <mat-error *ngIf="formGroup.get('preco')?.invalid && formGroup.get('preco')?.touched">
+                        {{ getErrorMessage('preco', formGroup.get('preco')?.errors) }}
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="full-width-input"  #inputNome>
+                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Estoque</mat-label>
-                    <input matInput type="text" formControlName="estoque">
-                    <mat-error *ngIf="formGroup.get('estoque') 
-                                   && formGroup.get('estoque')?.invalid
-                                   && formGroup.get('estoque')?.touched">
-                                   O campo estoque é obrigatório
+                    <input matInput type="number" formControlName="estoque">
+                    <mat-error *ngIf="formGroup.get('estoque')?.invalid && formGroup.get('estoque')?.touched">
+                        {{ getErrorMessage('estoque', formGroup.get('estoque')?.errors) }}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Marca</mat-label>
+                    <input matInput type="text" formControlName="marca">
+                    <mat-error *ngIf="formGroup.get('marca')?.invalid && formGroup.get('marca')?.touched">
+                        O campo marca é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Ano de Lançamento</mat-label>
+                    <input matInput type="number" formControlName="anoLancamento">
+                    <mat-error *ngIf="formGroup.get('anoLancamento')?.invalid && formGroup.get('anoLancamento')?.touched">
+                        O campo ano de lançamento é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Armazenamento (GB)</mat-label>
+                    <input matInput type="number" formControlName="armazenamento">
+                    <mat-error *ngIf="formGroup.get('armazenamento')?.invalid && formGroup.get('armazenamento')?.touched">
+                        O campo armazenamento é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Memória RAM (GB)</mat-label>
+                    <input matInput type="number" formControlName="ram">
+                    <mat-error *ngIf="formGroup.get('ram')?.invalid && formGroup.get('ram')?.touched">
+                        O campo RAM é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Processador</mat-label>
+                    <mat-select formControlName="idProcessador" placeholder="Selecione um processador">
+                        <mat-option *ngFor="let processador of processadores" [value]="processador.id">
+                            {{ processador.modelo }} / {{ processador.marca }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formGroup.get('processador')?.invalid && formGroup.get('processador')?.touched">
+                        O campo processador é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Serie</mat-label>
+                    <mat-select formControlName="idSerie" placeholder="Selecione um serie">
+                        <mat-option *ngFor="let serie of series" [value]="serie.id">
+                            {{ serie.nome }} 
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formGroup.get('serie')?.invalid && formGroup.get('serie')?.touched">
+                        O campo serie é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Tela</mat-label>
+                    <mat-select formControlName="idTela" placeholder="Selecione uma tela">
+                        <mat-option *ngFor="let tela of telas" [value]="tela.id">
+                            {{ tela.resolucao }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formGroup.get('tela')?.invalid && formGroup.get('tela')?.touched">
+                        O campo tela é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Portas/Slots</mat-label>
+                    <mat-select formControlName="idPortaSlot" multiple placeholder="Selecione uma ou mais portas/slots">
+                        <mat-option *ngFor="let porta of portas" [value]="porta.id">
+                            {{ porta.tipo }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formGroup.get('portaSlot')?.invalid && formGroup.get('portaSlot')?.touched">
+                        O campo portas/slots é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Camera</mat-label>
+                    <mat-select formControlName="idCamera" multiple placeholder="Selecione uma ou mais cameras/slots">
+                        <mat-option *ngFor="let camera of cameras" [value]="camera.id">
+                            {{ camera.resolucao }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formGroup.get('cameraSlot')?.invalid && formGroup.get('cameraSlot')?.touched">
+                        O campo cameras é obrigatório
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Sensores</mat-label>
+                    <mat-select formControlName="idSensor" multiple placeholder="Selecione uma ou mais Sensores">
+                        <mat-option *ngFor="let sensor of sensores" [value]="sensor.id">
+                            {{ sensor.tipo }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formGroup.get('sensor')?.invalid && formGroup.get('sensor')?.touched">
+                        O campo sensor é obrigatório
                     </mat-error>
                 </mat-form-field>
 
@@ -42,19 +140,9 @@
 
                     <button mat-icon-button matSuffix (click)="fileInput.click()">
                         <mat-icon>folder_open</mat-icon>
-                    </button>   
+                    </button>
                 </mat-form-field>
 
-                <div *ngIf="imagePreview" class="container responsive-grid">
-                    <mat-card>
-
-                        <img mat-card-image [src]="imagePreview" >
-
-                        <mat-card-title class="centered-text"> {{inputNome.value}} </mat-card-title>
-
-                    </mat-card>
-                </div>
-                
             </form>
         </mat-card-content>
         <mat-card-actions>
@@ -67,7 +155,7 @@
                 Excluir
             </button>
 
-            <button mat-raised-button color="primary" (click)="salvar()" >
+            <button mat-raised-button color="primary" (click)="salvar()">
                 Salvar
             </button>
 

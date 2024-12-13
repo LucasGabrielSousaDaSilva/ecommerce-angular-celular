@@ -1,24 +1,23 @@
-// import { Serie } from "./Serie.model";
 // import { Sensor } from "./sensor.model";
 
 import { Camera } from "./camera.model";
-import { PortaSlot } from "./porta-slot.model";
 import { Processador } from "./processador.model";
 import { Tela } from "./tela.model";
+import { Serie } from "./serie.model";
 
 
 export class Celular {
     id! : number;
     tela! : Tela;
     processador! : Processador;
-    // serie! : Serie;
-    camera! : Camera;
-    portaSlot! : PortaSlot;
-    // sensor! : Sensor;
+    serie! : Serie;
+    camera! : number[];
+    portaSlot!: number[];
+    sensor! : number[];
     nomeImagem! : string;
     marca! : string;
     nome! : string;
-    anoLacamento! : any;
+    anoLancamento! : any;
     armazenamento! : number;
     ram! : number;
     preco! : number;
