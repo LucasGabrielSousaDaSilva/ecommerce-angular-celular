@@ -62,30 +62,6 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Processador</mat-label>
-                    <mat-select formControlName="idProcessador" placeholder="Selecione um processador">
-                        <mat-option *ngFor="let processador of processadores" [value]="processador.id">
-                            {{ processador.modelo }} / {{ processador.marca }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="formGroup.get('processador')?.invalid && formGroup.get('processador')?.touched">
-                        O campo processador é obrigatório
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Serie</mat-label>
-                    <mat-select formControlName="idSerie" placeholder="Selecione um serie">
-                        <mat-option *ngFor="let serie of series" [value]="serie.id">
-                            {{ serie.nome }} 
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="formGroup.get('serie')?.invalid && formGroup.get('serie')?.touched">
-                        O campo serie é obrigatório
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Tela</mat-label>
                     <mat-select formControlName="idTela" placeholder="Selecione uma tela">
                         <mat-option *ngFor="let tela of telas" [value]="tela.id">
@@ -97,17 +73,56 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" class="full-width-input">
-                    <mat-label>Portas/Slots</mat-label>
-                    <mat-select formControlName="idPortaSlot" multiple placeholder="Selecione uma ou mais portas/slots">
-                        <mat-option *ngFor="let porta of portas" [value]="porta.id">
-                            {{ porta.tipo }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="formGroup.get('portaSlot')?.invalid && formGroup.get('portaSlot')?.touched">
-                        O campo portas/slots é obrigatório
-                    </mat-error>
-                </mat-form-field>
+                <div class="input-with-button">
+                    <mat-form-field appearance="outline" class="flex-item">
+                        <mat-label>Processador</mat-label>
+                        <mat-select formControlName="idProcessador" placeholder="Selecione um processador">
+                            <mat-option *ngFor="let processador of processadores" [value]="processador.id">
+                                {{ processador.modelo }} / {{ processador.marca }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formGroup.get('processador')?.invalid && formGroup.get('processador')?.touched">
+                            O campo processador é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-mini-fab color="primary" (click)="navigateToProcessador()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+
+                <div class="input-with-button">
+                    <mat-form-field appearance="outline" class="flex-item">
+                        <mat-label>Serie</mat-label>
+                        <mat-select formControlName="idSerie" placeholder="Selecione um serie">
+                            <mat-option *ngFor="let serie of series" [value]="serie.id">
+                                {{ serie.nome }} 
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formGroup.get('serie')?.invalid && formGroup.get('serie')?.touched">
+                            O campo serie é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-mini-fab color="primary" (click)="navigateToSerie()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+
+                <div class="input-with-button">
+                    <mat-form-field appearance="outline" class="flex-item">
+                        <mat-label>Portas/Slots</mat-label>
+                        <mat-select formControlName="idPortaSlot" multiple placeholder="Selecione uma ou mais portas/slots">
+                            <mat-option *ngFor="let porta of portas" [value]="porta.id">
+                                {{ porta.tipo }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formGroup.get('portaSlot')?.invalid && formGroup.get('portaSlot')?.touched">
+                            O campo portas/slots é obrigatório
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-mini-fab color="primary" (click)="navigateToPortaSlot()">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                </div>
 
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Camera</mat-label>

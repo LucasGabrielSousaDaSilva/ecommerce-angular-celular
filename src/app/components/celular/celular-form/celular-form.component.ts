@@ -21,6 +21,7 @@ import { PortaSlotService } from '../../../services/porta-slot.service';
 import { SensorService } from '../../../services/sensor.service';
 import { SerieService } from '../../../services/serie.service';
 import { CameraService } from '../../../services/camera.service';
+import { FormStateService } from '../../../services/form-state.service';
 
 @Component({
   selector: 'app-celular-form',
@@ -46,6 +47,8 @@ export class CelularFormComponent implements OnInit {
   sensores: {id: number; tipo:string}[] = [];
 
   constructor(private formBuilder: FormBuilder,
+    private fb: FormBuilder,
+    private formStateService: FormStateService,
     private telaService: TelaService,
     private portaSlotService: PortaSlotService,
     private cameraService: CameraService,
@@ -57,12 +60,20 @@ export class CelularFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private location: Location) {
       this.formGroup = this.formBuilder.group({
-        id: [null],
-        nome:['', Validators.required],
-        preco:['', Validators.required],
-        estoque:['', Validators.required],
+        nome: ['', Validators.required],
+        preco: [null, Validators.required],
+        estoque: [null, Validators.required],
+        marca: ['', Validators.required],
+        anoLancamento: [null, Validators.required],
+        armazenamento: [null, Validators.required],
+        ram: [null, Validators.required],
+        idProcessador: [null, Validators.required],
+        idTela: [null, Validators.required],
         idPortaSlot: [[], Validators.required],
-        idSensor: [[], Validators.required]
+        idCamera: [[], Validators.required],
+        idSensor: [[], Validators.required],
+        idSerie: [null, Validators.required],
+        id: [null],
       });
   }
 
@@ -74,6 +85,10 @@ export class CelularFormComponent implements OnInit {
     this.carregarSensores();
     this.carregarSeries();
     this.carregarCameras();
+    const savedState = this.formStateService.getState();
+    if (savedState) {
+      this.formGroup.patchValue(savedState);
+    }
   }
 
   carregarProcessadores(): void {
@@ -244,6 +259,21 @@ export class CelularFormComponent implements OnInit {
     }
 
     return 'invalid field';
+  }
+
+  navigateToPortaSlot() {
+    this.formStateService.saveState(this.formGroup.value);
+    this.router.navigate(['/admin/portaSlots/new']);
+  }
+
+  navigateToProcessador() {
+    this.formStateService.saveState(this.formGroup.value);
+    this.router.navigate(['/admin/processadores/new']);
+  }
+
+  navigateToSerie() {
+    this.formStateService.saveState(this.formGroup.value);
+    this.router.navigate(['/admin/series/new']);
   }
 
   errorMessages: { [controlName: string]: { [errorName: string]: string } } = {
