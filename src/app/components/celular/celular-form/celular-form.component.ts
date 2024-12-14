@@ -42,7 +42,7 @@ export class CelularFormComponent implements OnInit {
   imagePreview: string | ArrayBuffer | null = null;
   processadores: { id: number; modelo: string; marca: string }[] = [];
   series: { id: number; nome: string; anoLancamento: number}[] = [];
-  telas: Tela[] = [];
+  telas: {id: number; resolucao: number; tamanho: number;}[] = [];
   portas: {id: number; tipo: string}[] = [];
   cameras: {id: number; resolucao: number; frontal: boolean;}[] = [];
   sensores: {id: number; tipo:string}[] = [];
@@ -68,7 +68,7 @@ export class CelularFormComponent implements OnInit {
         armazenamento: [null, Validators.required],
         ram: [null, Validators.required],
         idProcessador: [null, Validators.required],
-        telas: [null, Validators.required],
+        idtela: [null, Validators.required],
         idPortaSlot: [[], Validators.required],
         idCamera: [[], Validators.required],
         idSensor: [[], Validators.required],
@@ -79,12 +79,8 @@ export class CelularFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.celularService.findTelas().subscribe( data =>{
-      this.telas = data;
-      this.initializeForm();
-    });
-
     this.initializeForm();
+    this.carregarTelas();
     this.carregarProcessadores();
     this.carregarPortas();
     this.carregarSensores();
@@ -144,8 +140,6 @@ export class CelularFormComponent implements OnInit {
 
   initializeForm(): void {
     const celular: Celular = this.activatedRoute.snapshot.data['celular'];
-
-    const telas = this.telas.find(tela => tela.id === celular?.tela?.id || null);
   
     // carregando a imagem do preview
     if (celular && celular.nomeImagem) {
@@ -163,7 +157,7 @@ export class CelularFormComponent implements OnInit {
       armazenamento: [(celular && celular.armazenamento) ? celular.armazenamento : null, Validators.required],
       ram: [(celular && celular.ram) ? celular.ram : null, Validators.required],
       idProcessador: [(celular && celular.processador) ? celular.processador : null, Validators.required],
-      idTela: [telas, Validators.required],
+      telas: [(celular && celular.tela) ? celular.tela : null, Validators.required],
       idPortaSlot: [(celular && celular.portaSlot) ? celular.portaSlot : [], Validators.required],
       idCamera: [(celular && celular.camera) ? celular.camera : [], Validators.required],
       idSensor: [(celular && celular.sensor) ? celular.sensor : [], Validators.required],

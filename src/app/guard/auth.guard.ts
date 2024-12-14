@@ -11,7 +11,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     console.log('Token inválido');
     authService.removeToken();
     authService.removeUsuarioLogado();
-    router.navigate(['/admin/login']);
+    router.navigate(['/admin/loginADM']);
     return false;
   } else {
     console.log('Token válido');

@@ -46,18 +46,22 @@ export class SensorFormComponent implements OnInit {
   
   }
   onSubmit() {
+    this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const novosensor = this.formGroup.value;
-      this.sensorService.create(novosensor).subscribe({
-        next: (sensorCadastrado) => {
-          this.router.navigateByUrl('/admin/sensores');
+      const sensor = this.formGroup.value;
+      console.log('Dados enviados no formulário:', sensor); // Adicione este log
+      const operacao = sensor.id == null
+        ? this.sensorService.create(sensor)
+        : this.sensorService.update(sensor);
+  
+      operacao.subscribe({
+        next: () => {
+          this.router.navigateByUrl('/admin/sensors');
         },
         error: (err) => {
-          console.log('Erro ao salvar', + JSON.stringify(err));
+          console.log('Erro ao Salvar' + JSON.stringify(err));
         }
       });
-    } else {
-      console.log('Formulário inválido');
     }
   }
 }

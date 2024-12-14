@@ -47,18 +47,22 @@ export class SerieFormComponent implements OnInit {
   
   }
   onSubmit() {
+    this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const novaserie = this.formGroup.value;
-      this.serieService.create(novaserie).subscribe({
-        next: (serieCadastrado) => {
+      const serie = this.formGroup.value;
+      console.log('Dados enviados no formulário:', serie); // Adicione este log
+      const operacao = serie.id == null
+        ? this.serieService.create(serie)
+        : this.serieService.update(serie);
+  
+      operacao.subscribe({
+        next: () => {
           this.router.navigateByUrl('/admin/series');
         },
         error: (err) => {
-          console.log('Erro ao salvar', + JSON.stringify(err));
+          console.log('Erro ao Salvar' + JSON.stringify(err));
         }
       });
-    } else {
-      console.log('Formulário inválido');
     }
   }
 }

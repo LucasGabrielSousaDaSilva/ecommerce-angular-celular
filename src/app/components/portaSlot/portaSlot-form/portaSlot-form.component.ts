@@ -43,16 +43,22 @@ export class PortaSlotFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const novoPortaSlot = this.formGroup.value;
-      this.portaSlotService.create(novoPortaSlot).subscribe({
-        next: (portaSlotCadastrado) => {
-          this.router.navigateByUrl('/admin/portaSlots');
+      const portaSlot = this.formGroup.value;
+      console.log('Dados enviados no formulário:', portaSlot); // Adicione este log
+      const operacao = portaSlot.id == null
+        ? this.portaSlotService.create(portaSlot)
+        : this.portaSlotService.update(portaSlot);
+  
+      operacao.subscribe({
+        next: () => {
+          this.router.navigateByUrl('/admin/portaslots');
         },
         error: (err) => {
-          console.log('Erro ao salvar', + JSON.stringify(err));
+          console.log('Erro ao Salvar' + JSON.stringify(err));
         }
-      })
+      });
     }
   }
 }

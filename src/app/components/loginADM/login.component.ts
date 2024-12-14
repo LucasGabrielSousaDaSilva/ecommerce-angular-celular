@@ -19,7 +19,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginADMComponent {
 
   loginForm!: FormGroup;
 

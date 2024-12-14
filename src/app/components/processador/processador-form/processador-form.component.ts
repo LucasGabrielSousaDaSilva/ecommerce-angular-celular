@@ -52,16 +52,22 @@ initializeForm(): void {
 }
 
   onSubmit() {
+    this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const novoProcessador = this.formGroup.value;
-      this.processadorService.insert(novoProcessador).subscribe({
-        next: (processadorCadastrado) => {
+      const processador = this.formGroup.value;
+      console.log('Dados enviados no formulário:', processador); // Adicione este log
+      const operacao = processador.id == null
+        ? this.processadorService.insert(processador)
+        : this.processadorService.update(processador);
+  
+      operacao.subscribe({
+        next: () => {
           this.router.navigateByUrl('/admin/processadores');
         },
         error: (err) => {
-          console.log('Erro ao salvar: ' + JSON.stringify(err));
+          console.log('Erro ao Salvar' + JSON.stringify(err));
         }
-      })
+      });
     }
   }
 

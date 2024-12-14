@@ -53,16 +53,22 @@ export class FuncionarioFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const novoFuncionario = this.formGroup.value;
-      this.funcionarioService.create(novoFuncionario).subscribe({
-        next: (funcionarioCadastrado) => {
+      const funcionario = this.formGroup.value;
+      console.log('Dados enviados no formulário:', funcionario); // Adicione este log
+      const operacao = funcionario.id == null
+        ? this.funcionarioService.create(funcionario)
+        : this.funcionarioService.update(funcionario);
+  
+      operacao.subscribe({
+        next: () => {
           this.router.navigateByUrl('/admin/funcionarios');
         },
         error: (err) => {
-          console.log('Erro ao salvar', + JSON.stringify(err));
+          console.log('Erro ao Salvar' + JSON.stringify(err));
         }
-      })
+      });
     }
   }
 }

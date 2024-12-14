@@ -8,6 +8,6 @@ import { RouterLink } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterADMComponent {
 
 }

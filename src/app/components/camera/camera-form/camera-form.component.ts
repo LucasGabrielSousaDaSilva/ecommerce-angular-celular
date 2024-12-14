@@ -45,16 +45,22 @@ export class CameraFormComponent  implements OnInit {
   }
 
   onSubmit() {
+    this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const novoCamera = this.formGroup.value;
-      this.cameraService.create(novoCamera).subscribe({
-        next: (cameraCadastrado) => {
+      const camera = this.formGroup.value;
+      console.log('Dados enviados no formulário:', camera); // Adicione este log
+      const operacao = camera.id == null
+        ? this.cameraService.create(camera)
+        : this.cameraService.update(camera);
+  
+      operacao.subscribe({
+        next: () => {
           this.router.navigateByUrl('/admin/cameras');
         },
         error: (err) => {
-          console.log('Erro ao salvar', + JSON.stringify(err));
+          console.log('Erro ao Salvar' + JSON.stringify(err));
         }
-      })
+      });
     }
   }
 }

@@ -38,6 +38,8 @@ import { funcionarioResolver } from './components/funcionario/resolver/funcionar
 import { cameraResolver } from './components/camera/camera.resolver';
 import { portaSlotResolver } from './components/portaSlot/resolver/porta-slot.resolver';
 import { VendaComponent } from './components/venda/venda/venda.component';
+import { LoginADMComponent } from './components/loginADM/login.component';
+import { RegisterADMComponent } from './components/registerADM/register.component';
 
 export const routes: Routes = [
     { 
@@ -53,7 +55,7 @@ export const routes: Routes = [
     {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
     {path: 'clientes/new', component: ClienteFormComponent, title: 'Novo Cliente'},
     {path: 'funcionarios/edit/:id',component: FuncionarioFormComponent, resolve:{funcionario: funcionarioResolver}},
-    {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios'},
+    {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios', canActivate: [authGuard]},
     {path: 'funcionarios/new',component: FuncionarioFormComponent, title: 'Novo Funcionario'},
     {path: 'cameras/edit/:id',component: CameraFormComponent, resolve:{camera: cameraResolver}},
     {path: 'cameras',component: CameraListComponent, title: 'Lista de Cameras'},
@@ -78,7 +80,9 @@ export const routes: Routes = [
     {path: 'series/edit/:id', component: SerieFormComponent, resolve:{serie: serieResolver}},
     {path: 'linha', component: LinhaListComponent, title: 'Lista de Linhas'},
     {path: 'linha/new', component: LinhaFormComponent, title: 'Nova Linha'},
-    {path: 'linha/edit/:id', component: LinhaFormComponent, resolve:{linha: serieResolver}}
+    {path: 'linha/edit/:id', component: LinhaFormComponent, resolve:{linha: serieResolver}},
+    { path: 'loginADM', component: LoginADMComponent, title: 'Login'},
+    { path: 'registerADM', component: RegisterADMComponent, title: 'Register'}
         ]
     },
     { 

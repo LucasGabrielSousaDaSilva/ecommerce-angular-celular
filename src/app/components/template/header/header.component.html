@@ -7,9 +7,13 @@
 
     <span class="faixa-spacer"></span>
 
+    <div class="nav-icons">
+    <mat-icon class="nav-icon" routerLink="/admin/loginADM">account_box</mat-icon>
+    </div>
+
     <button  mat-icon-button (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
     </button>
-    <span>{{usuarioLogado?.login}}</span>
+    <span>{{usuarioLogado?.username}}</span>
     
 </mat-toolbar>
