@@ -73,16 +73,6 @@ export class CelularListComponent {
     );
   }
 
-  editarCelular(celular: Celular): void {
-    this.celularSelecionado = celular;
-
-    this.celularForm.patchValue({
-      nome: celular.nome,
-      preco: celular.preco,
-      estoque: celular.estoque
-    });
-  }
-
   salvarCelular(): void {
     if (this.celularForm.valid && this.celularSelecionado) {
       const celularEditado = {

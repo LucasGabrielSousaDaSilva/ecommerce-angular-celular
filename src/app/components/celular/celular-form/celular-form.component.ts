@@ -22,6 +22,7 @@ import { SensorService } from '../../../services/sensor.service';
 import { SerieService } from '../../../services/serie.service';
 import { CameraService } from '../../../services/camera.service';
 import { FormStateService } from '../../../services/form-state.service';
+import { Tela } from '../../../models/tela.model';
 
 @Component({
   selector: 'app-celular-form',
@@ -41,13 +42,12 @@ export class CelularFormComponent implements OnInit {
   imagePreview: string | ArrayBuffer | null = null;
   processadores: { id: number; modelo: string; marca: string }[] = [];
   series: { id: number; nome: string; anoLancamento: number}[] = [];
-  telas: {id: number; tamanho: number; resolucao: number}[] = [];
+  telas: Tela[] = [];
   portas: {id: number; tipo: string}[] = [];
   cameras: {id: number; resolucao: number; frontal: boolean;}[] = [];
   sensores: {id: number; tipo:string}[] = [];
 
   constructor(private formBuilder: FormBuilder,
-    private fb: FormBuilder,
     private formStateService: FormStateService,
     private telaService: TelaService,
     private portaSlotService: PortaSlotService,
@@ -68,7 +68,7 @@ export class CelularFormComponent implements OnInit {
         armazenamento: [null, Validators.required],
         ram: [null, Validators.required],
         idProcessador: [null, Validators.required],
-        idTela: [null, Validators.required],
+        telas: [null, Validators.required],
         idPortaSlot: [[], Validators.required],
         idCamera: [[], Validators.required],
         idSensor: [[], Validators.required],
@@ -78,9 +78,14 @@ export class CelularFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.celularService.findTelas().subscribe( data =>{
+      this.telas = data;
+      this.initializeForm();
+    });
+
     this.initializeForm();
     this.carregarProcessadores();
-    this.carregarTelas();
     this.carregarPortas();
     this.carregarSensores();
     this.carregarSeries();
@@ -139,6 +144,8 @@ export class CelularFormComponent implements OnInit {
 
   initializeForm(): void {
     const celular: Celular = this.activatedRoute.snapshot.data['celular'];
+
+    const telas = this.telas.find(tela => tela.id === celular?.tela?.id || null);
   
     // carregando a imagem do preview
     if (celular && celular.nomeImagem) {
@@ -148,7 +155,7 @@ export class CelularFormComponent implements OnInit {
   
     this.formGroup = this.formBuilder.group({
       id: [(celular && celular.id) ? celular.id : null],
-      nome: [(celular && celular.nome) ? celular.nome : null, [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      nome: [(celular && celular.nome) ? celular.nome : null, [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
       preco: [(celular && celular.preco) ? celular.preco : null, Validators.required],
       estoque: [(celular && celular.estoque) ? celular.estoque : null, Validators.required],
       marca: [(celular && celular.marca) ? celular.marca : null, Validators.required],
@@ -156,7 +163,7 @@ export class CelularFormComponent implements OnInit {
       armazenamento: [(celular && celular.armazenamento) ? celular.armazenamento : null, Validators.required],
       ram: [(celular && celular.ram) ? celular.ram : null, Validators.required],
       idProcessador: [(celular && celular.processador) ? celular.processador : null, Validators.required],
-      idTela: [(celular && celular.tela) ? celular.tela : null, Validators.required],
+      idTela: [telas, Validators.required],
       idPortaSlot: [(celular && celular.portaSlot) ? celular.portaSlot : [], Validators.required],
       idCamera: [(celular && celular.camera) ? celular.camera : [], Validators.required],
       idSensor: [(celular && celular.sensor) ? celular.sensor : [], Validators.required],
@@ -224,6 +231,7 @@ export class CelularFormComponent implements OnInit {
       operacao.subscribe({
         next: (celularCadastrada) => {
           this.uploadImage(celularCadastrada.id);
+          this.router.navigateByUrl('/admin/celulares');
         },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
@@ -281,7 +289,7 @@ export class CelularFormComponent implements OnInit {
     nome: {
       required: 'O nome deve ser informado.',
       minlength: 'O nome deve conter ao menos 2 letras.',
-      maxlength: 'O nome deve conter no máximo 10 letras.',
+      maxlength: 'O nome deve conter no máximo 60 letras.',
       apiError: ' '
     },
     preco: {

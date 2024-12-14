@@ -58,16 +58,38 @@ export class ClienteFormComponent implements OnInit {
 
 
   onSubmit() {
+    this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const novoCliente = this.formGroup.value;
-      this.clienteService.insert(novoCliente).subscribe({
-        next: (clienteCadastrado) => {
+      const cliente = this.formGroup.value;
+      console.log('Dados enviados no formulário:', cliente); // Adicione este log
+      const operacao = cliente.id == null
+        ? this.clienteService.insert(cliente)
+        : this.clienteService.update(cliente);
+  
+      operacao.subscribe({
+        next: () => {
           this.router.navigateByUrl('/admin/clientes');
         },
         error: (err) => {
-          console.log('Erro ao salvar', + JSON.stringify(err));
+          console.log('Erro ao Salvar' + JSON.stringify(err));
         }
-      })
+      });
+    }
+  }
+
+  excluir() {
+    if (this.formGroup.valid) {
+      const cliente = this.formGroup.value;
+      if (cliente.id != null) {
+        this.clienteService.delete(cliente).subscribe({
+          next: () => {
+            this.router.navigateByUrl('/admin/clientes');
+          },
+          error: (err) => {
+            console.log('Erro ao Excluir' + JSON.stringify(err));
+          }
+        });
+      }
     }
   }
 }

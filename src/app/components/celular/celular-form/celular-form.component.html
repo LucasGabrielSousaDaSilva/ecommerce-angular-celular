@@ -7,7 +7,7 @@
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="outline" class="full-width-input">
                     <mat-label>Nome</mat-label>
-                    <input matInput type="text" formControlName="nome">
+                    <input matInput type="text" formControlName="nome" #inputNome>
                     <mat-error *ngIf="formGroup.get('nome')?.invalid && formGroup.get('nome')?.touched">
                         {{ getErrorMessage('nome', formGroup.get('nome')?.errors) }}
                     </mat-error>
@@ -158,6 +158,13 @@
                     </button>
                 </mat-form-field>
 
+                <div *ngIf="imagePreview" class="container responsive-grid">
+                    <mat-card>
+                        <img mat-card-image [src]="imagePreview" >
+                        <mat-card-title class="centered-text"> {{inputNome.value}} </mat-card-title>
+                    </mat-card>
+                </div>
+
             </form>
         </mat-card-content>
         <mat-card-actions>
@@ -165,10 +172,10 @@
                 Cancelar
             </button>
 
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
+            <!-- <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
                 [disabled]="formGroup.invalid">
                 Excluir
-            </button>
+            </button> -->
 
             <button mat-raised-button color="primary" (click)="salvar()">
                 Salvar

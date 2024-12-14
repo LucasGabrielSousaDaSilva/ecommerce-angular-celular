@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Celular } from '../models/celular.model';
+import { Tela } from '../models/tela.model';
 
 
 @Injectable({
@@ -42,10 +43,6 @@ export class CelularService {
     return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
-  // findAll(page?: number, pageSize?: number): Observable<Celular[]> {
-  //   return this.httpClient.get<Celular[]>(this.baseUrl); 
-  // }
-
   findById(id: string): Observable<Celular> {
     return this.httpClient.get<Celular>(`${this.baseUrl}/${id}`); 
   }
@@ -65,6 +62,11 @@ export class CelularService {
   delete(id: number): Observable<any>{
     return this.httpClient.delete<any>(`${this.baseUrl}/${id}`); 
   }
+
+  findTelas(): Observable<Tela[]> {
+    return this.httpClient.get<Tela[]>(`${this.baseUrl}/telas`); 
+  }
+
 
 }
 

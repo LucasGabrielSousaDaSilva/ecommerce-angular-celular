@@ -46,13 +46,15 @@
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+        </table>       
     </div>
+
     <mat-paginator 
     [pageSizeOptions]="[4, 6, 10]" showFirstLastButtons
     [pageSize]="pageSize"
     [length]="totalRecords"
     (page)="paginar($event)">
     </mat-paginator>
+    
 </div>
 

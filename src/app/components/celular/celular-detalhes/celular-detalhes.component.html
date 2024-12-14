@@ -14,6 +14,15 @@
       <p><strong>RAM:</strong> {{ celular.ram }} GB</p>
       <p><strong>Preço:</strong> R$ {{ celular.preco }}</p>
       <p><strong>Estoque:</strong> {{ celular.estoque }}</p>
-      <button class="adicionar-carrinho-botao">Adicionar ao Carrinho</button>
+      <p><strong>Processador:</strong> {{ celular.processador.marca }}</p>
+      <p><strong>Tela:</strong> {{ celular.tela.tamanho }}</p>
+      <p><strong>Serie:</strong> {{ celular.serie.nome }}</p>
+      <p><strong>Porta Slot:</strong></p>
+      <p><strong>Camera:</strong>{{celular.camera.concat()}}</p>
+      <p><strong>Sensor:</strong></p>
+      <button class="adicionar-carrinho-botao"
+      (click)="adicionarAoCarrinho(
+        { titulo: celular.nome, imageUrl: 'http://localhost:8080/celulares/image/download/' + celular.nomeImagem, marca: celular.marca, preco: celular.preco, id: celular.id }
+        )">Adicionar ao Carrinho</button>
     </div>
   </div>

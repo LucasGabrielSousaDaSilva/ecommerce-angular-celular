@@ -33,7 +33,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 export class TelaListComponent implements OnInit{
 
   totalRecords = 0;
-  pageSize = 2;
+  pageSize = 4;
   page = 0;
 
   displayedColumns : string[] = ['id', 'tamanho', 'resolucao', 'acao'];

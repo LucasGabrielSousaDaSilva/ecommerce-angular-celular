@@ -49,18 +49,24 @@ export class TelaFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const novaTela = this.formGroup.value;
-      this.telaService.create(novaTela).subscribe({
-        next: (telaCadastrado) => {
+      const tela = this.formGroup.value;
+      console.log('Dados enviados no formulário:', tela); // Adicione este log
+      const operacao = tela.id == null
+        ? this.telaService.create(tela)
+        : this.telaService.update(tela);
+  
+      operacao.subscribe({
+        next: () => {
           this.router.navigateByUrl('/admin/telas');
         },
         error: (err) => {
-          console.log('Erro ao salvar', + JSON.stringify(err));
+          console.log('Erro ao Salvar' + JSON.stringify(err));
         }
       });
-    } else {
-      console.log('Formulário inválido');
     }
   }
+
+
 }
