@@ -21,8 +21,6 @@ type Card = {
   id: number;
 }
 
-
-
 @Component({
   selector: 'app-celular-card-list',
   standalone: true,
