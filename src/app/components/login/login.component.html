@@ -8,13 +8,13 @@
                 <mat-error *ngIf="loginForm.get('username')!.hasError('required')">O username é obrigatório</mat-error>
             </mat-form-field>
             <mat-form-field class="login-input">
-                <input matInput type="password" placeholder="Senha" formControlName="password" required>
-                <mat-error *ngIf="loginForm.get('password')!.hasError('required')">A senha é obrigatória</mat-error>
+                <input matInput type="senha" placeholder="Senha" formControlName="senha" required>
+                <mat-error *ngIf="loginForm.get('senha')!.hasError('required')">A senha é obrigatória</mat-error>
             </mat-form-field>
             <button mat-raised-button class="login-button" color="primary" type="submit">Login</button>
         </form>
         <div class="login-footer">
-            <a href="#" class="forgot-password">Esqueceu a senha?</a>
+            <a href="#" class="forgot-senha">Esqueceu a senha?</a>
             <a routerLink="/register" class="create-account">Criar nova conta</a>
         </div>
     </div>

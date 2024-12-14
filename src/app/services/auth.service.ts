@@ -55,13 +55,13 @@ export class AuthService {
 
     public login(username: string, senha: string): Observable<any> {
         const params = {
-            login: username,
+            username: username,
             senha: senha,
-            perfil: 1 // Cliente
+            perfil: 1
         }
 
       //{ observe: 'response' } para garantir que a resposta completa seja retornada (incluindo o cabeçalho)
-    return this.httpClient.post(`${this.baseUrl}`, params, {observe: 'response'}).pipe(
+    return this.httpClient.post(`${this.baseUrl}/login`, params, {observe: 'response'}).pipe(
         tap((res: any) => {
           const authToken = res.headers.get('Authorization') ?? '';
           if (authToken) {

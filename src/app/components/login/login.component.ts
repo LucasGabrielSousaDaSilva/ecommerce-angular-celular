@@ -33,26 +33,35 @@ export class LoginComponent {
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      senha: ['', Validators.required],
     });
   }
 
   onSubmit() {
+    console.log('onSubmit called'); // Log inicial
+
     if (this.loginForm.valid) {
-      const username = this.loginForm.get('username')?.value;
-      const password = this.loginForm.get('password')?.value;
+        console.log('Form is valid'); // Log para verificar a validade do formulário
 
-      this.authService.login(username, password).subscribe ({
-        next: (resp) => {
-          // redirecionando para a pagina principal
-          this.router.navigateByUrl('/user');
-        },
-        error: (err) => {
-          console.log(err);
-          this.showSnackbarTopPosition("Username ou senha inválido");
-        }
-      })
+        const username = this.loginForm.get('username')?.value;
+        const senha = this.loginForm.get('senha')?.value;
 
+        console.log('Username:', username); // Log do valor do username
+        console.log('Senha:', senha); // Log do valor da senha (Evite isso em produção!)
+
+        this.authService.login(username, senha).subscribe({
+            next: (resp) => {
+                console.log('Login successful:', resp); // Log da resposta de sucesso
+
+                this.router.navigateByUrl('/user');
+            },
+            error: (err) => {
+                console.error('Login error:', err); // Log do erro
+                this.showSnackbarTopPosition('Username ou senha inválido');
+            }
+        });
+    } else {
+        console.warn('Form is invalid'); // Log caso o formulário não seja válido
     }
 }
 
