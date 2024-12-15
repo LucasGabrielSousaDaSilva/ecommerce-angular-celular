@@ -35,7 +35,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 export class FuncionarioListComponent implements OnInit{
 
   totalRecords = 0;
-  pageSize = 2;
+  pageSize = 4;
   page = 0;
 
   funcionarios: Funcionario[] = [];

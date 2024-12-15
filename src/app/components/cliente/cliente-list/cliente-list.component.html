@@ -48,37 +48,11 @@
     </table>
 </div>
 
-<mat-card *ngIf="clienteSelecionado" class="form-card">
-    <mat-card-title>Edição de Clientes</mat-card-title>
-    <mat-card-content>
-        <form [formGroup]="clienteForm" (ngSubmit)="salvarCliente()">
-            <mat-form-field appearance="fill">
-                <mat-label>Nome</mat-label>
-                <input matInput formControlName="nome">
-            </mat-form-field>
-            
-            <mat-form-field appearance="fill">
-                <mat-label>CEP</mat-label>
-                <input matInput formControlName="cep">
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>CPF</mat-label>
-                <input matInput formControlName="cpf">
-            </mat-form-field>
-
-            <mat-card-actions class="actions">
-                <button mat-button type="submit" color="primary">Salvar</button>
-                <button mat-button type="button" color="warn" (click)="cancelarEdicao()">Cancelar</button>
-            </mat-card-actions>
-        </form>
-    </mat-card-content>
-</mat-card>
-
     <mat-paginator 
     [pageSizeOptions]="[2, 5, 10]" showFirstLastButtons
     [pageSize]="pageSize"
     [length]="totalRecords"
     (page)="paginar($event)">
     </mat-paginator>
+    
 </div>

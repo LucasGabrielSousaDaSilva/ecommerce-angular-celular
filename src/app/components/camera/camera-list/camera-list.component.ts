@@ -77,35 +77,4 @@ export class CameraListComponent {
       }
     );
   }
-
-  editarCamera(camera: Camera): void {
-    this.cameraSelecionado = camera;
-
-    this.cameraForm.patchValue({
-      resolucao : camera.resolucao,
-      frontal : camera.frontal
-    });
-  }
-
-  salvarCamera(): void {
-    if (this.cameraForm.valid && this.cameraSelecionado) {
-      const cameraEditado = {
-        ...this.cameraSelecionado,
-        ...this.cameraForm.value
-      };
-
-      this.cameraService.update(cameraEditado).subscribe(() => {
-        this.ngOnInit(); 
-        this.cancelarEdicao();      
-      });
-    }
-  }
-
-  cancelarEdicao(): void {
-    this.cameraSelecionado = null;
-    this.cameraForm.reset(); 
-  }
-
-
-
 }

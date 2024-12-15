@@ -6,7 +6,7 @@
     />
     <h1 class="titulo-pagina">Bem vindo a página de controle!</h1>
     <div class="content-container">
-      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/Cameras'">
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/cameras'">
         <mat-card-header>
           <mat-card-title class="titulo-card">Cameras</mat-card-title>
         </mat-card-header>
@@ -22,7 +22,7 @@
           <p>Acesse e administre todas as linhas disponíveis em uma tabela estruturada.</p>
         </mat-card-content>
       </mat-card>
-      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/portaslots'">
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/portaSlots'">
         <mat-card-header>
           <mat-card-title class="titulo-card">PortaSlots</mat-card-title>
         </mat-card-header>
@@ -60,6 +60,22 @@
         </mat-card-header>
         <mat-card-content>
           <p>Controle e veja os dados de todos os telas em uma tabela prática.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/clientes'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">Clientes</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Controle e veja os dados de todos os clientes em uma tabela prática.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/funcionarios'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">Funcionarios</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Controle e veja os dados de todos os funcionarios em uma tabela prática.</p>
         </mat-card-content>
       </mat-card>
     </div>

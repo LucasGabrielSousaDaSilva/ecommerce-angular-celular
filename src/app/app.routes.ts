@@ -62,7 +62,7 @@ export const routes: Routes = [
     {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
     {path: 'clientes/new', component: ClienteFormComponent, title: 'Novo Cliente'},
     {path: 'funcionarios/edit/:id',component: FuncionarioFormComponent, resolve:{funcionario: funcionarioResolver}},
-    {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios', canActivate: [authGuard]},
+    {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios',},
     {path: 'funcionarios/new',component: FuncionarioFormComponent, title: 'Novo Funcionario'},
 
     // Produtos

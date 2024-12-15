@@ -53,25 +53,3 @@
 </div>
 
 <mat-divider></mat-divider>
-
-<mat-card *ngIf="cameraSelecionado" class="form-card">
-    <mat-card-title class="custom-title">Edição de Funcionário</mat-card-title>
-    <mat-card-content>
-        <form [formGroup]="cameraForm" (ngSubmit)="salvarCamera()">
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Resolucao</mat-label>
-                <input matInput formControlName="resolucao">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Frontal</mat-label>
-                <input matInput formControlName="frontal">
-            </mat-form-field>
-
-            <mat-card-actions class="actions">
-                <button mat-raised-button type="submit" color="primary">Salvar</button>
-                <button mat-button type="button" color="warn" (click)="cancelarEdicao()">Cancelar</button>
-            </mat-card-actions>
-        </form>
-    </mat-card-content>
-</mat-card>

@@ -4,13 +4,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 20px 20px;
 }
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza horizontalmente a logo dentro do header */
+    height: 100%; /* Certifique-se de que o header tem altura definida */
+  }
 
 .logo {
     font-size: 1.5em;
     font-weight: bold;
     cursor: pointer;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .search{

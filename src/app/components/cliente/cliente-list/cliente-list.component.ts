@@ -34,7 +34,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 export class ClienteListComponent implements OnInit{
   
   totalRecords = 0;
-  pageSize = 2;
+  pageSize = 4;
   page = 0;
 
   clientes: Cliente[] = [];
@@ -80,40 +80,6 @@ export class ClienteListComponent implements OnInit{
         this.snackBar.open('Erro ao deletar cliente', 'Fechar', { duration: 3000 });
       }
     );
-  }
-
-  editarCliente(cliente: Cliente): void {
-    this.clienteSelecionado = cliente;
-
-    // Preencher o formulário com os dados do funcionário selecionado
-    this.clienteForm.patchValue({
-      nome: cliente.nome,
-      cep: cliente.cep,
-      cpf: cliente.cpf,
-    });
-  }
-
-  salvarCliente(): void {
-    if (this.clienteForm.valid && this.clienteSelecionado) {
-      const clienteEditado = {
-        ...this.clienteSelecionado,
-        ...this.clienteForm.value
-      };
-
-      if (clienteEditado.id) {
-          this.clienteService.update(clienteEditado).subscribe(() => {
-          this.ngOnInit();  // Atualizar a lista após a edição
-          this.cancelarEdicao();        // Fechar o card de edição
-        });
-      }else {
-        console.error('ID do processador não encontrado!');
-        }
-    }
-  }
-
-  cancelarEdicao(): void {
-    this.clienteSelecionado = null;
-    this.clienteForm.reset();  // Reseta o formulário
   }
 
 }
