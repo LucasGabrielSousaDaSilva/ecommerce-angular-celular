@@ -10,6 +10,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { Sensor } from '../../../models/sensor.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfimationDialogComponent } from '../../../dialog/confimation-dialog/confimation-dialog.component';
 
 @Component({
   selector: 'app-sensor-form',
@@ -26,8 +29,11 @@ export class SensorFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private sensorService: SensorService,
     private router: Router,
-  private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar) {
       this.formGroup = this.formBuilder.group({
+        id:[null],
         tipo:['', Validators.required],
       }) 
   }
@@ -56,12 +62,39 @@ export class SensorFormComponent implements OnInit {
   
       operacao.subscribe({
         next: () => {
-          this.router.navigateByUrl('/admin/sensors');
+          this.router.navigateByUrl('/admin/sensores');
+          this.snackBar.open('O Sensor foi salva com Sucesso!!', 'Fechar', {duration: 3000});
         },
         error: (err) => {
           console.log('Erro ao Salvar' + JSON.stringify(err));
+          this.snackBar.open('Erro ao tentar salvar o Sensor', 'Fechar', {duration: 3000});
         }
       });
+    }
+  }
+  excluir() {
+    if (this.formGroup.valid) {
+      const sensor = this.formGroup.value;
+      if (sensor.id != null) {
+        const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+          data: { message: 'Deseja realmente excluir esta sensor? Não será possível reverter.' }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.sensorService.delete(sensor).subscribe({
+              next: () => {
+                this.router.navigateByUrl('/admin/sensores');
+                this.snackBar.open('A Sensor foi excluída com Sucesso!!', 'Fechar', {duration: 3000});
+              },
+              error: (err) => {
+                console.log('Erro ao excluir' + JSON.stringify(err));
+                this.snackBar.open('Erro ao tentar excluir a Sensor', 'Fechar', {duration: 3000});
+              }
+            });
+          }
+        });
+      }
     }
   }
 }

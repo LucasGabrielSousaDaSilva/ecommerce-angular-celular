@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { Processador } from '../../../models/processador.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-processador-form',
@@ -27,7 +28,8 @@ constructor(
   private formBuilder: FormBuilder,
   private processadorService: ProcessadorService,
   private router: Router,
-  private activatedRoute: ActivatedRoute
+  private activatedRoute: ActivatedRoute,
+  private snackBar: MatSnackBar
 ) {
     this.formGroup = this.formBuilder.group({
       id: [null],
@@ -63,9 +65,11 @@ initializeForm(): void {
       operacao.subscribe({
         next: () => {
           this.router.navigateByUrl('/admin/processadores');
+          this.snackBar.open('O Porcessador foi salva com Sucesso!!', 'Fechar', {duration: 3000});
         },
         error: (err) => {
           console.log('Erro ao Salvar' + JSON.stringify(err));
+          this.snackBar.open('Erro ao tentar salvar o Processador', 'Fechar', {duration: 3000});
         }
       });
     }

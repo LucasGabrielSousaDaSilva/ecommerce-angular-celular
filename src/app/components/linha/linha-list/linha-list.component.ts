@@ -8,10 +8,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfimationDialogComponent } from '../../../dialog/confimation-dialog/confimation-dialog.component';
 
 @Component({
   selector: 'app-linha-list',
@@ -33,17 +35,24 @@ export class LinhaListComponent implements OnInit {
 
   linhas : Linha[] = [];
 
-  constructor(private linhaService : LinhaService, private snackBar: MatSnackBar) {
-  }
+  constructor(
+    private linhaService : LinhaService, 
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.linhaService.findAll(this.page, this.pageSize).subscribe(data => {
-      this.linhas = data;
+    this.linhaService.findAll(this.page, this.pageSize).subscribe(
+      data => {this.linhas = data;
     });
 
     this.linhaService.count().subscribe(data => {
       this.totalRecords = data;
     });
+  }
+
+  obterNumeroLinha(index: number): number {
+    return this.page * this.pageSize + index + 1;
   }
 
   paginar(event: PageEvent): void {
@@ -52,17 +61,24 @@ export class LinhaListComponent implements OnInit {
     this.ngOnInit();
   }
 
-  delete(id: number): void {
-    this.linhaService.delete(id).subscribe(
-      () => {
-        this.linhas = this.linhas.filter(linha => linha.id !== id);
-        this.snackBar.open('Linha deletado com sucesso', 'Fechar', { duration: 3000 });
-        this.ngOnInit();
-      },
-      (error) => {
-        console.error('Erro ao deletar Linha:', error);
-        this.snackBar.open('Erro ao deletar linha', 'Fechar', { duration: 3000 });
+  delete(linha: Linha): void {
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      width: '250px',
+      data: {message: 'Deseja realmente excluir esta linha?'}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      this.linhaService.delete(linha.id).subscribe({
+        next: () => {
+          this.linhas = this.linhas.filter(e => e.id !== linha.id);
+          this.snackBar.open('Linha deletado com sucesso', 'Fechar', { duration: 3000 });
+        },
+        error: (err) => {
+          console.error('Erro ao deletar Linha:', err);
+          this.snackBar.open('Erro ao deletar linha', 'Fechar', { duration: 3000 });
+        }
+      });
       }
-    );
+    });
   }
 }

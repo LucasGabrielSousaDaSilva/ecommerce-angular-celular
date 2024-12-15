@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CarrinhoService {
+
   // private baseUrl = 'http://localhost:8080/venda';
 
   // private carrinhoSubject = new BehaviorSubject<ItemCarrinho[]>([]);
@@ -231,6 +232,10 @@ export class CarrinhoService {
 
   obter() : ItemCarrinho[]{
     return this.carrinhoSubject.value;
+  }
+
+    obterCarrinho(): Observable<ItemCarrinho[]> {
+    return this.carrinhoSubject.asObservable();
   }
 
   atualizarQuantidade(item: ItemCarrinho): void {

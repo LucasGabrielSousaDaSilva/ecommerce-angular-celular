@@ -8,10 +8,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfimationDialogComponent } from '../../../dialog/confimation-dialog/confimation-dialog.component';
 
 @Component({
   selector: 'app-sensor-list',
@@ -27,13 +29,12 @@ export class SensorListComponent implements OnInit {
   page = 0;
 
   displayedColumns : string[] = ['tipo','acao'];
-
-  telaForm!: FormGroup;
-  sensorSelecionado: Sensor | null = null;
-
   sensores : Sensor[] = [];
 
-  constructor(private sensorService : SensorService, private snackBar: MatSnackBar) {
+  constructor(private sensorService : SensorService, 
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -53,16 +54,26 @@ export class SensorListComponent implements OnInit {
   }
 
   delete(id: number): void {
-    this.sensorService.delete(id).subscribe(
-      () => {
-        this.sensores = this.sensores.filter(sensor => sensor.id !== id);
-        this.snackBar.open('Sensor deletado com sucesso', 'Fechar', { duration: 3000 });
-        this.ngOnInit();
-      },
-      (error) => {
-        console.error('Erro ao deletar Sensor:', error);
-        this.snackBar.open('Erro ao deletar sensor', 'Fechar', { duration: 3000 });
+    const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+      data: {
+        title: 'Confirmação',
+        message: 'Deseja realmente deletar o sensor?'
       }
-    );
-  }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.sensorService.delete(id).subscribe({
+            next: () => {
+              this.sensores = this.sensores.filter(sensor => sensor.id !== id);
+              this.snackBar.open('Sensor deletado com sucesso', 'Fechar', { duration: 3000 });
+            },
+            error: (error) => {
+              console.error('Erro ao deletar Sensor:', error);
+              this.snackBar.open('Erro ao deletar sensor', 'Fechar', { duration: 3000 });
+            },
+            complete: () => {}
+          });
+        }
+      });
+    }
 }

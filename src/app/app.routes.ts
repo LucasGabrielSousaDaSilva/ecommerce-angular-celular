@@ -45,6 +45,7 @@ import { HomeComponent } from './pagina/home/home.component';
 import { NovidadesComponent } from './pagina/novidades/novidades.component';
 import { PromocoesComponent } from './pagina/promocoes/promocoes.component';
 import { ControleComponent } from './controle/controle.component';
+import { linhaResolver } from './components/linha/resolver/linha.resolver';
 
 export const routes: Routes = [
     { 
@@ -84,9 +85,9 @@ export const routes: Routes = [
     {path: 'series', component: SerieListComponent, title: 'Lista de Series'},
     {path: 'series/new', component: SerieFormComponent, title: 'Nova Serie'},
     {path: 'series/edit/:id', component: SerieFormComponent, resolve:{serie: serieResolver}},
-    {path: 'linha', component: LinhaListComponent, title: 'Lista de Linhas'},
-    {path: 'linha/new', component: LinhaFormComponent, title: 'Nova Linha'},
-    {path: 'linha/edit/:id', component: LinhaFormComponent, resolve:{linha: serieResolver}},
+    {path: 'linhas', component: LinhaListComponent, title: 'Lista de Linhas'},
+    {path: 'linhas/new', component: LinhaFormComponent, title: 'Nova Linha'},
+    {path: 'linhas/edit/:id', component: LinhaFormComponent, resolve:{linha: linhaResolver}},
 
     // Celulares
     {path: 'celulares',component: CelularListComponent, title: 'Lista de Celulares'},

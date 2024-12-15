@@ -8,6 +8,7 @@ import { NgIf } from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import { PortaSlot } from '../../../models/porta-slot.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-portaSlot-form',
@@ -22,7 +23,8 @@ export class PortaSlotFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private portaSlotService: PortaSlotService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar) {
       this.formGroup = this.formBuilder.group({
         tipo:['', Validators.required]
       }) 
@@ -53,10 +55,12 @@ export class PortaSlotFormComponent implements OnInit {
   
       operacao.subscribe({
         next: () => {
-          this.router.navigateByUrl('/admin/portaslots');
+          this.router.navigateByUrl('/admin/portaSlots');
+          this.snackBar.open('O Porta Slot foi salva com Sucesso!!', 'Fechar', {duration: 3000});
         },
         error: (err) => {
           console.log('Erro ao Salvar' + JSON.stringify(err));
+          this.snackBar.open('Erro ao tentar salvar o Porta Slot', 'Fechar', {duration: 3000});
         }
       });
     }

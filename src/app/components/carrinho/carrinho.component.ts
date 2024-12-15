@@ -114,9 +114,22 @@ export class CarrinhoComponent implements OnInit {
   //   }
   // }
 
+    recalcularSubtotais(): void {
+    this.itensCarrinho.forEach((item) => {
+      item.subTotal = (item.preco ?? 0) * item.quantidade;
+    });
+  }
+
   ngOnInit(): void{
     this.carrinhoService.carrinho$.subscribe(itens => {
       this.itensCarrinho = itens;
+    });
+
+    this.carrinhoService.obterCarrinho().subscribe({
+      next: (itens) => {
+        this.itensCarrinho = itens;
+        this.recalcularSubtotais();
+      }
     });
   }
 
@@ -135,7 +148,7 @@ export class CarrinhoComponent implements OnInit {
   finalizarCompra() {
     if (this.itensCarrinho.length > 0) {
       this.carrinhoService.limparCarrinho();
-      this.router.navigate(['/confirmacao-pedido']);
+      this.router.navigate(['/user/finalizar-venda']);
     } else {
       alert('O carrinho está vazio.');
     }
