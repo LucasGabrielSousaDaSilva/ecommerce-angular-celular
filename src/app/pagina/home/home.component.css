@@ -1,0 +1,81 @@
+/* home.component.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #4CAF50;
+  }
+  
+  p {
+    line-height: 1.6;
+    font-size: 1.1em;
+  }
+  
+  .team-section {
+    margin-top: 40px;
+  }
+  
+  .team-section h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .team-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .team-section li {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .team-section li h3 {
+    margin: 0 0 10px;
+    color: #4CAF50;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .interactions {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .interactions p {
+    font-size: 1.2em;
+    color: #555;
+  }
+  
+  .interactions button {
+    margin-top: 10px;
+  }
+  

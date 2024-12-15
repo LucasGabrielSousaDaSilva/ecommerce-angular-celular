@@ -1,0 +1,66 @@
+<div class="container">
+    <img
+      src="assets/logo.svg"
+      alt="Logo"
+      class="logo"
+    />
+    <h1 class="titulo-pagina">Bem vindo a página de controle!</h1>
+    <div class="content-container">
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/Cameras'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">Cameras</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Gerencie e visualize todos os cameras cadastrados em uma tabela organizada.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/linhas'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">Linhas</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Acesse e administre todas as linhas disponíveis em uma tabela estruturada.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/portaslots'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">PortaSlots</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Visualize e organize todas as portaslots listadas em uma tabela completa.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/processadores'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">Processadores</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Explore e gerencie os processadores registrados em uma tabela detalhada.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/sensores'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">Sensores</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Consulte e edite todos os sensores cadastrados em uma tabela organizada.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/series'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">Series</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Controle e veja os dados de todos os series em uma tabela prática.</p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/telas'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">Telas</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Controle e veja os dados de todos os telas em uma tabela prática.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>

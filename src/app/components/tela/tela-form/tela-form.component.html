@@ -35,7 +35,8 @@
             <button mat-raised-button routerLink="/admin/telas">
                 Cancelar
             </button>
-            <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">
+            <button mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid"
+            (click)="onSubmit()">
                 Salvar
             </button>
         </div>

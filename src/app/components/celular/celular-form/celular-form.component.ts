@@ -23,6 +23,12 @@ import { SerieService } from '../../../services/serie.service';
 import { CameraService } from '../../../services/camera.service';
 import { FormStateService } from '../../../services/form-state.service';
 import { Tela } from '../../../models/tela.model';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Sensor } from '../../../models/sensor.model';
+import { Camera } from '../../../models/camera.model';
+import { PortaSlot } from '../../../models/porta-slot.model';
+import { Serie } from '../../../models/serie.model';
+import { Processador } from '../../../models/processador.model';
 
 @Component({
   selector: 'app-celular-form',
@@ -30,7 +36,7 @@ import { Tela } from '../../../models/tela.model';
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
     MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, 
     RouterModule, MatSelectModule, MatIconModule, MatOption
-    ,CommonModule],
+    ,CommonModule, MatSnackBarModule],
   templateUrl: './celular-form.component.html',
   styleUrl: './celular-form.component.css'
 })
@@ -40,12 +46,12 @@ export class CelularFormComponent implements OnInit {
   fileName: string = '';
   selectedFile: File | null = null; 
   imagePreview: string | ArrayBuffer | null = null;
-  processadores: { id: number; modelo: string; marca: string }[] = [];
-  series: { id: number; nome: string; anoLancamento: number}[] = [];
-  telas: {id: number; resolucao: number; tamanho: number;}[] = [];
-  portas: {id: number; tipo: string}[] = [];
-  cameras: {id: number; resolucao: number; frontal: boolean;}[] = [];
-  sensores: {id: number; tipo:string}[] = [];
+  processadores: Processador[] = [];
+  series: Serie[] = [];
+  telas: Tela[] = [];
+  portas: PortaSlot[] = [];
+  cameras: Camera[] = [];
+  sensores: Sensor[] = [];
 
   constructor(private formBuilder: FormBuilder,
     private formStateService: FormStateService,
@@ -56,9 +62,11 @@ export class CelularFormComponent implements OnInit {
     private celularService: CelularService,
     private processadorService: ProcessadorService,
     private serieService: SerieService,
+    // private dialog: MatDialog,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private location: Location) {
+    private location: Location,
+    private snackBar: MatSnackBar) {
       this.formGroup = this.formBuilder.group({
         nome: ['', Validators.required],
         preco: [null, Validators.required],
@@ -68,7 +76,7 @@ export class CelularFormComponent implements OnInit {
         armazenamento: [null, Validators.required],
         ram: [null, Validators.required],
         idProcessador: [null, Validators.required],
-        idtela: [null, Validators.required],
+        idtela: [[], Validators.required],
         idPortaSlot: [[], Validators.required],
         idCamera: [[], Validators.required],
         idSensor: [[], Validators.required],
@@ -79,60 +87,90 @@ export class CelularFormComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.telaService.findAll().subscribe(data => {
+      this.telas = data;
+      this.initializeForm();
+    });
+
+    this.portaSlotService.findAll().subscribe(data => {
+      this.portas = data;
+      this.initializeForm();
+    });
+
+    this.cameraService.findAll().subscribe(data => {
+      this.cameras = data;
+      this.initializeForm();
+    });
+
+    this.sensorService.findAll().subscribe(data => {
+      this.sensores = data;
+      this.initializeForm();
+    });
+
+    this.processadorService.findAll().subscribe(data => {
+      this.processadores = data;
+      this.initializeForm();
+    });
+
+    this.serieService.findAll().subscribe(data => {
+      this.series = data;
+      this.initializeForm();
+    });
+
     this.initializeForm();
-    this.carregarTelas();
-    this.carregarProcessadores();
-    this.carregarPortas();
-    this.carregarSensores();
-    this.carregarSeries();
-    this.carregarCameras();
-    const savedState = this.formStateService.getState();
-    if (savedState) {
-      this.formGroup.patchValue(savedState);
-    }
+    // this.carregarTelas();
+    // this.carregarProcessadores();
+    // this.carregarPortas();
+    // this.carregarSensores();
+    // this.carregarSeries();
+    // this.carregarCameras();
+    // const savedState = this.formStateService.getState();
+    // if (savedState) {
+    //   this.formGroup.patchValue(savedState);
+    // }
   }
 
-  carregarProcessadores(): void {
-    this.processadorService.findAll().subscribe({
-      next: (processadores) => (this.processadores = processadores),
-      error: (err) => console.error('Erro ao carregar processadores', err),
-    });
-  }
+  // carregarProcessadores(): void {
+  //   this.processadorService.findAll().subscribe({
+  //     next: (processadores) => (this.processadores = processadores),
+  //     error: (err) => console.error('Erro ao carregar processadores', err),
+  //   });
+  // }
 
-  carregarSeries(): void {
-    this.serieService.findAll().subscribe({
-      next: (series) => (this.series = series),
-      error: (err) => console.error('Erro ao carregar series', err),
-    });
-  }
+  // carregarSeries(): void {
+  //   this.serieService.findAll().subscribe({
+  //     next: (series) => (this.series = series),
+  //     error: (err) => console.error('Erro ao carregar series', err),
+  //   });
+  // }
 
-  carregarTelas(): void {
-    this.telaService.findAll().subscribe({
-      next: (telas) => (this.telas = telas),
-      error: (err) => console.error('Erro ao carregar telas', err),
-    });
-  }
+  // carregarTelas(): void {
+  //   this.telaService.findAll().subscribe({
+  //     next: (telas) => (this.telas = telas),
+  //     error: (err) => console.error('Erro ao carregar telas', err),
+  //   });
+  // }
 
-  carregarPortas(): void {
-    this.portaSlotService.findAll().subscribe({
-      next: (idPortaSlots) => (this.portas = idPortaSlots),
-      error: (err) => console.error('Erro ao carregar porta', err),
-    });
-  }
+  // carregarPortas(): void {
+  //   this.portaSlotService.findAll().subscribe({
+  //     next: (idPortaSlots) => (this.portas = idPortaSlots),
+  //     error: (err) => console.error('Erro ao carregar porta', err),
+  //   });
+  // }
 
-  carregarCameras(): void {
-    this.cameraService.findAll().subscribe({
-      next: (idCameras) => (this.cameras = idCameras),
-      error: (err) => console.error('Erro ao carregar camera', err),
-    });
-  }
+  // carregarCameras(): void {
+  //   this.cameraService.findAll().subscribe({
+  //     next: (idCameras) => (this.cameras = idCameras),
+  //     error: (err) => console.error('Erro ao carregar camera', err),
+  //   });
+  // }
 
-  carregarSensores(): void {
-    this.sensorService.findAll().subscribe({
-      next: (idSensor) => (this.sensores = idSensor),
-      error: (err) => console.error('Erro ao carregar sensor', err),
-    });
-  }
+  // carregarSensores(): void {
+  //   this.sensorService.findAll().subscribe({
+  //     next: (idSensor) => (this.sensores = idSensor),
+  //     error: (err) => console.error('Erro ao carregar sensor', err),
+  //   });
+  // }
 
   voltarPagina() {
     this.location.back();
@@ -140,6 +178,10 @@ export class CelularFormComponent implements OnInit {
 
   initializeForm(): void {
     const celular: Celular = this.activatedRoute.snapshot.data['celular'];
+
+    const tela = this.telas.find(tela => tela.id === (celular?.tela?.id || null));
+    const processador = this.processadores.find(processador => processador.id === (celular?.processador?.id || null));
+    const serie = this.series.find(serie => serie.id === (celular?.serie?.id || null));
   
     // carregando a imagem do preview
     if (celular && celular.nomeImagem) {
@@ -156,12 +198,12 @@ export class CelularFormComponent implements OnInit {
       anoLancamento: [(celular && celular.anoLancamento) ? celular.anoLancamento : null, Validators.required],
       armazenamento: [(celular && celular.armazenamento) ? celular.armazenamento : null, Validators.required],
       ram: [(celular && celular.ram) ? celular.ram : null, Validators.required],
-      idProcessador: [(celular && celular.processador) ? celular.processador : null, Validators.required],
-      telas: [(celular && celular.tela) ? celular.tela : null, Validators.required],
-      idPortaSlot: [(celular && celular.portaSlot) ? celular.portaSlot : [], Validators.required],
-      idCamera: [(celular && celular.camera) ? celular.camera : [], Validators.required],
-      idSensor: [(celular && celular.sensor) ? celular.sensor : [], Validators.required],
-      idSerie: [(celular && celular.serie) ? celular.serie : null, Validators.required],
+      idProcessador: [processador, Validators.required],
+      telas: [tela, Validators.required],
+      idPortaSlot: [(celular && celular.portaSlot) ? celular.portaSlot.map((portaSlot) => portaSlot) : [], Validators.required],
+      idCamera: [(celular && celular.camera) ? celular.camera.map((camera) => camera) : [], Validators.required],
+      idSensor: [(celular && celular.sensor) ? celular.sensor.map((sensor) => sensor) : [], Validators.required],
+      idSerie: [serie, Validators.required],
 
     });
   }
@@ -224,12 +266,21 @@ export class CelularFormComponent implements OnInit {
   
       operacao.subscribe({
         next: (celularCadastrada) => {
-          this.uploadImage(celularCadastrada.id);
+          if (celular.id && celular.id) {
+            alert('Celular cadastrado com sucesso!');
+            this.uploadImage(celular.id);
+            
+          } else if (celularCadastrada.id && celularCadastrada.id) {
+            alert('Celular atualizado com sucesso!');
+            this.uploadImage(celularCadastrada.id);
+          }
           this.router.navigateByUrl('/admin/celulares');
+          this.snackBar.open('Celular salvo com sucesso!', 'Fechar', {duration: 3000});
         },
         error: (error) => {
           console.log('Erro ao Salvar' + JSON.stringify(error));
           this.tratarErros(error);
+          this.snackBar.open('Erro ao salvar o celular.', 'Fechar', {duration: 3000});
         }
       });
     }
@@ -239,12 +290,20 @@ export class CelularFormComponent implements OnInit {
     if (this.formGroup.valid) {
       const celular = this.formGroup.value;
       if (celular.id != null) {
+        // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        //   data: { message: 'Deseja realmente excluir este Livro? Não será possível reverter.' }
+        // });
+        // dialogRef.afterClosed().subscribe(result => {
+        //   if (result) {
         this.celularService.delete(celular).subscribe({
           next: () => {
             this.router.navigateByUrl('/admin/celulares');
+            this.snackBar.open('Celular excluído com sucesso!', 'Fechar', {duration: 3000});
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
+            this.tratarErros(err);
+            this.snackBar.open('Erro ao excluir o celular.', 'Fechar', {duration: 3000});
           }
         });
       }

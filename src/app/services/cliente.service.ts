@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cliente } from "../models/cliente.model";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Cliente } from "../models/cliente.model";
 export class ClienteService {
   private baseUrl = 'http://localhost:8080/clientes';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
   
   findAll(page?: number, pageSize?: number): Observable<Cliente[]> {
     let params = {};
@@ -28,7 +29,7 @@ export class ClienteService {
     return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
-  findById(id: string): Observable<Cliente> {
+  findById(id: number): Observable<Cliente> {
     return this.httpClient.get<Cliente>(`${this.baseUrl}/${id}`); 
   }
 
@@ -48,7 +49,34 @@ export class ClienteService {
   }
 
   delete(id: number): Observable<any>{
-    return this.httpClient.delete<any>(`${this.baseUrl}/${id}`); 
+    return this.httpClient.delete<any>(`${this.baseUrl}/${id}`, {headers: this.getHeaders()}); 
   }
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigate(['/login']);
+      throw new Error('Usuário não autenticado');
+    }
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
+  alterarUsername(data: { usernameNovo: string; senha: string }): Observable<any> {
+    const headers = this.getHeaders(); // Inclua os headers se necessário
+    return this.httpClient.patch(`${this.baseUrl}/search/alterar-username`, data, { headers });
+  }
+
+  alterarSenha(data: { senhaAntiga: string; novaSenha: string }): Observable<any> {
+    const headers = this.getHeaders(); // Certifique-se de que os headers de autenticação estão corretos.
+    return this.httpClient.patch(`${this.baseUrl}/search/alterar-senha`, data, { headers });
+  }
+
+  insertUsuario(cliente: Cliente): Observable<Cliente> {
+    return this.httpClient.post<Cliente>(`${this.baseUrl}`, cliente, { headers: this.getHeaders() });
+  }
+
+  meuPerfil(id: number): Observable<any> {
+    const headers = this.getHeaders(); // Certifique-se de que os headers de autenticação estão corretos.
+    return this.httpClient.get(`${this.baseUrl}/search/meu-perfil/${id}`, { headers });
+  }
 }

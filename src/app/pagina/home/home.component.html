@@ -1,0 +1,21 @@
+<div class="home-container">
+    <h1>Bem-vindo ao nosso site!</h1>
+    <p>Este site foi desenvolvido com o objetivo de fornecer informações e serviços personalizados.</p>
+
+    <div class="team-section">
+      <h2>Conheça os responsáveis</h2>
+      <ul>
+        <li *ngFor="let responsavel of responsaveis">
+          <h3>{{ responsavel.nome }}</h3>
+          <p>Função: {{ responsavel.funcao }}</p>
+          <p>Email: {{ responsavel.email }}</p>
+          <button (click)="verDetalhes(responsavel.id)">Ver Detalhes</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="interactions">
+      <button (click)="mostrarMensagem()">Clique aqui para uma mensagem!</button>
+      <p *ngIf="mensagem">{{ mensagem }}</p>
+    </div>
+  </div>

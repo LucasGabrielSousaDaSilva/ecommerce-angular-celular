@@ -20,7 +20,7 @@ import { CelularCardListComponent } from './components/celular/celular-card-list
 import { UserTemplateComponent } from './components/template/user-template/user-template.component';
 import { LoginComponent } from './components/login/login.component';
 import { CelularDetalhesComponent } from './components/celular/celular-detalhes/celular-detalhes.component';
-import { HomeComponentComponent } from './pagina/home/home-component/home-component.component';
+import { HomeComponentComponent } from './pagina/home-component/home-component.component';
 import { celularResolver } from './components/celular/celular.resolver';
 import { clienteResolver } from './components/cliente/resolver/cliente.resolver';
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
@@ -40,23 +40,32 @@ import { portaSlotResolver } from './components/portaSlot/resolver/porta-slot.re
 import { VendaComponent } from './components/venda/venda/venda.component';
 import { LoginADMComponent } from './components/loginADM/login.component';
 import { RegisterADMComponent } from './components/registerADM/register.component';
+import { FinalizarVendaComponent } from './components/carrinho/finalizar-venda/finalizar-venda.component';
+import { HomeComponent } from './pagina/home/home.component';
+import { NovidadesComponent } from './pagina/novidades/novidades.component';
+import { PromocoesComponent } from './pagina/promocoes/promocoes.component';
+import { ControleComponent } from './controle/controle.component';
 
 export const routes: Routes = [
     { 
         path: 'admin', 
         component: AdminTemplateComponent, 
-        title: 'e-commerce',
+        title: 'Admin',
         // canActivate: [authGuard],
         children: [
 
     {path: '', pathMatch: 'full', redirectTo: 'clientes'},
 
+    // Usuarios
     { path: 'clientes/edit/:id', component: ClienteFormComponent, resolve: { cliente: clienteResolver }, title: 'Editar Cliente' },
     {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
     {path: 'clientes/new', component: ClienteFormComponent, title: 'Novo Cliente'},
     {path: 'funcionarios/edit/:id',component: FuncionarioFormComponent, resolve:{funcionario: funcionarioResolver}},
     {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios', canActivate: [authGuard]},
     {path: 'funcionarios/new',component: FuncionarioFormComponent, title: 'Novo Funcionario'},
+
+    // Produtos
+    { path: 'controle', component: ControleComponent, title: 'Controle' },
     {path: 'cameras/edit/:id',component: CameraFormComponent, resolve:{camera: cameraResolver}},
     {path: 'cameras',component: CameraListComponent, title: 'Lista de Cameras'},
     {path: 'cameras/new',component: CameraFormComponent, title: 'Nova Camera'},
@@ -69,9 +78,6 @@ export const routes: Routes = [
     {path: 'processadores/edit/:id', component: ProcessadorFormComponent, resolve:{ processador: processadorResolver }},
     {path: 'processadores', component: ProcessadorListComponent, title: 'Lista de processadores'},
     {path: 'processadores/new', component: ProcessadorFormComponent, title: 'Novo processadore'},
-    {path: 'celulares',component: CelularListComponent, title: 'Lista de Celulares'},
-    {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular'},
-    {path: 'celulares/edit/:id',component: CelularFormComponent, resolve:{ celular: celularResolver}},
     {path: 'sensores', component: SensorListComponent, title: 'Lista de Sensores'},
     {path: 'sensores/new', component: SensorFormComponent, title: 'Novo Sensor'},
     {path: 'sensores/edit/:id', component: SensorFormComponent, resolve:{sensor: sensorResolver}},
@@ -81,23 +87,36 @@ export const routes: Routes = [
     {path: 'linha', component: LinhaListComponent, title: 'Lista de Linhas'},
     {path: 'linha/new', component: LinhaFormComponent, title: 'Nova Linha'},
     {path: 'linha/edit/:id', component: LinhaFormComponent, resolve:{linha: serieResolver}},
+
+    // Celulares
+    {path: 'celulares',component: CelularListComponent, title: 'Lista de Celulares'},
+    {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular'},
+    {path: 'celulares/edit/:id',component: CelularFormComponent, resolve:{ celular: celularResolver}},
+
+    // Login ADM
     { path: 'loginADM', component: LoginADMComponent, title: 'Login'},
-    { path: 'registerADM', component: RegisterADMComponent, title: 'Register'}
+    { path: 'registerADM', component: RegisterADMComponent, title: 'Register'},
+
         ]
     },
     { 
         path: 'user', 
         component: UserTemplateComponent,
-        title: 'e-commerce',
+        title: 'Usuário',
         // canActivate: [authGuard],
         children: [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
             { path: 'ecommerce', component: CelularCardListComponent, title: 'Lista de Cards de Celulares'},
             { path: 'ecommerce/:id', component: CelularDetalhesComponent, title: 'Detalhes'},
+
+            // Login e Registro
             { path: 'login', component: LoginComponent, title: 'Login'},
+
+            // Carrinho
             { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho'},
-            { path: 'venda', component: VendaComponent, title: 'Finalizar Venda' }
+            { path: 'finalizarVenda', component: FinalizarVendaComponent, title: 'Finalizar Pedido'},
+            { path: 'venda', component: VendaComponent, title: 'Finalizar Venda' },
         ]
     },
     {
@@ -106,7 +125,12 @@ export const routes: Routes = [
     title: 'e-commerce',
     children: [
         { path: '', pathMatch: 'full', redirectTo: 'home' },
-        { path: 'home', component: CelularCardListComponent, title: 'Lista de Cards de Celulares' },
+
+        { path: 'home', component: HomeComponent, title: 'Home' },
+        {path: 'novidades', component: NovidadesComponent, title: 'Novidades'},
+        {path: 'promocoes', component: PromocoesComponent, title: 'Promoções'},
+
+        // Login e Registro
         { path: 'login', component: LoginComponent, title: 'Login' },
         { path: 'register', component: RegisterComponent, title: 'Register'}
     ]

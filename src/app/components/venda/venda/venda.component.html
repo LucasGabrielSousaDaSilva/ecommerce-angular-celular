@@ -1,6 +1,10 @@
 <mat-card class="venda-container">
   <mat-card-title>Finalizar Venda</mat-card-title>
   <form (ngSubmit)="finalizarVenda()">
+    <div class="endereco-field">
+      <label for="endereco">Endereço:</label>
+      <input id="endereco" formControlName="endereco" required>
+    </div>
     <!-- Campos do formulário de venda -->
     <button type="submit" class="finalizar-button">Finalizar Venda</button>
   </form>
