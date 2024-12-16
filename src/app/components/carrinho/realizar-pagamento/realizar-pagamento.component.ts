@@ -14,6 +14,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemCarrinho } from '../../../models/item-carrinho.model';
 import { FormaPagamento } from '../../../models/formaPagamento';
+import { AuthService } from '../../../services/auth.service';
+import { Usuario } from '../../../models/usuario.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-realizar-pagamento',
@@ -40,16 +43,33 @@ export class RealizarPagamentoComponent implements OnInit {
   //   numeroCartao: '',
   //   validade: '',
   // };
-  cliente: any = {};
+    usuarioLogado: Usuario | null = null;
+    private subscription = new Subscription();
 
   constructor(
     private carrinhoService: CarrinhoService,
-    private clienteService: ClienteService,
+    private authService: AuthService,
     private snackBar: MatSnackBar,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+
+    // this.authService.getClienteIdFromToken().subscribe({
+    //   next: (id) => {
+    //     this.idCliente = id;
+    //   },
+    //   error: (err) => {
+    //     console.error('Erro ao obter o ID do cliente:', err);
+    //     this.snackBar.open('Erro ao obter informações do cliente. Faça login novamente.', 'Fechar', { duration: 3000 });
+    //     this.router.navigateByUrl('/login');
+    //   }
+    // });
+
+    this.subscription.add(this.authService.getUsuarioLogado().subscribe(
+      usuario => this.usuarioLogado = usuario
+    ));
+
     this.carrinhoService.obterCarrinho().subscribe((itens) => {
       this.itensCarrinho = itens;
       this.calcularTotalPedido();
@@ -64,17 +84,27 @@ export class RealizarPagamentoComponent implements OnInit {
     // }
   }
 
-  criarPedido(): {
-    idCliente: number;
-    valorTotal: number;
-    itens: ItemCarrinho[];
-    formaPagamento: string;
-  } {
+  // criarPedido(): {
+  //   idCliente: number;
+  //   valorTotal: number;
+  //   itens: ItemCarrinho[];
+  //   formaPagamento: string;
+  // } {
+  //   return {
+  //     idCliente: this.cliente.id,
+  //     valorTotal: this.totalPedido,
+  //     itens: this.itensCarrinho,
+  //     formaPagamento: this.metodoPagamento as FormaPagamento,
+  //   };
+  // }
+
+  criarPedido(): any {
     return {
-      idCliente: this.cliente.id,
-      valorTotal: this.totalPedido,
-      itens: this.itensCarrinho,
-      formaPagamento: this.metodoPagamento as FormaPagamento,
+      itens: this.itensCarrinho.map(item => ({
+        id: item.id,
+        quantidade: item.quantidade
+      })),
+      formaPagamento: this.metodoPagamento
     };
   }
 

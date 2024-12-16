@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, map, Observable, tap } from "rxjs";
 import { Usuario } from "../models/usuario.model";
@@ -35,28 +35,14 @@ export class AuthService {
     ) {
     }
 
-    // public loginADM(username: string, senha: string): Observable<any> {
-    //     const params = {
-    //         username: username,
-    //         senha: senha,
-    //         perfil: 1 // ADM
-    //     }
-
-    //     //{ observe: 'response' } para garantir que a resposta completa seja retornada (incluindo o cabeçalho)
-    // return this.httpClient.post(`${this.baseUrl}/admin/loginADM`, params, {observe: 'response'}).pipe(
-    //     tap((res: any) => {
-    //       const authToken = res.headers.get('Authorization') ?? '';
-    //       if (authToken) {
-    //         this.setToken(authToken);
-    //         const usuarioLogado = res.body;
-    //         //console.log(usuarioLogado);
-    //         if (usuarioLogado) {
-    //           this.setUsuarioLogado(usuarioLogado);
-    //           this.usuarioLogadoSubject.next(usuarioLogado);
-    //         }
-    //       }
-    //     })
-    //   );
+    // getClienteIdFromToken(): Observable<number> {
+    //   const token = localStorage.getItem('token');
+    //   if (!token) {
+    //     throw new Error('Token não encontrado. Faça login novamente.');
+    //   }
+  
+    //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    //   return this.httpClient.get<number>(`${this.baseUrl}/cliente-id`, { headers });
     // }
 
     public login(username: string, senha: string, perfil: number): Observable<any> {
@@ -102,6 +88,8 @@ export class AuthService {
     //     })
     //   );
     // }
+
+
   
     // Salvar o tipo do usuário logado
     private setUsuarioTipo(tipo: string): void {
