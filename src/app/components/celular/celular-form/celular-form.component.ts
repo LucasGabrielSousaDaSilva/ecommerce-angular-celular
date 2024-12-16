@@ -199,7 +199,7 @@ export class CelularFormComponent implements OnInit {
       armazenamento: [(celular && celular.armazenamento) ? celular.armazenamento : null, Validators.required],
       ram: [(celular && celular.ram) ? celular.ram : null, Validators.required],
       idProcessador: [processador, Validators.required],
-      telas: [tela, Validators.required],
+      idTela: [tela, Validators.required],
       idPortaSlot: [(celular && celular.portaSlot) ? celular.portaSlot.map((portaSlot) => portaSlot) : [], Validators.required],
       idCamera: [(celular && celular.camera) ? celular.camera.map((camera) => camera) : [], Validators.required],
       idSensor: [(celular && celular.sensor) ? celular.sensor.map((sensor) => sensor) : [], Validators.required],

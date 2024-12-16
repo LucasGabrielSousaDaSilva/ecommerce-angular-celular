@@ -46,7 +46,6 @@ export class ClienteFormComponent implements OnInit {
     const cliente: Cliente = this.activatedRoute.snapshot.data['cliente'];
   
     this.formGroup = this.formBuilder.group({
-      id: [(cliente && cliente.id) ? cliente.id : null],
       nome: [(cliente && cliente.nome) ? cliente.nome : null],
       cep: [(cliente && cliente.cep) ? cliente.cep : null],
       cpf: [(cliente && cliente.cpf) ? cliente.cpf : null],
