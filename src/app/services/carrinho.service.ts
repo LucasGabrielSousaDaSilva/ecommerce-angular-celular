@@ -85,22 +85,22 @@ export class CarrinhoService {
   }
 
   salvarPedido(idCliente: number, itens: ItemCarrinho[]): Observable<any> {
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   throw new Error('Token não encontrado. Faça login novamente.');
-    // }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer`); // ${token}
-    const body = {
-      idCliente,
-      itens: itens.map((item) => ({
-        id: item.id,
-        quantidade: item.quantidade,
-      })),
-    };
-
-    return this.http.post(`${this.baseUrl}`, body, { headers });
-  } 
+      // const token = localStorage.getItem('token');
+      // if (!token) {
+      //   throw new Error('Token não encontrado. Faça login novamente.');
+      // }
+  
+      // const headers = new HttpHeaders().set('Authorization', `Bearer`); // ${token}
+      const body = {
+        idCliente,
+        itens: itens.map((item) => ({
+          id: item.id,
+          quantidade: item.quantidade,
+        })),
+      };
+  
+      return this.http.post(`${this.baseUrl}`, body); // , { headers }
+    } 
 
   atualizarCarrinho(itens: ItemCarrinho[]): void {
     // if (this.clienteAtualId === null) {

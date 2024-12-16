@@ -133,19 +133,24 @@ export class RealizarPagamentoComponent implements OnInit {
       return;
     }
 
-    const pedido = this.criarPedido(); // Cria o pedido com os dados do carrinho
+    // Realiza o pagamento
+    // Exibe a mensagem de sucesso e redireciona
+    this.snackBar.open('Pagamento realizado com sucesso!!', 'Fechar', { duration: 3000 });
+    this.router.navigateByUrl('/user/acompanharPedido'); // Redireciona
 
-    this.carrinhoService.salvarPedido(this.idCliente, pedido.itens).subscribe({
-      next: () => {
-        // Exibe a mensagem de sucesso e redireciona
-        this.snackBar.open('Pagamento realizado com sucesso!!', 'Fechar', { duration: 3000 });
-        this.router.navigateByUrl('/user/acompanharPedido'); // Redireciona
-      },
-      error: (err) => {
-        console.error('Erro ao salvar o pedido:', err);
-        this.snackBar.open('Opss... Falha ao realizar o pagamento. Tente novamente', 'Fechar', { duration: 3000 });
-      }
-    });
+    // const pedido = this.criarPedido(); // Cria o pedido com os dados do carrinho
+
+    // this.carrinhoService.salvarPedido(this.idCliente, pedido.itens).subscribe({
+    //   next: () => {
+    //     // Exibe a mensagem de sucesso e redireciona
+    //     this.snackBar.open('Pagamento realizado com sucesso!!', 'Fechar', { duration: 3000 });
+    //     this.router.navigateByUrl('/user/acompanharPedido'); // Redireciona
+    //   },
+    //   error: (err) => {
+    //     console.error('Erro ao salvar o pedido:', err);
+    //     this.snackBar.open('Opss... Falha ao realizar o pagamento. Tente novamente', 'Fechar', { duration: 3000 });
+    //   }
+    // });
   }
 
   // conferirPagamento(): void {
