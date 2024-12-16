@@ -8,4 +8,8 @@ export interface Venda {
     itens: ItemCarrinho[];
     statusPagamento?: string;
     statusPedido?: string;
+    celulares: { idCelular: number; quantidade: number }[];
+    data: string;
+    valorFinal: number;
+    formaPagamento: string;
 }

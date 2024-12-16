@@ -95,7 +95,6 @@ export class CarrinhoComponent implements OnInit {
 
   finalizarCompra() {
     if (this.itensCarrinho.length > 0) {
-      this.carrinhoService.limparCarrinho();
       this.router.navigate(['/user/realizarPagamento']);
     } else {
       alert('O carrinho está vazio.');
@@ -104,6 +103,11 @@ export class CarrinhoComponent implements OnInit {
 
   removerItem(item: ItemCarrinho){
     this.carrinhoService.removerItem(item);
+  }
+
+  cancelarCompra() {
+    this.carrinhoService.limparCarrinho();
+    this.router.navigate(['/user']);
   }
 
   limparCarrinho(): void {

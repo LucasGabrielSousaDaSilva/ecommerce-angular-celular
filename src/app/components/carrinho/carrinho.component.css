@@ -60,7 +60,7 @@
   }
   
   .finalizar-button {
-    background-color: #2ecc71;
+    background-color: #254ed4;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -69,7 +69,7 @@
   }
   
   .finalizar-button:hover {
-    background-color: #27ae60;
+    background-color: #0b259c;
   }
   
   p {
@@ -77,4 +77,29 @@
     font-size: 1.2em;
     color: #666;
   }
-  
+
+  .limpar-button {
+    background-color: #f3a30f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .limpar-button:hover {
+    background-color: #dd3a09;
+  }
+
+  .venda-button {
+    background-color: #22e009;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .venda-button:hover {
+    background-color: #0f9902;
+  }

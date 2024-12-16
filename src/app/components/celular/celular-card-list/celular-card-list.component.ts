@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 type Card = {
   titulo: string;
   marca: string;
+  armazenamento: number;
   preco: number;
   imageUrl: string;
   id: number;
@@ -106,6 +107,7 @@ export class CelularCardListComponent implements OnInit {
       cards.push({
         titulo: celular.nome,
         marca: celular.marca,
+        armazenamento: celular.armazenamento,
         preco: celular.preco,
         imageUrl: this.celularService.getUrlImage(celular.nomeImagem),
         id: celular.id

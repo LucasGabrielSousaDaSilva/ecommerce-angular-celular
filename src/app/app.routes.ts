@@ -119,7 +119,7 @@ export const routes: Routes = [
             // Carrinho
             { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho'},
             { path: 'realizarPagamento', component: RealizarPagamentoComponent, title: 'Realizar Pagamento'},
-            { path: 'acompanharpedido', component: AcompanharPedidoComponent, title: 'Acompanhar Pedido'},
+            { path: 'acompanharPedido', component: AcompanharPedidoComponent, title: 'Acompanhar Pedido'},
             { path: 'finalizarVenda', component: FinalizarVendaComponent, title: 'Finalizar Pedido'},
             { path: 'venda', component: VendaComponent, title: 'Finalizar Venda' },
         ]

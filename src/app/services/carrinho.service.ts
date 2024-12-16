@@ -3,6 +3,7 @@ import { ItemCarrinho } from '../models/item-carrinho.model';
 import { LocalStorageService } from './local-storage.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Venda } from '../models/venda.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,11 @@ export class CarrinhoService {
   constructor(private localStorageService: LocalStorageService, private http: HttpClient) {
     const carrinhoArmazenado = localStorageService.getItem('carrinho') || [];
     this.carrinhoSubject.next(carrinhoArmazenado);
+  }
+
+  create(venda: Venda): Observable<Venda> {
+    console.log('Venda criada:', venda);
+    return this.http.post<Venda>(this.baseUrl, venda);
   }
 
   // configurarCliente(idCliente: number): void {
@@ -40,26 +46,6 @@ export class CarrinhoService {
   //     return;
   //   }
 
-  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  //   this.http.get<any>(`${this.baseUrl}/carrinho/${idCliente}`, { headers }).subscribe({
-  //     next: (pedido) => {
-  //       const itens = pedido?.itens?.map((item: any) => ({
-  //         id: item.id,
-  //         nome: item.nome,
-  //         preco: item.preco,
-  //         quantidade: item.quantidade,
-  //         desconto: item.desconto,
-  //         subTotal: item.subTotal,
-  //       })) || [];
-  //       this.itensCarrinho.set(idCliente, itens);
-  //       this.carrinhoSubject.next(itens);
-  //     },
-  //     error: (err) => {
-  //       console.log('Sem carrinho no backend:', err);
-  //     },
-  //   });
-  // }
-
   adicionar(ItemCarrinho: ItemCarrinho) : void {
     const carrinhoAtual = this.carrinhoSubject.value;
     const itemExistente = carrinhoAtual.find(item => item.id === ItemCarrinho.id);
@@ -78,19 +64,6 @@ export class CarrinhoService {
     // localStorage.setItem(`carrinhoAtual_${this.clienteAtualId}`, JSON.stringify(carrinhoAtual));
   }
 
-  // adicionar(ItemCarrinho: ItemCarrinho) : void {
-  //   const carrinhoAtual = this.carrinhoSubject.value;
-  //   const itemExistente = carrinhoAtual.find(item => item.id === ItemCarrinho.id);
-
-  //   if (itemExistente) {
-  //     itemExistente.quantidade += ItemCarrinho.quantidade || 1;
-  //   }else{
-  //     carrinhoAtual.push(ItemCarrinho);
-  //   }
-
-  //   this.carrinhoSubject.next(carrinhoAtual);
-  // }
-
   removerTudo(): void{
     this.localStorageService.removeItem('carrinho');
     // window.localStorage.reload();
@@ -107,17 +80,9 @@ export class CarrinhoService {
     return this.carrinhoSubject.value;
   }
 
-  // obter() : ItemCarrinho[]{
-  //   return this.carrinhoSubject.value;
-  // }
-
   obterCarrinho(): Observable<ItemCarrinho[]> {
     return this.carrinhoSubject.asObservable();
   }
-
-  //   obterCarrinho(): Observable<ItemCarrinho[]> {
-  //   return this.carrinhoSubject.asObservable();
-  // }
 
   salvarPedido(idCliente: number, itens: ItemCarrinho[]): Observable<any> {
     // const token = localStorage.getItem('token');
@@ -135,37 +100,7 @@ export class CarrinhoService {
     };
 
     return this.http.post(`${this.baseUrl}`, body, { headers });
-  }
-
-  finalizarPedidoPix(): Observable<any> {
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   throw new Error('Token não encontrado. Faça login novamente.');
-    // }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer`); // ${token}
-    return this.http.patch(`${this.baseUrl}/search/pagar-Pix`, null, { headers });
-  }
-
-  finalizarPedidoBoleto(): Observable<any> {
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   throw new Error('Token não encontrado. Faça login novamente.');
-    // }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer`); // ${token}
-    return this.http.patch(`${this.baseUrl}/search/pagar-Boleto`, null, { headers });
-  }
-
-  // finalizarPedidoCartao(cartaoCreditoDTO: CartaoCreditoDTO): Observable<any> { 
-  //   const token = localStorage.getItem('token'); 
-  //   if (!token) 
-  //     { 
-  //       throw new Error('Token não encontrado. Faça login novamente.'); 
-  //     } 
-  //     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
-  //     return this.http.patch(`${this.apiUrl}/search/pagar-Cartao-Credito`, cartaoCreditoDTO, { headers});
-  // }
+  } 
 
   atualizarCarrinho(itens: ItemCarrinho[]): void {
     // if (this.clienteAtualId === null) {
@@ -180,7 +115,7 @@ export class CarrinhoService {
     //   throw new Error('Token não encontrado. Faça login novamente.');
     // }
     const headers = new HttpHeaders().set('Authorization', `Bearer `); // ${token}
-    return this.http.get(`${this.baseUrl}/pedidos-realizados/${idCliente}`, { headers });
+    return this.http.get(`${this.baseUrl}/busca/cliente/${idCliente}`, { headers });
   }
 
   cancelarPedido(): Observable<void> {

@@ -94,9 +94,9 @@
 <!-- /* From Uiverse.io by MuhammadHasann */  -->
 <div class="container responsive-grid">
     <mat-card class="card" *ngFor="let card of cards()" 
-    mat-stroked-button [routerLink]="['/user/ecommerce', card.id]">
+    mat-stroked-button>
 
-        <div class="image_container">
+        <div class="image_container" [routerLink]="['/user/ecommerce', card.id]">
             <img mat-card-image [src]="card.imageUrl" />
         </div>
 
@@ -108,12 +108,12 @@
                 {{card.marca}}
             </div>
 
-        <div class="size">
+        <div class="size" [routerLink]="['/user/ecommerce', card.id]">
             <span>Armazenamento</span>
             <ul class="list-size">
-            <li class="item-list"><button class="item-list-button">128</button></li>
-            <li class="item-list"><button class="item-list-button">256</button></li>
-            <li class="item-list"><button class="item-list-button">512</button></li>
+            <li class="item-list"><button class="item-list-button">{{card.armazenamento}}</button></li>
+            <li class="item-list"><button class="item-list-button">{{card.armazenamento}}</button></li>
+            <li class="item-list"><button class="item-list-button">{{card.armazenamento}}</button></li>
             </ul>
         </div>
 
