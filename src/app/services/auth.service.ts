@@ -35,35 +35,35 @@ export class AuthService {
     ) {
     }
 
-    public loginADM(username: string, senha: string): Observable<any> {
-        const params = {
-            login: username,
-            senha: senha,
-            perfil: 2 // ADM
-        }
+    // public loginADM(username: string, senha: string): Observable<any> {
+    //     const params = {
+    //         username: username,
+    //         senha: senha,
+    //         perfil: 1 // ADM
+    //     }
 
-        //{ observe: 'response' } para garantir que a resposta completa seja retornada (incluindo o cabeçalho)
-    return this.httpClient.post(`${this.baseUrl}`, params, {observe: 'response'}).pipe(
-        tap((res: any) => {
-          const authToken = res.headers.get('Authorization') ?? '';
-          if (authToken) {
-            this.setToken(authToken);
-            const usuarioLogado = res.body;
-            //console.log(usuarioLogado);
-            if (usuarioLogado) {
-              this.setUsuarioLogado(usuarioLogado);
-              this.usuarioLogadoSubject.next(usuarioLogado);
-            }
-          }
-        })
-      );
-    }
+    //     //{ observe: 'response' } para garantir que a resposta completa seja retornada (incluindo o cabeçalho)
+    // return this.httpClient.post(`${this.baseUrl}/admin/loginADM`, params, {observe: 'response'}).pipe(
+    //     tap((res: any) => {
+    //       const authToken = res.headers.get('Authorization') ?? '';
+    //       if (authToken) {
+    //         this.setToken(authToken);
+    //         const usuarioLogado = res.body;
+    //         //console.log(usuarioLogado);
+    //         if (usuarioLogado) {
+    //           this.setUsuarioLogado(usuarioLogado);
+    //           this.usuarioLogadoSubject.next(usuarioLogado);
+    //         }
+    //       }
+    //     })
+    //   );
+    // }
 
-    public login(username: string, senha: string): Observable<any> {
+    public login(username: string, senha: string, perfil: number): Observable<any> {
         const params = {
             username: username,
             senha: senha,
-            perfil: 1
+            perfil: perfil
         }
 
       //{ observe: 'response' } para garantir que a resposta completa seja retornada (incluindo o cabeçalho)
@@ -85,7 +85,7 @@ export class AuthService {
 
     // login(username: string, senha: string, perfil: number): Observable<any> {
     //   const payload = { username, senha, perfil };
-    //   return this.http.post(this.baseUrl, payload, { observe: 'response' }).pipe(
+    //   return this.httpClient.post(this.baseUrl, payload, { observe: 'response' }).pipe(
     //     map((response) => {
     //       const token = response.headers.get('Authorization');
     //       const usuario = response.body;
@@ -95,7 +95,7 @@ export class AuthService {
     //         this.loggedIn.next(true);
     //         this.setUsuarioLogado(usuario); // Atualiza o usuário logado
   
-    //         const tipo = perfil === 1 ? 'Funcionario' : 'Cliente';
+    //         const tipo = perfil === 1 ?  'Cliente' : 'Funcionario';
     //         this.setUsuarioTipo(tipo);
     //       }
     //       return usuario;

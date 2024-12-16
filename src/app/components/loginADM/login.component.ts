@@ -19,7 +19,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class LoginADMComponent implements OnInit {
   loginForm!: FormGroup;
   cadastroForm!: FormGroup;
-  perfilStyle = 1;
+  perfilStyle = 2;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,29 +30,44 @@ export class LoginADMComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      login: ['', Validators.required],
+      username: ['', Validators.required],
       senha: ['', Validators.required]
     });
   }
 
   onSubmit() {
+    console.log('onSubmit called'); // Log inicial
+
     if (this.loginForm.valid) {
-      const { login, senha } = this.loginForm.value;
+      console.log('Form is valid'); // Log para verificar a validade do formulário
+
+      const username = this.loginForm.get('username')?.value;
+      const senha = this.loginForm.get('senha')?.value;
       const perfil = this.perfilStyle;
 
+      console.log('username:', username); // Log do valor do login
+      console.log('Senha:', senha); // Log do valor da senha (Evite isso em produção!)
+
       // Login exclusivo para funcionários
-      this.authService.login(login, senha).subscribe(
-        () => {
+      this.authService.login(username, senha, perfil).subscribe({
+        next: (resp) => {
+          console.log('Login bem-sucedido:', resp); // Log da resposta de sucesso
+
           this.router.navigateByUrl('/admin/controle'); // Redirecionar após login bem-sucedido
         },
-        (error) => {
+        error: (err) => {
+          console.error('Erro ao fazer login:', err); // Log de erro
           this.snackBar.open('Login como funcionário falhou', 'Fechar', {
             duration: 3000,
             verticalPosition: 'top',
             horizontalPosition: 'center',
           });
         }
-      );
+    });
     }
+  }
+
+  onRegister() {
+    // criar usuário
   }
 }

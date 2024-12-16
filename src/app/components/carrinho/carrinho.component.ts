@@ -29,29 +29,45 @@ export class CarrinhoComponent implements OnInit {
   ) {}
 
   // ngOnInit(): void {
-    // const usuarioLogado = localStorage.getItem('usuario_logado');
-    // if (!usuarioLogado) {
-    //   this.router.navigateByUrl('/user/login');
-    //   return;
-    // }
+  //   const usuarioLogado = localStorage.getItem('usuario_logado');
+  //   if (!usuarioLogado) {
+  //     this.router.navigateByUrl('/user/login');
+  //     return;
+  //   }
 
-    // const cliente = JSON.parse(usuarioLogado);
-    // if (cliente?.id) {
-    //   this.carrinhoService.configurarCliente(cliente.id);
+  //   const cliente = JSON.parse(usuarioLogado);
+  //   if (cliente?.id) {
+  //     this.carrinhoService.configurarCliente(cliente.id);
 
-    //   this.carrinhoService.obterCarrinho().subscribe({
-    //     next: (itens) => {
-    //       this.itensCarrinho = itens;
-    //       this.recalcularSubtotais();
-    //     },
-    //     error: (err) => {
-    //       console.error('Erro ao carregar o carrinho:', err);
-    //     },
-    //   });
-    // } else {
-    //   this.router.navigateByUrl('/user/login');
-    // }
+  //     this.carrinhoService.obterCarrinho().subscribe({
+  //       next: (itens) => {
+  //         this.itensCarrinho = itens;
+  //         this.recalcularSubtotais();
+  //       },
+  //       error: (err) => {
+  //         console.error('Erro ao carregar o carrinho:', err);
+  //       },
+  //     });
+  //   } else {
+  //     this.router.navigateByUrl('/user/login');
+  //   }
   // }
+
+  ngOnInit(): void{
+    this.carrinhoService.carrinho$.subscribe(itens => {
+      this.itensCarrinho = itens;
+    });
+
+    this.carrinhoService.obterCarrinho().subscribe({
+      next: (itens) => {
+        this.itensCarrinho = itens;
+        this.recalcularSubtotais();
+      },
+      error: (err) => {
+          console.error('Erro ao carregar o carrinho:', err);
+        },
+    });
+  }
 
   // fecharPedido(): void {
   //   const usuarioLogado = localStorage.getItem('usuario_logado');
@@ -77,80 +93,45 @@ export class CarrinhoComponent implements OnInit {
   //   }
   // }
 
-
-  // removerItem(index: number): void {
-  //   this.itensCarrinho.splice(index, 1);
-  //   this.recalcularSubtotais();
-  // }
-
-  // limparCarrinho(): void {
-  //   this.itensCarrinho = [];
-  //   this.recalcularSubtotais();
-  // }
-
-  // calcularTotal(): number {
-  //   const total = this.itensCarrinho.reduce(
-  //     (soma, item) => soma + (item.subTotal ?? 0),
-  //     0
-  //   );
-
-  //   return total;
-  // }
-
-  // recalcularSubtotais(): void {
-  //   this.itensCarrinho.forEach((item) => {
-  //     item.subTotal = (item.preco ?? 0) * item.quantidade;
-  //   });
-  // }
-
-  // alterarQuantidade(index: number, delta: number): void {
-  //   const item = this.itensCarrinho[index];
-  //   if (item) {
-  //     item.quantidade += delta;
-  //     if (item.quantidade < 1) {
-  //       item.quantidade = 1;
-  //     }
-  //     this.recalcularSubtotais();
-  //   }
-  // }
-
-    recalcularSubtotais(): void {
-    this.itensCarrinho.forEach((item) => {
-      item.subTotal = (item.preco ?? 0) * item.quantidade;
-    });
-  }
-
-  ngOnInit(): void{
-    this.carrinhoService.carrinho$.subscribe(itens => {
-      this.itensCarrinho = itens;
-    });
-
-    this.carrinhoService.obterCarrinho().subscribe({
-      next: (itens) => {
-        this.itensCarrinho = itens;
-        this.recalcularSubtotais();
-      }
-    });
+  finalizarCompra() {
+    if (this.itensCarrinho.length > 0) {
+      this.carrinhoService.limparCarrinho();
+      this.router.navigate(['/user/realizarPagamento']);
+    } else {
+      alert('O carrinho está vazio.');
+    }
   }
 
   removerItem(item: ItemCarrinho){
     this.carrinhoService.removerItem(item);
   }
 
-  calcularTotal(): number{
-    return this.itensCarrinho.reduce((total, item) => total + item.quantidade * item.preco, 0)
+  limparCarrinho(): void {
+    this.itensCarrinho = [];
+    this.recalcularSubtotais();
   }
 
-  atualizarQuantidade(item: ItemCarrinho) {
+  calcularTotal(): number {
+    const total = this.itensCarrinho.reduce(
+      (soma, item) => soma + (item.subTotal ?? 0),
+      0
+    );
+
+    return total;
+  }
+
+  // calcularTotal(): number{
+  //   return this.itensCarrinho.reduce((total, item) => total + item.quantidade * item.preco, 0)
+  // }
+
+  recalcularSubtotais(): void {
+    this.itensCarrinho.forEach((item) => {
+      item.subTotal = (item.preco ?? 0) * item.quantidade;
+    });
+  }
+
+    atualizarQuantidade(item: ItemCarrinho) {
     this.carrinhoService.atualizarQuantidade(item);
   }
 
-  finalizarCompra() {
-    if (this.itensCarrinho.length > 0) {
-      this.carrinhoService.limparCarrinho();
-      this.router.navigate(['/user/finalizar-venda']);
-    } else {
-      alert('O carrinho está vazio.');
-    }
-  }
 }

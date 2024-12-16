@@ -46,6 +46,8 @@ import { NovidadesComponent } from './pagina/novidades/novidades.component';
 import { PromocoesComponent } from './pagina/promocoes/promocoes.component';
 import { ControleComponent } from './controle/controle.component';
 import { linhaResolver } from './components/linha/resolver/linha.resolver';
+import { RealizarPagamentoComponent } from './components/carrinho/realizar-pagamento/realizar-pagamento.component';
+import { AcompanharPedidoComponent } from './components/acompanhar-pedido/acompanhar-pedido.component';
 
 export const routes: Routes = [
     { 
@@ -116,6 +118,8 @@ export const routes: Routes = [
 
             // Carrinho
             { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho'},
+            { path: 'realizarPagamento', component: RealizarPagamentoComponent, title: 'Realizar Pagamento'},
+            { path: 'acompanharpedido', component: AcompanharPedidoComponent, title: 'Acompanhar Pedido'},
             { path: 'finalizarVenda', component: FinalizarVendaComponent, title: 'Finalizar Pedido'},
             { path: 'venda', component: VendaComponent, title: 'Finalizar Venda' },
         ]

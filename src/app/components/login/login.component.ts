@@ -22,6 +22,8 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
 
   loginForm!: FormGroup;
+  cadastroForm!: FormGroup;
+  perfilStyle = 1;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,11 +47,12 @@ export class LoginComponent {
 
         const username = this.loginForm.get('username')?.value;
         const senha = this.loginForm.get('senha')?.value;
+        const perfil = this.perfilStyle;
 
         console.log('Username:', username); // Log do valor do username
         console.log('Senha:', senha); // Log do valor da senha (Evite isso em produção!)
 
-        this.authService.login(username, senha).subscribe({
+        this.authService.login(username, senha, perfil).subscribe({
             next: (resp) => {
                 console.log('Login successful:', resp); // Log da resposta de sucesso
 

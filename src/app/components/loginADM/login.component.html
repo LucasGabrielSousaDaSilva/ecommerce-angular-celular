@@ -7,15 +7,17 @@
             <h1 class="titulo-pagina">Administrador</h1>
           </div>
         </div>
+
         <div class="campos">
           <div class="container-formulario">
+
             <div class="flex-column">
               <label>Username</label>
             </div>
             <div class="inputForm">
               <mat-icon>person</mat-icon>
               <input matInput placeholder="Digite seu username" formControlName="username" type="text" required>
-              <mat-error *ngIf="loginForm.get('username')!.hasError('required')"></mat-error>
+              <mat-error *ngIf="loginForm.get('username')!.hasError('required')">O username é obrigatório</mat-error>
             </div>
             
             <div class="flex-column">
@@ -24,11 +26,13 @@
             <div class="inputForm">
               <mat-icon>lock</mat-icon>
               <input matInput placeholder="Digite sua senha" formControlName="senha" type="password" required>
-              <mat-error *ngIf="loginForm.get('senha')!.hasError('required')"></mat-error>
+              <mat-error *ngIf="loginForm.get('senha')!.hasError('required')">A senha é obrigatória</mat-error>
             </div>
+
             <button class="button-submit" type="submit">Entrar</button>   
           </div>
         </div>
+
       </div>
     </form>
 </div>
