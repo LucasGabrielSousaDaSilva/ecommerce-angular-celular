@@ -35,16 +35,6 @@ export class AuthService {
     ) {
     }
 
-    // getClienteIdFromToken(): Observable<number> {
-    //   const token = localStorage.getItem('token');
-    //   if (!token) {
-    //     throw new Error('Token não encontrado. Faça login novamente.');
-    //   }
-  
-    //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    //   return this.httpClient.get<number>(`${this.baseUrl}/cliente-id`, { headers });
-    // }
-
     public login(username: string, senha: string, perfil: number): Observable<any> {
         const params = {
             username: username,

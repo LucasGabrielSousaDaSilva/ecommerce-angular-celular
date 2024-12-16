@@ -22,32 +22,34 @@
       <mat-icon>search</mat-icon>
     </button>
 
-    <mat-form-field appearance="outline" class="input-field">
+    <!-- <mat-form-field appearance="outline" class="input-field">
         <mat-label>Preço Mínimo</mat-label>
         <input
           [(ngModel)]="precoMin"
           matInput
           type="number"
           placeholder="Ex: 1000"
+          (keyup.enter)="filtrar()"
         />
-    </mat-form-field>
+    </mat-form-field> -->
 
-    <button
+    <!-- <button
       mat-icon-button
       color="primary"
       class="search-button"
       id="meuBotaoPesquisar"
       (click)="filtrar()">
       <mat-icon>search</mat-icon>
-    </button>
+    </button> -->
 
-    <mat-form-field appearance="outline" class="input-field">
+    <!-- <mat-form-field appearance="outline" class="input-field">
         <mat-label>Preço Máximo</mat-label>
         <input
           [(ngModel)]="precoMax"
           matInput
           type="number"
-          placeholder="Ex: 5000"/>
+          placeholder="Ex: 5000"
+          (keyup.enter)="filtrar()"/>
     </mat-form-field>
 
     <button
@@ -57,7 +59,7 @@
       id="meuBotaoPesquisar"
       (click)="filtrar()">
       <mat-icon>search</mat-icon>
-    </button>
+    </button> -->
 </div>
 
 <!-- <div class="container responsive-grid">

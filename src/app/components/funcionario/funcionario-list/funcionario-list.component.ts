@@ -82,37 +82,4 @@ export class FuncionarioListComponent implements OnInit{
     );
   }
 
-  editarFuncionario(funcionario: Funcionario): void {
-    this.funcionarioSelecionado = funcionario;
-
-    this.funcionarioForm.patchValue({
-      nome: funcionario.nome,
-      cep: funcionario.cep,
-      cpf: funcionario.cpf,
-      cnpj: funcionario.cnpj,
-      login: funcionario.login
-    });
-  }
-
-  salvarFuncionario(): void {
-    if (this.funcionarioForm.valid && this.funcionarioSelecionado) {
-      const funcionarioEditado = {
-        ...this.funcionarioSelecionado,
-        ...this.funcionarioForm.value
-      };
-
-      this.funcionarioService.update(funcionarioEditado).subscribe(() => {
-        this.ngOnInit(); 
-        this.cancelarEdicao();      
-      });
-    }
-  }
-
-  cancelarEdicao(): void {
-    this.funcionarioSelecionado = null;
-    this.funcionarioForm.reset(); 
-  }
-
-
-
 }
