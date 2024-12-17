@@ -18,11 +18,6 @@ export class AuthService {
     private usuarioLogadoSubject = new BehaviorSubject<any>(this.getUsuarioLogadoFromLocalStorage());
     private usuarioTipoKey = 'usuario_tipo'; //armazenar o tipo de usuario logado 
 
-  // Recupera o usuário logado do localStorage
-  public getUsuarioLogadoFromLocalStorage(): any {
-    const usuario = localStorage.getItem(this.usuarioLogadoKey);
-    return usuario ? JSON.parse(usuario) : null;
-  }
 
   // Salva o token no localStorage
   private setToken(token: string): void {
@@ -41,16 +36,22 @@ export class AuthService {
             senha: senha,
             perfil: perfil
         }
-
       //{ observe: 'response' } para garantir que a resposta completa seja retornada (incluindo o cabeçalho)
     return this.httpClient.post(`${this.baseUrl}/login`, params, {observe: 'response'}).pipe(
         tap((res: any) => {
-          const authToken = res.headers.get('Authorization') ?? '';
+          const authToken = res.headers.get('Authorization');
           if (authToken) {
             this.setToken(authToken);
             const usuarioLogado = res.body;
             //console.log(usuarioLogado);
+
+            this.loggedIn.next(true);
+            localStorage.setItem('token', authToken);
+
             if (usuarioLogado) {
+              const tipo = perfil === 1 ? 'User' : 'Admin';
+
+              this.setUsuarioTipo(tipo);
               this.setUsuarioLogado(usuarioLogado);
               this.usuarioLogadoSubject.next(usuarioLogado);
             }
@@ -71,8 +72,6 @@ export class AuthService {
     //         this.loggedIn.next(true);
     //         this.setUsuarioLogado(usuario); // Atualiza o usuário logado
   
-    //         const tipo = perfil === 1 ?  'Cliente' : 'Funcionario';
-    //         this.setUsuarioTipo(tipo);
     //       }
     //       return usuario;
     //     })
@@ -148,6 +147,12 @@ export class AuthService {
       localStorage.setItem(this.usuarioLogadoKey, JSON.stringify(usuario));
       this.usuarioLogadoSubject.next(usuario);
     }
+
+        // Recupera o usuário logado do localStorage
+        private getUsuarioLogadoFromLocalStorage(): any {
+          const usuario = localStorage.getItem(this.usuarioLogadoKey);
+          return usuario ? JSON.parse(usuario) : null;
+      }
   
     // Remove o token do localStorage
     removeToken(): void {

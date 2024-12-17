@@ -12,9 +12,15 @@ export const authGuard: CanActivateFn = (route, state) => {
     authService.removeToken();
     authService.removeUsuarioLogado();
     router.navigate(['/admin/loginADM']);
+    if(authService.getUsuarioTipo() === 'User'){
+      authService.removeToken();
+      authService.removeUsuarioLogado();
+      alert('Você não tem permissão para acessar essa página!!!');
+      router.navigate(['/user/login']);
+    }
     return false;
   } else {
-    console.log('Token válido');
+    console.log('Token válido!');
     return true;
   }
 };

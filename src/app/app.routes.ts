@@ -49,6 +49,10 @@ import { linhaResolver } from './components/linha/resolver/linha.resolver';
 import { RealizarPagamentoComponent } from './components/carrinho/realizar-pagamento/realizar-pagamento.component';
 import { AcompanharPedidoComponent } from './components/carrinho/acompanhar-pedido/acompanhar-pedido.component';
 import { authClienteGuard } from './guard/auth-cliente.guard';
+import { AlterarUsernameComponent } from './components/cliente/alterar-username/alterar-username/alterar-username.component';
+import { AlterarSenhaComponent } from './components/cliente/alterar-senha/alterar-senha.component';
+import { ClientePerfilComponent } from './components/cliente/cliente-perfil/cliente-perfil.component';
+import { ClientePedidosComponent } from './components/cliente/cliente-pedidos/cliente-pedidos.component';
 
 export const routes: Routes = [
     { 
@@ -116,6 +120,10 @@ export const routes: Routes = [
 
             // Login e Registro
             { path: 'login', component: LoginComponent, title: 'Login'},
+            { path: 'alterarUsername', component: AlterarUsernameComponent, title: 'Alterando Username', canActivate: [authClienteGuard]},            
+            { path: 'alterarSenha', component: AlterarSenhaComponent, title: 'Alterando Senha', canActivate: [authClienteGuard]},
+            { path: 'meuPerfil', component: ClientePerfilComponent, title: 'Meu Perfil', canActivate: [authClienteGuard]},
+            { path: 'meuPedido', component: ClientePedidosComponent, title: 'Meus Pedidos' },
 
             // Carrinho
             { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho', canActivate: [authClienteGuard] },
@@ -123,6 +131,7 @@ export const routes: Routes = [
             { path: 'acompanharPedido', component: AcompanharPedidoComponent, title: 'Acompanhar Pedido', canActivate: [authClienteGuard] },
             { path: 'finalizarVenda', component: FinalizarVendaComponent, title: 'Finalizar Pedido'},
             { path: 'venda', component: VendaComponent, title: 'Finalizar Venda' },
+            
         ]
     },
     {

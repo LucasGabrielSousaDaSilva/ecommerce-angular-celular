@@ -73,15 +73,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   verCarrinho() {
-    this.router.navigate(['/carrinho']);
+    this.router.navigate(['/user/carrinho']);
   }
 
   meuPerfil() {
-    this.router.navigate(['/meuPerfil']);
+    this.router.navigate(['/user/meuPerfil']);
   }
 
   meusPedidos(){
-    this.router.navigate(['/meuPedido']);
+    this.router.navigate(['/user/meuPedido']);
   }
 
   // Função de pesquisa que chama os métodos do serviço
