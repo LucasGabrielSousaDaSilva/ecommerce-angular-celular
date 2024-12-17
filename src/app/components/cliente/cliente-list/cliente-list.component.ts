@@ -38,7 +38,7 @@ export class ClienteListComponent implements OnInit{
   page = 0;
 
   clientes: Cliente[] = [];
-  displayedColumns: string[] = ['nome', 'cep', 'cpf', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'cep', 'cpf', 'acao'];
 
   clienteForm!: FormGroup;
   clienteSelecionado: Cliente | null = null;

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ItemCarrinho } from '../models/item-carrinho.model';
 import { LocalStorageService } from './local-storage.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Venda } from '../models/venda.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,17 +29,6 @@ export class CarrinhoService {
     return this.http.post<Venda>(this.baseUrl, venda);
   }
 
-  // configurarCliente(idCliente: number): void {
-  //   this.clienteAtualId = idCliente;
-
-  //   if (!this.itensCarrinho.has(idCliente)) {
-  //     this.itensCarrinho.set(idCliente, []);
-  //   }
-
-  //   this.carrinhoSubject.next(this.itensCarrinho.get(idCliente)!);
-  //   this.getCarrinho(idCliente);
-  // }
-
   // getCarrinho(idCliente: number): void {
   //   const token = localStorage.getItem('token');
   //   if (!token) {
@@ -61,7 +51,7 @@ export class CarrinhoService {
     }
 
     this.carrinhoSubject.next(carrinhoAtual);
-    // localStorage.setItem(`carrinhoAtual_${this.clienteAtualId}`, JSON.stringify(carrinhoAtual));
+    localStorage.setItem(`carrinho`, JSON.stringify(carrinhoAtual));
   }
 
   removerTudo(): void{

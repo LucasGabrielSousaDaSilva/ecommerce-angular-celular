@@ -12,6 +12,11 @@
         <table mat-table [dataSource]="clientes" class="mat-elevation-z8">
 
         <!-- Nome Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="nome">
             <th mat-header-cell *matHeaderCellDef> Nome </th>
             <td mat-cell *matCellDef="let cliente"> {{cliente.nome}} </td>

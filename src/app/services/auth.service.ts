@@ -19,7 +19,7 @@ export class AuthService {
     private usuarioTipoKey = 'usuario_tipo'; //armazenar o tipo de usuario logado 
 
   // Recupera o usuário logado do localStorage
-  private getUsuarioLogadoFromLocalStorage(): any {
+  public getUsuarioLogadoFromLocalStorage(): any {
     const usuario = localStorage.getItem(this.usuarioLogadoKey);
     return usuario ? JSON.parse(usuario) : null;
   }

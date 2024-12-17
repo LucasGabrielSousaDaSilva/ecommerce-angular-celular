@@ -35,6 +35,11 @@ export class ClienteFormComponent implements OnInit {
         cpf:['' , Validators.required],
         login:['', Validators.required],
         senha:['', Validators.required],
+        logradouro:['', Validators.required],
+        complemento:['', Validators.required],
+        bairro:['', Validators.required],
+        localidade:['', Validators.required],
+        uf:['', Validators.required],
       }) 
   }
 
@@ -51,10 +56,14 @@ export class ClienteFormComponent implements OnInit {
       cpf: [(cliente && cliente.cpf) ? cliente.cpf : null],
       login: [(cliente && cliente.login) ? cliente.login : null],
       senha: [(cliente && cliente.senha) ? cliente.senha : null],
+      logradouro: [(cliente && cliente.logradouro) ? cliente.logradouro : null],
+      complemento: [(cliente && cliente.complemento) ? cliente.complemento : null],
+      bairro: [(cliente && cliente.bairro) ? cliente.bairro : null],
+      localidade: [(cliente && cliente.localidade) ? cliente.localidade : null],
+      uf: [(cliente && cliente.uf) ? cliente.uf : null]
     })
   
   }
-
 
   onSubmit() {
     this.formGroup.markAllAsTouched();
