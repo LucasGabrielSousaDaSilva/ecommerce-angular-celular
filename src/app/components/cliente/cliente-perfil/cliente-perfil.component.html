@@ -14,35 +14,37 @@
         <div class="container_dados_pessoais">
             <h1>Seus Dados</h1>
             <div class="container_dados_d">
-                <div class="dados">
+                <div class="dados_pessoais">
                     <h2 class="titulo">Dados Pessoais</h2>
-                    <div class="dados_pessoais_grid"> 
+                    <div class="campo_dados_pessoais">
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Nome: </mat-label>
-                            <input matInput placeholder="Digite seu nome" [disabled]="true">
-                            {{ usuarioLogado?.nome }}
+                            <input matInput placeholder="Digite seu nome" formControlName="nome" [disabled]="true">
                         </mat-form-field>
-                        <!-- <mat-form-field appearance="outline" style="width: 100%" class="campos">
-                            <mat-label>Email: </mat-label>
-                            <input matInput [disabled]="true">
-                            {{ usuarioLogado?.email }}
-                        </mat-form-field> -->
-                        <!-- <mat-form-field appearance="outline" style="width: 100%" class="campos">
-                            <mat-label>CPF: </mat-label>
-                            <input matInput placeholder="Digite seu CPF" [disabled]="true">
-                            {{usuarioLogado?.cpf }}
-                        </mat-form-field> -->
                     </div>
-                    <div class="dados_pessoais">
-                        <!-- <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                    <div class="campo_dados_pessoais">
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>Email: </mat-label>
+                            <input matInput placeholder="Digite seu email" formControlName="email" [disabled]="true">
+                        </mat-form-field>
+                    </div>
+                    <div class="campo_dados_pessoais">
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>CPF: </mat-label>
+                            <input matInput placeholder="Digite seu CPF" formControlName="cpf" [disabled]="true">
+                        </mat-form-field>
+                    </div>
+                    <div class="campo_dados_pessoais">
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Endereço: </mat-label>
                             <input matInput [disabled]="true">
-                            <p>CEP: {{ endereco.cep }}</p>
-                            <p>Estado: {{ endereco.estado }}</p>
-                            <p>Endereco: {{ endereco.endereco }}</p>
-                            <p>Sigla: {{ endereco.sigla }}
-                            <p>Cidade: {{ endereco.cidade }}</p>
-                        </mat-form-field> -->
+                            <p>CEP: {{ formGroup.get('cep')?.value }}</p>
+                            <p>Estado: {{ formGroup.get('uf')?.value }}</p>
+                            <p>Endereço: {{ formGroup.get('logradouro')?.value }}</p>
+                            <p>Complemento: {{ formGroup.get('complemento')?.value }}</p>
+                            <p>Bairro: {{ formGroup.get('bairro')?.value }}</p>
+                            <p>Cidade: {{ formGroup.get('localidade')?.value }}</p>
+                        </mat-form-field>
                     </div>
                 </div>
                 <mat-divider vertical></mat-divider>
@@ -51,8 +53,7 @@
                     <div class="campo_dados_acesso">
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Username: </mat-label>
-                            <input matInput placeholder="Digite seu username" [disabled]="true">
-                            {{endereco?.username}}
+                            <input matInput placeholder="Digite seu username" formControlName="login" [disabled]="true">
                         </mat-form-field>
                     </div>
                     <div class="botoes">

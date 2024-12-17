@@ -3,6 +3,7 @@ import { ClienteService } from '../../../services/cliente.service';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ItemCarrinho } from '../../../models/item-carrinho.model';
 
 
 @Component({
@@ -14,26 +15,27 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class ClientePedidosComponent implements OnInit {
   loading: boolean = false;
+  pedidos: ItemCarrinho[] = [];
 
   constructor(private clienteService: ClienteService) {}
 
   ngOnInit(): void {
-    // this.buscarPedidos();
+    this.buscarPedidos();
   }
 
-  // buscarPedidos(): void {
-  //   this.loading = true;
-  //   this.clienteService.getPedidosCliente().subscribe({
-  //     next: (pedidos: Pedido[]) => {
-  //       this.pedidos = pedidos;
-  //       this.loading = false;
-  //     },
-  //     error: (err: any) => {
-  //       console.error('Erro ao buscar pedidos:', err);
-  //       this.loading = false;
-  //     }
-  //   });
-  // }
+  buscarPedidos(): void {
+    this.loading = true;
+    this.clienteService.getPedidosCliente().subscribe({
+      next: (pedidos: ItemCarrinho[]) => {
+        this.pedidos = pedidos;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erro ao buscar pedidos:', err);
+        this.loading = false;
+      }
+    });
+  }
 
   verDetalhesPedido(id: number): void {
     console.log('Ver detalhes do pedido:', id);

@@ -2,6 +2,11 @@
     text-align: center;
     margin: 50px auto;
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
   }
   
   mat-progress-bar {
@@ -21,7 +26,8 @@
   --border-clr: #29536d;
   --loader-clr: #CCE3DE;
   background-color: var(--screen-clr);
-  height: 13rem;
+  height: 20rem;
+  width: 12.5rem;
   aspect-ratio: 10/16;
   border-radius: .5rem;
   border: 5px solid var(--border-clr);
@@ -52,9 +58,9 @@
 /* loader */
 .loader {
   border: 10px dashed var(--loader-clr);
-  width: 2rem;
-  height: 2rem;
-  padding: 1.7rem;
+  width: 4rem;
+  height: 4rem;
+  padding: 3rem;
   border-radius: 50%;
   animation: loading 2s infinite ease-in-out;
 }

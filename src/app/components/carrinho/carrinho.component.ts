@@ -28,46 +28,46 @@ export class CarrinhoComponent implements OnInit {
     private router: Router
   ) {}
 
-  // ngOnInit(): void {
-  //   const usuarioLogado = localStorage.getItem('usuario_logado');
-  //   if (!usuarioLogado) {
-  //     this.router.navigateByUrl('/user/login');
-  //     return;
-  //   }
+  ngOnInit(): void {
+    const usuarioLogado = localStorage.getItem('usuario_logado');
+    if (!usuarioLogado) {
+      this.router.navigateByUrl('/user/login');
+      return;
+    }
 
-  //   const cliente = JSON.parse(usuarioLogado);
-  //   if (cliente?.id) {
-  //     this.carrinhoService.configurarCliente(cliente.id);
+    const cliente = JSON.parse(usuarioLogado);
+    if (cliente?.id) {
+      this.carrinhoService.configurarCliente(cliente.id);
 
-  //     this.carrinhoService.obterCarrinho().subscribe({
-  //       next: (itens) => {
-  //         this.itensCarrinho = itens;
-  //         this.recalcularSubtotais();
-  //       },
-  //       error: (err) => {
-  //         console.error('Erro ao carregar o carrinho:', err);
-  //       },
-  //     });
-  //   } else {
-  //     this.router.navigateByUrl('/user/login');
-  //   }
-  // }
-
-  ngOnInit(): void{
-    this.carrinhoService.carrinho$.subscribe(itens => {
-      this.itensCarrinho = itens;
-    });
-
-    this.carrinhoService.obterCarrinho().subscribe({
-      next: (itens) => {
-        this.itensCarrinho = itens;
-        this.recalcularSubtotais();
-      },
-      error: (err) => {
+      this.carrinhoService.obterCarrinho().subscribe({
+        next: (itens) => {
+          this.itensCarrinho = itens;
+          this.recalcularSubtotais();
+        },
+        error: (err) => {
           console.error('Erro ao carregar o carrinho:', err);
         },
-    });
+      });
+    } else {
+      this.router.navigateByUrl('/user/login');
+    }
   }
+
+  // ngOnInit(): void{
+  //   this.carrinhoService.carrinho$.subscribe(itens => {
+  //     this.itensCarrinho = itens;
+  //   });
+
+  //   this.carrinhoService.obterCarrinho().subscribe({
+  //     next: (itens) => {
+  //       this.itensCarrinho = itens;
+  //       this.recalcularSubtotais();
+  //     },
+  //     error: (err) => {
+  //         console.error('Erro ao carregar o carrinho:', err);
+  //       },
+  //   });
+  // }
 
   // fecharPedido(): void {
   //   const usuarioLogado = localStorage.getItem('usuario_logado');
@@ -84,7 +84,7 @@ export class CarrinhoComponent implements OnInit {
   //         next: (carrinho) => {
   //           this.carrinhoId = carrinho.id;
   //           alert('Pedido fechado com sucesso!');
-  //           this.router.navigateByUrl('/user/finalizar-venda');
+  //           this.router.navigateByUrl('/user/realizarPagamento');
   //         },
   //         error: (err) => {
   //           console.error('Erro ao fechar o pedido:', err);

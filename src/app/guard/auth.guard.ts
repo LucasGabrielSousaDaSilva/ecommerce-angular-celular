@@ -12,14 +12,21 @@ export const authGuard: CanActivateFn = (route, state) => {
     authService.removeToken();
     authService.removeUsuarioLogado();
     router.navigate(['/admin/loginADM']);
-    if(authService.getUsuarioTipo() === 'User'){
-      authService.removeToken();
-      authService.removeUsuarioLogado();
-      alert('Você não tem permissão para acessar essa página!!!');
-      router.navigate(['/user/login']);
-    }
     return false;
   } else {
+    const user = authService.getUsuarioLogado();
+    const userType = authService.getUsuarioTipo();
+
+    if (userType === 'Admin' && state.url.startsWith('/user')) {
+      alert('Você não tem permissão para acessar essa página!!!');
+      router.navigate(['/admin/controle']);
+      return false;
+    } else if (userType === 'User' && state.url.startsWith('/admin')) {
+      alert('Você não tem permissão para acessar essa página!!!');
+      router.navigate(['/user/ecommerce']);
+      return false;
+    }
+
     console.log('Token válido!');
     return true;
   }

@@ -89,4 +89,14 @@ export class ClienteService {
     const headers = this.getHeaders(); // Certifique-se de que os headers de autenticação estão corretos.
     return this.httpClient.get(`${this.baseUrl}/search/meu-perfil/${id}`, { headers });
   }
+
+  getClienteById(id: number): Observable<Cliente> {
+    const headers = this.getHeaders(); // Certifique-se de que os headers de autenticação estão corretos.
+    return this.httpClient.get<Cliente>(`${this.baseUrl}/clientes/${id}`, { headers });
+  }
+
+  getPedidosCliente(): Observable<any> {
+    const headers = this.getHeaders(); // Certifique-se de que os headers de autenticação estão corretos.
+    return this.httpClient.get(`${this.baseUrl}/dados/compras`, { headers });
+  }
 }

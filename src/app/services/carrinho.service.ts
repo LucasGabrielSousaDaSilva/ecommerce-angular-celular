@@ -24,6 +24,45 @@ export class CarrinhoService {
     this.carrinhoSubject.next(carrinhoArmazenado);
   }
 
+    // Configurar cliente logado
+    configurarCliente(idCliente: number): void {
+      this.clienteAtualId = idCliente;
+  
+      if (!this.itensCarrinho.has(idCliente)) {
+        this.itensCarrinho.set(idCliente, []);
+      }
+  
+      this.carrinhoSubject.next(this.itensCarrinho.get(idCliente)!);
+      this.getCarrinho(idCliente);
+    }
+
+    getCarrinho(idCliente: number): void {
+      const token = localStorage.getItem('token'); // Obter token
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+      this.http.get<any>(`${this.baseUrl}/carrinho/${idCliente}`, { headers }).subscribe({
+        next: (pedido) => {
+          if (pedido?.itens && pedido.itens.length > 0) {
+            const itens = pedido.itens.map((item: any) => ({
+              id: item.id,
+              nome: item.nome,
+              preco: item.preco,
+              quantidade: item.quantidade,
+              subTotal: item.subTotal,
+            }));
+            this.itensCarrinho.set(idCliente, itens);
+            this.carrinhoSubject.next(itens);
+          } else {
+            this.itensCarrinho.set(idCliente, []);
+            this.carrinhoSubject.next([]);
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao carregar carrinho do backend:', err);
+        },
+      });
+    }
+
   create(venda: Venda): Observable<Venda> {
     console.log('Venda criada:', venda);
     return this.http.post<Venda>(this.baseUrl, venda);
@@ -75,12 +114,11 @@ export class CarrinhoService {
   }
 
   salvarPedido(idCliente: number, itens: ItemCarrinho[]): Observable<any> {
-      // const token = localStorage.getItem('token');
-      // if (!token) {
-      //   throw new Error('Token não encontrado. Faça login novamente.');
-      // }
-  
-      // const headers = new HttpHeaders().set('Authorization', `Bearer`); // ${token}
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Token não encontrado. Faça login novamente.');
+      }
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // ${token}
       const body = {
         idCliente,
         itens: itens.map((item) => ({
@@ -89,7 +127,7 @@ export class CarrinhoService {
         })),
       };
   
-      return this.http.post(`${this.baseUrl}`, body); // , { headers }
+      return this.http.post(`${this.baseUrl}`, body, {headers}); // , { headers }
     } 
 
   atualizarCarrinho(itens: ItemCarrinho[]): void {

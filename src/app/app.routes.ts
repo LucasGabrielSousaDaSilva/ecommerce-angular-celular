@@ -73,7 +73,7 @@ export const routes: Routes = [
     {path: 'funcionarios/new',component: FuncionarioFormComponent, title: 'Novo Funcionario', canActivate: [authGuard]},
 
     // Produtos
-    { path: 'controle', component: ControleComponent, title: 'Controle' },
+    { path: 'controle', component: ControleComponent, title: 'Controle', canActivate: [authGuard] },
     {path: 'cameras/edit/:id',component: CameraFormComponent, resolve:{camera: cameraResolver}},
     {path: 'cameras',component: CameraListComponent, title: 'Lista de Cameras'},
     {path: 'cameras/new',component: CameraFormComponent, title: 'Nova Camera'},
@@ -120,15 +120,15 @@ export const routes: Routes = [
 
             // Login e Registro
             { path: 'login', component: LoginComponent, title: 'Login'},
-            { path: 'alterarUsername', component: AlterarUsernameComponent, title: 'Alterando Username', canActivate: [authClienteGuard]},            
-            { path: 'alterarSenha', component: AlterarSenhaComponent, title: 'Alterando Senha', canActivate: [authClienteGuard]},
-            { path: 'meuPerfil', component: ClientePerfilComponent, title: 'Meu Perfil', canActivate: [authClienteGuard]},
+            { path: 'alterarUsername', component: AlterarUsernameComponent, title: 'Alterando Username', canActivate: [authGuard]},            
+            { path: 'alterarSenha', component: AlterarSenhaComponent, title: 'Alterando Senha', canActivate: [authGuard]},
+            { path: 'meuPerfil', component: ClientePerfilComponent, title: 'Meu Perfil', canActivate: [authGuard]},
             { path: 'meuPedido', component: ClientePedidosComponent, title: 'Meus Pedidos' },
 
             // Carrinho
-            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho', canActivate: [authClienteGuard] },
-            { path: 'realizarPagamento', component: RealizarPagamentoComponent, title: 'Realizar Pagamento', canActivate: [authClienteGuard] },
-            { path: 'acompanharPedido', component: AcompanharPedidoComponent, title: 'Acompanhar Pedido', canActivate: [authClienteGuard] },
+            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho', canActivate: [authGuard] },
+            { path: 'realizarPagamento', component: RealizarPagamentoComponent, title: 'Realizar Pagamento', canActivate: [authGuard] },
+            { path: 'acompanharPedido', component: AcompanharPedidoComponent, title: 'Acompanhar Pedido', canActivate: [authGuard] },
             { path: 'finalizarVenda', component: FinalizarVendaComponent, title: 'Finalizar Pedido'},
             { path: 'venda', component: VendaComponent, title: 'Finalizar Venda' },
             

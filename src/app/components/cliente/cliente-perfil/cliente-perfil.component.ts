@@ -1,17 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { ClienteService } from '../../../services/cliente.service';
-import { Usuario } from '../../../models/usuario.model';
-import { Cliente } from '../../../models/cliente.model';
-import { Subscription } from 'rxjs';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +6,13 @@ import { MatDivider } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../../services/auth.service';
+import { ClienteService } from '../../../services/cliente.service';
+import { Usuario } from '../../../models/usuario.model';
+import { Cliente } from '../../../models/cliente.model';
 
 @Component({
   selector: 'app-cliente-perfil',
@@ -28,11 +22,12 @@ import { MatCardModule } from '@angular/material/card';
     CommonModule,
     MatInputModule,
     FormsModule,
+    ReactiveFormsModule,
     MatDivider,
     RouterModule,
     MatListModule,
     MatButtonModule,
-    MatCardModule,
+    MatCardModule
   ],
   templateUrl: './cliente-perfil.component.html',
   styleUrl: './cliente-perfil.component.css',
@@ -57,120 +52,39 @@ export class ClientePerfilComponent implements OnInit {
   ) {
     this.formGroup = this.formBuilder.group({
       id: [null],
-      nome: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ]),
-      ],
-      username: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ]),
-      ],
-      dataNascimento: ['', Validators.compose([Validators.required])],
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      cpf: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(11),
-          Validators.maxLength(11),
-        ]),
-      ],
-      telefone: this.formBuilder.group({
-        codigoArea: [
-          null,
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(2),
-            Validators.maxLength(3),
-          ]),
-        ],
-        numero: [
-          null,
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(9),
-            Validators.maxLength(9),
-          ]),
-        ],
-      }),
-      sexo: [null, Validators.required],
-    });
-  }
-
-  initializeForm(): void {
-    const cliente: Cliente =
-      this.activeRoute.snapshot.data['cliente'] ||
-      ({ usuario: {}, telefone: {} } as unknown as Cliente);
-    console.log('Cliente recebido: ', cliente);
-
-    this.formGroup = this.formBuilder.group({
-      id: [cliente?.id || null],
-      nome: [
-        cliente?.nome || '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ]),
-      ],
-      username: [
-        cliente?.login || '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ]),
-      ],
-      // email: [
-      //   cliente?.email || '',
-      //   Validators.compose([Validators.required, Validators.email]),
-      // ],
-      cpf: [
-        cliente?.cpf || '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(11),
-          Validators.maxLength(11),
-        ]),
-      ],
+      nome: [''],
+      email: [''],
+      // Adicione outros campos conforme necessário
     });
   }
 
   ngOnInit(): void {
     this.subscription.add(
-      this.authService.getUsuarioLogado().subscribe((cliente) => {
-        this.usuarioLogado = cliente;
-        this.cliente = cliente; // Atualiza o cliente quando os dados forem carregados
-        this.initializeForm(); // Recria o formulário com os dados carregados
+      this.authService.getUsuarioLogado().subscribe((usuario) => {
+        this.usuarioLogado = usuario;
+        if (this.usuarioLogado) {
+          this.clienteService.findById(this.usuarioLogado.id).subscribe((cliente) => {
+            this.cliente = cliente;
+            this.initializeForm(cliente);
+          });
+        }
       })
     );
-    const usuarioLogado1 = localStorage.getItem('usuario_logado');
-    if (usuarioLogado1) {
-      const cliente = JSON.parse(usuarioLogado1);
-      this.clienteService.meuPerfil(cliente.id).subscribe({
-        next: (dadosCliente) => {
-          this.endereco = {
-            codigoArea: dadosCliente.usuario.telefone?.codigoArea,
-            numero: dadosCliente.usuario.telefone?.numero,
-            username: dadosCliente.usuario.username,
-            cep: dadosCliente.cep,
-            endereco: dadosCliente.endereco,
-            estado: dadosCliente.estado,
-            sigla: dadosCliente.sigla,
-            cidade: dadosCliente.cidade,
-          };
-        },
-        error: (err) => console.error('Erro ao carregar o endereço:', err),
-      });
-    }
+  }
+
+  initializeForm(cliente: Cliente): void {
+    this.formGroup = this.formBuilder.group({
+      nome: [cliente.nome || '', Validators.required],
+      cep: [cliente.cep || '', Validators.required],
+      cpf: [cliente.cpf || '', Validators.required],
+      login: [cliente.login || '', Validators.required],
+      senha: [cliente.senha || '', Validators.required],
+      logradouro: [cliente.logradouro || '', Validators.required],
+      complemento: [cliente.complemento || ''],
+      bairro: [cliente.bairro || '', Validators.required],
+      localidade: [cliente.localidade || '', Validators.required],
+      uf: [cliente.uf || '', Validators.required]
+    });
   }
 
   clickEvent(event: MouseEvent) {
