@@ -5,6 +5,7 @@
 .payment-card {
   max-width: 900px;
   margin: 0 auto;
+  color: aliceblue;
 }
 
 .itens-carrinho {
@@ -56,12 +57,6 @@
 
 button {
   margin-top: 20px;
-}
-
-.cupom-aplicado {
-  color: rgb(70, 27, 155);
-  font-weight: bold;
-  margin-top: 8px;
 }
 .full-width-input {
   width: 100%;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ClienteService } from '../../../services/cliente.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import { NgIf } from '@angular/common';
@@ -18,7 +18,8 @@ import { Cliente } from '../../../models/cliente.model';
 @Component({
   selector: 'app-cliente-form',
   standalone: true,
-  imports: [MatFormFieldModule, MatButtonModule, NgIf, MatInputModule, ReactiveFormsModule,MatCardActions, MatCardContent, MatCard, MatIcon, MatToolbar],
+  imports: [MatFormFieldModule, MatButtonModule, NgIf, MatInputModule, ReactiveFormsModule, 
+    MatCardActions, MatCardContent, MatCard, MatIcon, MatToolbar, RouterLink],
   templateUrl: './cliente-form.component.html',
   styleUrl: './cliente-form.component.css'
 })

@@ -118,6 +118,8 @@ export class CelularFormComponent implements OnInit {
     });
 
     this.initializeForm();
+    const id = this.activatedRoute.snapshot.params['id'];
+    this.loadCelular(id);
     // this.carregarTelas();
     // this.carregarProcessadores();
     // this.carregarPortas();
@@ -206,6 +208,37 @@ export class CelularFormComponent implements OnInit {
       idSerie: [serie, Validators.required],
 
     });
+  }
+
+  loadCelular(id: number): void {
+    if (id != null && id > 0) {
+      this.celularService.findById(id.toString()).subscribe(celular => {
+        this.formGroup.patchValue(celular);
+        if (celular.nomeImagem) {
+          this.imagePreview = this.celularService.getUrlImage(celular.nomeImagem);
+          this.fileName = celular.nomeImagem;
+        }
+        if (celular.processador) {
+          this.formGroup.get('idProcessador')?.setValue(celular.processador.id);
+        }
+        if (celular.tela) {
+          this.formGroup.get('idTela')?.setValue(celular.tela.id);
+        }
+        if (celular.portaSlot) {
+          this.formGroup.get('idPortaSlot')?.setValue(celular.portaSlot.map((portaSlot) => portaSlot));
+        }
+        if (celular.camera) {
+          this.formGroup.get('idCamera')?.setValue(celular.camera.map((camera) => camera));
+        }
+        if (celular.sensor) {
+          this.formGroup.get('idSensor')?.setValue(celular.sensor.map((sensor) => sensor));
+        }
+        if (celular.serie) {
+          this.formGroup.get('idSerie')?.setValue(celular.serie.id);
+        }
+      });
+      this.formGroup.markAllAsTouched();
+    }
   }
 
   tratarErros(errorResponse: HttpErrorResponse) {

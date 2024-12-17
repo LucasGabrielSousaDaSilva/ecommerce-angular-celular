@@ -17,7 +17,7 @@
         <!-- <span class="nav-icon">👤</span> -->
         <mat-icon class="nav-icon" routerLink="/user/carrinho">shopping_cart</mat-icon>        
         <mat-icon class="nav-icon">notifications</mat-icon>
-        <mat-icon class="nav-icon" 
+        <!-- <mat-icon class="nav-icon" 
             *ngIf="!usuarioLogado" routerLink="/login">
             account_box
         </mat-icon>
@@ -25,16 +25,22 @@
         <mat-icon class="nav-icon" *ngIf="usuarioLogado" (click)="deslogar()">
             exit_to_app
         </mat-icon>
-        <span *ngIf="usuarioLogado">{{ usuarioLogado.login }}</span>
+        <span *ngIf="usuarioLogado">{{ usuarioLogado.login }}</span> -->
 
-        <!-- <button mat-icon-button *ngIf="usuarioLogado" [matMenuTriggerFor]="menu">
-            <span *ngIf="usuarioLogado">{{ usuarioLogado.login.charAt(0) }}</span>
-          </button> -->
-        <!-- <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="meuPerfil()">Meu perfil</button>
-            <button mat-menu-item (click)="meusPedidos()">Meus Pedidos</button>
-            <button mat-menu-item (click)="deslogar()">Sair</button>
-          </mat-menu> -->
+    <!-- Menu de deslogar -->
+        <mat-icon *ngIf="usuarioLogado" [matMenuTriggerFor]="menu" 
+        class="nav-icon">person</mat-icon>
+  
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="meuPerfil()">Meu perfil</button>
+        <button mat-menu-item (click)="meusPedidos()">Meus Pedidos</button>
+        <button mat-menu-item (click)="deslogar()">Sair</button>
+      </mat-menu>
+  
+    <mat-icon class="nav-icon" 
+        *ngIf="!usuarioLogado" routerLink="/login">
+            account_box
+    </mat-icon>
 
     </div>
 

@@ -47,7 +47,8 @@ import { PromocoesComponent } from './pagina/promocoes/promocoes.component';
 import { ControleComponent } from './controle/controle.component';
 import { linhaResolver } from './components/linha/resolver/linha.resolver';
 import { RealizarPagamentoComponent } from './components/carrinho/realizar-pagamento/realizar-pagamento.component';
-import { AcompanharPedidoComponent } from './components/acompanhar-pedido/acompanhar-pedido.component';
+import { AcompanharPedidoComponent } from './components/carrinho/acompanhar-pedido/acompanhar-pedido.component';
+import { authClienteGuard } from './guard/auth-cliente.guard';
 
 export const routes: Routes = [
     { 
@@ -57,15 +58,15 @@ export const routes: Routes = [
         // canActivate: [authGuard],
         children: [
 
-    {path: '', pathMatch: 'full', redirectTo: 'clientes'},
+    {path: '', pathMatch: 'full', redirectTo: 'controle'},
 
     // Usuarios
-    { path: 'clientes/edit/:id', component: ClienteFormComponent, resolve: { cliente: clienteResolver }, title: 'Editar Cliente' },
-    {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
-    {path: 'clientes/new', component: ClienteFormComponent, title: 'Novo Cliente'},
-    {path: 'funcionarios/edit/:id',component: FuncionarioFormComponent, resolve:{funcionario: funcionarioResolver}},
-    {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios',},
-    {path: 'funcionarios/new',component: FuncionarioFormComponent, title: 'Novo Funcionario'},
+    {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{cliente: clienteResolver}, canActivate: [authGuard] },
+    {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes', canActivate: [authGuard] },
+    {path: 'clientes/new', component: ClienteFormComponent, title: 'Novo Cliente', canActivate: [authGuard] },
+    {path: 'funcionarios/edit/:id',component: FuncionarioFormComponent, resolve:{funcionario: funcionarioResolver}, canActivate: [authGuard]},
+    {path: 'funcionarios',component: FuncionarioListComponent, title: 'Lista de Funcionarios', canActivate: [authGuard]},
+    {path: 'funcionarios/new',component: FuncionarioFormComponent, title: 'Novo Funcionario', canActivate: [authGuard]},
 
     // Produtos
     { path: 'controle', component: ControleComponent, title: 'Controle' },
@@ -106,7 +107,7 @@ export const routes: Routes = [
         path: 'user', 
         component: UserTemplateComponent,
         title: 'Usuário',
-        // canActivate: [authGuard],
+        // canActivate: [authClienteGuard],
         children: [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
@@ -117,9 +118,9 @@ export const routes: Routes = [
             { path: 'login', component: LoginComponent, title: 'Login'},
 
             // Carrinho
-            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho'},
-            { path: 'realizarPagamento', component: RealizarPagamentoComponent, title: 'Realizar Pagamento'},
-            { path: 'acompanharPedido', component: AcompanharPedidoComponent, title: 'Acompanhar Pedido'},
+            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho', canActivate: [authClienteGuard] },
+            { path: 'realizarPagamento', component: RealizarPagamentoComponent, title: 'Realizar Pagamento', canActivate: [authClienteGuard] },
+            { path: 'acompanharPedido', component: AcompanharPedidoComponent, title: 'Acompanhar Pedido', canActivate: [authClienteGuard] },
             { path: 'finalizarVenda', component: FinalizarVendaComponent, title: 'Finalizar Pedido'},
             { path: 'venda', component: VendaComponent, title: 'Finalizar Venda' },
         ]

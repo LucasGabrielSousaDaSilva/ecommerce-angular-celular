@@ -12,7 +12,7 @@ import { MatCardActions } from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
 import { MatCardContent } from '@angular/material/card';
 import { MatCardTitle } from '@angular/material/card';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -20,14 +20,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { PageEvent } from '@angular/material/paginator';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDivider } from '@angular/material/divider';
 
 
 @Component({
   selector: 'app-cliente-list',
   standalone: true,
-  imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCardActions,
+  imports: [NgFor, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, MatCardActions,
     MatLabel, MatFormField, MatCardContent, MatCardTitle, CommonModule, MatCardModule, ReactiveFormsModule,
-    MatInputModule, MatPaginatorModule],
+    MatInputModule, MatPaginatorModule, RouterModule, MatDivider],
   templateUrl: './cliente-list.component.html',
   styleUrl: './cliente-list.component.css'
 })
@@ -43,8 +44,12 @@ export class ClienteListComponent implements OnInit{
   clienteForm!: FormGroup;
   clienteSelecionado: Cliente | null = null;
 
-    constructor(private clienteService: ClienteService, private snackBar: MatSnackBar, private formBuilder: FormBuilder){
+    constructor(private clienteService: ClienteService, 
+      private snackBar: MatSnackBar, 
+      private formBuilder: FormBuilder,
+    private router: Router) {
       this.clienteForm = this.formBuilder.group({
+        id: [null],
         nome:['', Validators.required],
         cep:['', Validators.required],
         cpf:['' , Validators.required],

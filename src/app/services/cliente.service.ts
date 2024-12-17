@@ -12,6 +12,16 @@ export class ClienteService {
 
   constructor(private httpClient: HttpClient, private router: Router) { }
   
+    // getClienteIdFromToken(): Observable<number> {
+    //   const token = localStorage.getItem('token');
+    //   if (!token) {
+    //     throw new Error('Token não encontrado. Faça login novamente.');
+    //   }
+  
+    //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    //   return this.httpClient.get<number>(`${this.baseUrl}/cliente-id`, { headers });
+    // }
+
   findAll(page?: number, pageSize?: number): Observable<Cliente[]> {
     let params = {};
 
@@ -29,7 +39,7 @@ export class ClienteService {
     return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
-  findById(id: number): Observable<Cliente> {
+  findById(id: string): Observable<Cliente> {
     return this.httpClient.get<Cliente>(`${this.baseUrl}/${id}`); 
   }
 
