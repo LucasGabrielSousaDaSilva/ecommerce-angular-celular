@@ -45,7 +45,7 @@ export class TelaService {
   }
 
   delete(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.baseUrl}/telas/${id}`);
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
   }
   
 

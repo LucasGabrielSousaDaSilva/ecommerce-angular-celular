@@ -59,8 +59,8 @@ export class ClienteService {
     return this.httpClient.put<any>(`${this.baseUrl}/${cliente.id}`, data); 
   }
 
-  delete(id: number): Observable<any>{
-    return this.httpClient.delete<any>(`${this.baseUrl}/${id}`, {headers: this.getHeaders()}); 
+  delete(id: number): Observable<void>{
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`, {headers: this.getHeaders()}); 
   }
 
   private getHeaders(): HttpHeaders {
