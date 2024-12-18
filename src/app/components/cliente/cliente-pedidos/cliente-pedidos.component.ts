@@ -4,6 +4,9 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ItemCarrinho } from '../../../models/item-carrinho.model';
+import { VendaService } from '../../../services/venda.service';
+import { CarrinhoService } from '../../../services/carrinho.service';
+import { Venda } from '../../../models/venda.model';
 
 
 @Component({
@@ -15,18 +18,23 @@ import { ItemCarrinho } from '../../../models/item-carrinho.model';
 })
 export class ClientePedidosComponent implements OnInit {
   loading: boolean = false;
-  pedidos: ItemCarrinho[] = [];
+  pedidos: Venda[] = [];
+  idCliente: number = 1;
 
-  constructor(private clienteService: ClienteService) {}
+  constructor(
+    private clienteService: ClienteService,
+    private carrinhoService: CarrinhoService
+  ) {}
 
   ngOnInit(): void {
     this.buscarPedidos();
+    this.pedidosRealizados();
   }
 
   buscarPedidos(): void {
     this.loading = true;
     this.clienteService.getPedidosCliente().subscribe({
-      next: (pedidos: ItemCarrinho[]) => {
+      next: (pedidos: Venda[]) => {
         this.pedidos = pedidos;
         this.loading = false;
       },
@@ -35,6 +43,10 @@ export class ClientePedidosComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  pedidosRealizados(): void {
+
   }
 
   verDetalhesPedido(id: number): void {

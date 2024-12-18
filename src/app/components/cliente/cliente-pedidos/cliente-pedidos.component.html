@@ -8,6 +8,19 @@
       </mat-progress-spinner>
       <p>Carregando pedidos...</p>
     </div>
+
+        <!-- <div *ngIf="loading">Carregando...</div>
+    <div *ngIf="!loading && pedidos.length === 0">Nenhum pedido encontrado.</div>
+    <div *ngIf="!loading && pedidos.length > 0">
+      <ul>
+        <li *ngFor="let pedido of pedidos"> -->
+          <!-- Exibir detalhes do pedido -->
+          <!-- Pedido ID: {{ pedido.id }} - Produto: {{ pedido.nome }} - Quantidade: {{ pedido.quantidade }}
+          <button (click)="verDetalhesPedido(pedido.id)">Ver Detalhes</button>
+          <button (click)="cancelarPedido(pedido.id)">Cancelar Pedido</button>
+        </li>
+      </ul>
+    </div> -->
   
     <!-- Lista de Pedidos -->
     <div *ngIf="!loading && pedidos.length > 0" class="cards-wrapper">
@@ -15,16 +28,16 @@
         <!-- Título do Pedido -->
         <mat-card-header>
           <div mat-card-avatar class="pedido-avatar"></div>
-          <mat-card-title>Pedido #{{ pedido.id }}</mat-card-title>
-          <mat-card-subtitle>Status: {{ pedido.nome }}</mat-card-subtitle>
+          <mat-card-title>Pedido #{{ pedido.celulares }}</mat-card-title>
+          <mat-card-subtitle>Forma: {{ pedido.formaPagamento }}</mat-card-subtitle>
         </mat-card-header>
   
         <!-- Detalhes do Pedido -->
         <mat-card-content>
           <!-- <p><strong>Data do Pedido:</strong> {{ pedido.data| date }}</p> -->
-          <p><strong>Quantidade</strong> {{ pedido.quantidade| date }}</p>
+          <!-- <p><strong>Quantidade</strong> {{ pedido.quantidade| date }}</p>
           <p><strong>Total:</strong> {{ pedido.subTotal| currency : "BRL" : "symbol" : "1.2-2" }}</p>
-          <p><strong>Itens:</strong></p>
+          <p><strong>Itens:</strong></p> -->
           <!-- <ul>
             <li *ngFor="let item of pedido.itens">
               {{ item.titulo }} - {{ item.quantidade }}x
