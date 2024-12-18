@@ -44,6 +44,6 @@ export class SensorService {
   }
 
   delete(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.baseUrl}/sensores/${id}`);
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

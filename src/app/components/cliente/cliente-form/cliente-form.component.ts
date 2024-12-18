@@ -82,7 +82,7 @@ export class ClienteFormComponent implements OnInit {
     if (this.formGroup.valid) {
       const cliente = this.formGroup.value;
       if (cliente.id != null) {
-        this.clienteService.delete(cliente).subscribe({
+        this.clienteService.delete(this.formGroup.value.id).subscribe({
           next: () => {
             this.router.navigateByUrl('/admin/clientes');
           },

@@ -49,7 +49,7 @@ export class ClienteListComponent implements OnInit{
       private formBuilder: FormBuilder,
     private router: Router) {
       this.clienteForm = this.formBuilder.group({
-        id: [null],
+        id: ['', Validators.required],
         nome:['', Validators.required],
         cep:['', Validators.required],
         cpf:['' , Validators.required],
@@ -75,6 +75,7 @@ export class ClienteListComponent implements OnInit{
   }
 
   delete(id: number): void {
+    console.log(id)
     this.clienteService.delete(id).subscribe(
       () => {
         this.snackBar.open('cliente deletada com sucesso', 'Fechar', { duration: 3000 });
