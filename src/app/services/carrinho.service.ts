@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 })
 export class CarrinhoService {
 
-  private baseUrl = 'http://localhost:8080/venda';
+  private baseUrl = 'http://localhost:8080/Venda';
 
   private carrinhoSubject = new BehaviorSubject<ItemCarrinho[]>([]);
   carrinho$ = this.carrinhoSubject.asObservable();
@@ -113,18 +113,18 @@ export class CarrinhoService {
     return this.carrinhoSubject.asObservable();
   }
 
-  salvarPedido(idCliente: number, itens: ItemCarrinho[]): Observable<any> {
+  salvarPedido(formaPagamento: number, celulares: any[]): Observable<any> {
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('Token não encontrado. Faça login novamente.');
       }
       const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // ${token}
       const body = {
-        idCliente,
-        itens: itens.map((item) => ({
-          id: item.id,
+        celulares: celulares.map((item) => ({
+          idCelular: item.id,
           quantidade: item.quantidade,
         })),
+        formaPagamento
       };
   
       return this.http.post(`${this.baseUrl}`, body, {headers}); // , { headers }
