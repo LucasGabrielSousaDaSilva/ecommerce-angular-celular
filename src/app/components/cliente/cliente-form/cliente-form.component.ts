@@ -31,16 +31,12 @@ export class ClienteFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute) {
       this.formGroup = this.formBuilder.group({
+        id:['', Validators.required],
         nome:['', Validators.required],
         cep:['', Validators.required],
         cpf:['' , Validators.required],
         login:['', Validators.required],
-        senha:['', Validators.required],
-        logradouro:['', Validators.required],
-        complemento:['', Validators.required],
-        bairro:['', Validators.required],
-        localidade:['', Validators.required],
-        uf:['', Validators.required],
+        senha:['', Validators.required]
       }) 
   }
 
@@ -52,16 +48,12 @@ export class ClienteFormComponent implements OnInit {
     const cliente: Cliente = this.activatedRoute.snapshot.data['cliente'];
   
     this.formGroup = this.formBuilder.group({
+      id: [(cliente && cliente.id) ? cliente.id : null],
       nome: [(cliente && cliente.nome) ? cliente.nome : null],
       cep: [(cliente && cliente.cep) ? cliente.cep : null],
       cpf: [(cliente && cliente.cpf) ? cliente.cpf : null],
       login: [(cliente && cliente.login) ? cliente.login : null],
       senha: [(cliente && cliente.senha) ? cliente.senha : null],
-      logradouro: [(cliente && cliente.logradouro) ? cliente.logradouro : null],
-      complemento: [(cliente && cliente.complemento) ? cliente.complemento : null],
-      bairro: [(cliente && cliente.bairro) ? cliente.bairro : null],
-      localidade: [(cliente && cliente.localidade) ? cliente.localidade : null],
-      uf: [(cliente && cliente.uf) ? cliente.uf : null]
     })
   
   }

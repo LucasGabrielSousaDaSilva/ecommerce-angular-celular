@@ -49,6 +49,7 @@ export class ClienteService {
 
   update(cliente: Cliente): Observable<Cliente> {
     const data = {
+      id: cliente.id,
       nome: cliente.nome,
       cep: cliente.cep,
       cpf: cliente.cpf,
@@ -98,5 +99,10 @@ export class ClienteService {
   getPedidosCliente(): Observable<any> {
     const headers = this.getHeaders(); // Certifique-se de que os headers de autenticação estão corretos.
     return this.httpClient.get(`${this.baseUrl}/dados/compras`, { headers });
+  }
+
+  findEndereco(id: number): Observable<any> {
+    const headers = this.getHeaders();
+    return this.httpClient.get(`${this.baseUrl}/endereco/find/${id}`, {headers})
   }
 }
