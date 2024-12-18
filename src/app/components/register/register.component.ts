@@ -38,74 +38,77 @@ export class RegisterComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.formGroup = this.formBuilder.group({
-      id: ['', Validators.required],
-      firstFormGroup: this.formBuilder.group({
-        nome: ['', Validators.required],
-        cpf: ['', [Validators.required]], //Validators.pattern(/\d{3}\.\d{3}\.\d{3}-\d{2}/)]
-      }),
-      secondFormGroup: this.formBuilder.group({
-        cep: ['', Validators.required],
-        // logradouro:['', Validators.required],
-        // complemento:['', Validators.required],
-        // bairro:['', Validators.required],
-        // localidade:['', Validators.required],
-        // uf:['', Validators.required],
-      }),
-      thirdFormGroup: this.formBuilder.group({
-        login: ['', Validators.required],
-        senha: ['', [Validators.required, Validators.minLength(6)]],
-      }),
+      id:['', Validators.required],
+      nome:['', Validators.required],
+      cep:['', Validators.required],
+      cpf:['' , Validators.required],
+      login:['', Validators.required],
+      senha:['', Validators.required]
     });
+
+    //   id: ['', Validators.required],
+    //   firstFormGroup: this.formBuilder.group({
+    //     nome: ['', Validators.required],
+    //     cpf: ['', [Validators.required]], //Validators.pattern(/\d{3}\.\d{3}\.\d{3}-\d{2}/)]
+    //   }),
+    //   secondFormGroup: this.formBuilder.group({
+    //     cep: ['', Validators.required],
+    //   }),
+    //   thirdFormGroup: this.formBuilder.group({
+    //     login: ['', Validators.required],
+    //     senha: ['', [Validators.required, Validators.minLength(6)]],
+    //   }),
+    // });
   }
 
   ngOnInit(): void {
     this.initializeForm();
   }
 
-  preencherDadosCliente(): Cliente {
-    let cliente: Cliente = {} as Cliente;
-    cliente.nome = this.formGroup.get('firstFormGroup')?.get('nome')?.value;
-    cliente.cpf = this.formGroup.get('firstFormGroup')?.get('cpf')?.value;
+  // preencherDadosCliente(): Cliente {
+  //   let cliente: Cliente = {} as Cliente;
+  //   cliente.id = this.formGroup.get('id')?.value;
+  //   cliente.nome = this.formGroup.get('firstFormGroup')?.get('nome')?.value;
+  //   cliente.cpf = this.formGroup.get('firstFormGroup')?.get('cpf')?.value;
 
-    cliente.cep = this.formGroup.get('secondFormGroup')?.get('cep')?.value;
-    // cliente.logradouro = this.formGroup.get('secondFormGroup')?.get('logradouro')?.value;
-    // cliente.complemento = this.formGroup.get('secondFormGroup')?.get('complemento')?.value;
-    // cliente.bairro = this.formGroup.get('secondFormGroup')?.get('bairro')?.value;
-    // cliente.localidade = this.formGroup.get('secondFormGroup')?.get('localidade')?.value;
-    // cliente.uf = this.formGroup.get('secondFormGroup')?.get('uf')?.value;
-
+  //   cliente.cep = this.formGroup.get('secondFormGroup')?.get('cep')?.value;
     
-    cliente.login = this.formGroup.get('thirdFormGroup')?.get('login')?.value;
-    cliente.senha = this.formGroup.get('thirdFormGroup')?.get('senha')?.value;
+  //   cliente.login = this.formGroup.get('thirdFormGroup')?.get('login')?.value;
+  //   cliente.senha = this.formGroup.get('thirdFormGroup')?.get('senha')?.value;
 
-    return cliente;
-  }
+  //   return cliente;
+  // }
 
   initializeForm(): void {
     const cliente: Cliente = this.activatedRoute.snapshot.data['cliente'];
 
-    if (cliente) {
-      this.formGroup.patchValue({
-        id: cliente.id,
-        firstFormGroup: {
-          nome: cliente.nome || '',
-          cpf: cliente.cpf || '',
-        },
-        secondFormGroup: {
-          cep: cliente.cep || '',
-          // logradouro: cliente.logradouro || '',
-          // complemento: cliente.complemento || '',
-          // bairro: cliente.bairro || '',
-          // localidade: cliente.localidade || '',
-          // uf: cliente.uf || '',
+    // if (cliente) {
+    //   this.formGroup.patchValue({
+    //     id: cliente.id,
+    //     firstFormGroup: {
+    //       nome: cliente.nome || '',
+    //       cpf: cliente.cpf || '',
+    //     },
+    //     secondFormGroup: {
+    //       cep: cliente.cep || '',
 
-        },
-        thirdFormGroup: {
-          login: cliente.login || '',
-          senha: cliente.senha || '',
-        }
-      });
-    }
+    //     },
+    //     thirdFormGroup: {
+    //       login: cliente.login || '',
+    //       senha: cliente.senha || '',
+    //     }
+    //   });
+    // }
+
+      this.formGroup = this.formBuilder.group({
+        id: [(cliente && cliente.id) ? cliente.id : null],
+        nome: [(cliente && cliente.nome) ? cliente.nome : null],
+        cep: [(cliente && cliente.cep) ? cliente.cep : null],
+        cpf: [(cliente && cliente.cpf) ? cliente.cpf : null],
+          login: [(cliente && cliente.login) ? cliente.login : null],
+          senha: [(cliente && cliente.senha) ? cliente.senha : null],
+
+      })
   }
 
   // formatCpf() {
@@ -124,7 +127,7 @@ export class RegisterComponent implements OnInit {
   salvar() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      let cliente: Cliente = this.preencherDadosCliente();
+      const cliente = this.formGroup.value;
       console.log("cadastro cliente: " + cliente)
       this.clienteService.insert(cliente).subscribe({
         next: () => {

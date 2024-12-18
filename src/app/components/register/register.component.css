@@ -8,10 +8,11 @@
 }
 
 mat-card {
-  width: 100%;
-  max-width: 800px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 mat-card-content {
@@ -176,13 +177,12 @@ button[mat-raised-button] {
 }
 
 button[mat-raised-button] {
-  background: #f16d4c;
-  color: white;
-  transition: background 0.3s ease;
+    background-color: #4CAF50;
+    color: white;
 }
 
 button[mat-raised-button]:hover {
-  background: #009EFD;
+    background-color: #45a049;
 }
 
 mat-horizontal-stepper {
@@ -215,4 +215,14 @@ mat-error {
 
 span{
   color: #ffffff;
+}
+
+.full-width-input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
 }

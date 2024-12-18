@@ -3,9 +3,61 @@
   <mat-card>
     <mat-card-content>
       <form [formGroup]="formGroup" (ngSubmit)="salvar()">
-        <mat-horizontal-stepper [linear]="true">
+              <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>Nome</mat-label>
+                <input matInput type="text" formControlName="nome">
+                <mat-error *ngIf="formGroup.get('nome') 
+                              && formGroup.get('nome')?.invalid
+                              && formGroup.get('nome')?.touched">
+                    O nome é obrigatorio.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>CEP</mat-label>
+                <input matInput type="text" formControlName="cep">
+                <mat-error *ngIf="formGroup.get('cep') 
+                              && formGroup.get('cep')?.invalid
+                              && formGroup.get('cep')?.touched">
+                    O cep é obrigatorio.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>CPF</mat-label>
+                <input matInput type="text" formControlName="cpf">
+                <mat-error *ngIf="formGroup.get('cpf') 
+                              && formGroup.get('cpf')?.invalid
+                              && formGroup.get('cpf')?.touched">
+                    O cpf é obrigatorio.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>LOGIN</mat-label>
+                <input matInput type="text" formControlName="login">
+                <mat-error *ngIf="formGroup.get('login') 
+                              && formGroup.get('login')?.invalid
+                              && formGroup.get('login')?.touched">
+                    O login é obrigatorio.
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>SENHA</mat-label>
+                <input matInput type="password" formControlName="senha">
+                <mat-error *ngIf="formGroup.get('senha') 
+                              && formGroup.get('senha')?.invalid
+                              && formGroup.get('senha')?.touched">
+                    O senha é obrigatorio.
+                </mat-error>
+                <div class="step-buttons">
+                  <button mat-button matStepperPrevious>Voltar</button>
+                  <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
+                  <button mat-button type="submit" (click)="salvar()">Salvar</button>
+                </div>
+            </mat-form-field>
+        </form>
+      </mat-card-content>
+        <!-- <mat-horizontal-stepper [linear]="true"> -->
           <!-- Etapa 1: Dados Pessoais -->
-          <mat-step [stepControl]="formGroup.get('firstFormGroup')!">
+          <!-- <mat-step [stepControl]="formGroup.get('firstFormGroup')!">
             <ng-template matStepLabel>Dados Pessoais</ng-template>
             <div [formGroupName]="'firstFormGroup'">
               <label>
@@ -22,7 +74,7 @@
                     {{ getErrorMessage('cpf', formGroup.get('firstFormGroup')?.get('cpf')?.errors) }}
                 </mat-error>
                 <input class="input" matInput formControlName="cpf" placeholder="000.000.000-00" required>
-              </label>
+              </label> -->
 
               <!-- <label>
                 <input class="input" matInput formControlName="email" placeholder="" required>
@@ -31,15 +83,15 @@
                   {{ getErrorMessage('email', formGroup.get('firstFormGroup')?.get('email')?.errors) }}
                 </mat-error>
               </label> -->
-            </div>
+            <!-- </div>
             <div class="step-buttons">
               <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
               <button mat-button matStepperNext>Próximo</button>
             </div>
-          </mat-step>
+          </mat-step> -->
 
           <!-- Etapa 2: Endereço -->
-          <mat-step [stepControl]="formGroup.get('secondFormGroup')!">
+          <!-- <mat-step [stepControl]="formGroup.get('secondFormGroup')!">
             <ng-template matStepLabel>Endereço</ng-template>
             <div [formGroupName]="'secondFormGroup'">
               <label>
@@ -48,7 +100,7 @@
                     {{ getErrorMessage('cep', formGroup.get('secondFormGroup')?.get('cep')?.errors) }}
                 </mat-error>
                 <input class="input" matInput formControlName="cep" placeholder="" required>
-              </label>
+              </label> -->
 
               <!-- <label>
                 <span>Logradouro</span>
@@ -89,16 +141,16 @@
                 </mat-error>
                     <input class="input" matInput formControlName="uf" placeholder="" required>
               </label> -->
-            </div>
+            <!-- </div>
             <div class="step-buttons">
               <button mat-button matStepperPrevious>Voltar</button>
               <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
               <button mat-button matStepperNext>Próximo</button>
             </div>
-          </mat-step>
+          </mat-step> -->
 
           <!-- Etapa 3: Login -->
-          <mat-step [stepControl]="formGroup.get('thirdFormGroup')!">
+          <!-- <mat-step [stepControl]="formGroup.get('thirdFormGroup')!">
             <ng-template matStepLabel>Login</ng-template>
             <div [formGroupName]="'thirdFormGroup'">
               <label>
@@ -120,11 +172,11 @@
             <div class="step-buttons">
               <button mat-button matStepperPrevious>Voltar</button>
               <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
-              <button mat-button type="submit">Salvar</button>
+              <button mat-button type="submit" (click)="salvar()">Salvar</button>
             </div>
           </mat-step>
-        </mat-horizontal-stepper>
-      </form>
-    </mat-card-content>
+        </mat-horizontal-stepper> -->
+      <!-- </form>
+    </mat-card-content> -->
   </mat-card>
 </div>
