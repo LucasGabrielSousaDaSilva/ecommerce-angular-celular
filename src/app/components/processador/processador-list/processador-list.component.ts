@@ -35,7 +35,7 @@ import { MatDivider } from '@angular/material/divider';
 export class ProcessadorListComponent implements OnInit{
 
   totalRecords = 0;
-  pageSize = 3;
+  pageSize = 4;
   page = 0;
 
   displayedColumns : string[] = ['marca', 'modelo', 'acao'];

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Celular } from '../models/celular.model';
@@ -22,8 +22,12 @@ export class CelularService {
     formData.append('id', id.toString());
     formData.append('nomeImagem', imagem.name);
     formData.append('imagem', imagem, imagem.name);
+
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data'
+    });
     
-    return this.httpClient.patch<Celular>(`${this.baseUrl}/image/upload`, formData);
+    return this.httpClient.patch<Celular>(`${this.baseUrl}/image/upload`, formData, {headers});
   }
 
   findAll(page?: number, pageSize?: number): Observable<Celular[]> {

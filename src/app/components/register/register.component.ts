@@ -38,17 +38,18 @@ export class RegisterComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.formGroup = this.formBuilder.group({
+      id: ['', Validators.required],
       firstFormGroup: this.formBuilder.group({
         nome: ['', Validators.required],
-        cpf: ['', [Validators.required, Validators.pattern(/\d{3}\.\d{3}\.\d{3}-\d{2}/)]],
+        cpf: ['', [Validators.required]], //Validators.pattern(/\d{3}\.\d{3}\.\d{3}-\d{2}/)]
       }),
       secondFormGroup: this.formBuilder.group({
         cep: ['', Validators.required],
-        logradouro:['', Validators.required],
-        complemento:['', Validators.required],
-        bairro:['', Validators.required],
-        localidade:['', Validators.required],
-        uf:['', Validators.required],
+        // logradouro:['', Validators.required],
+        // complemento:['', Validators.required],
+        // bairro:['', Validators.required],
+        // localidade:['', Validators.required],
+        // uf:['', Validators.required],
       }),
       thirdFormGroup: this.formBuilder.group({
         login: ['', Validators.required],
@@ -67,11 +68,11 @@ export class RegisterComponent implements OnInit {
     cliente.cpf = this.formGroup.get('firstFormGroup')?.get('cpf')?.value;
 
     cliente.cep = this.formGroup.get('secondFormGroup')?.get('cep')?.value;
-    cliente.logradouro = this.formGroup.get('secondFormGroup')?.get('logradouro')?.value;
-    cliente.complemento = this.formGroup.get('secondFormGroup')?.get('complemento')?.value;
-    cliente.bairro = this.formGroup.get('secondFormGroup')?.get('bairro')?.value;
-    cliente.localidade = this.formGroup.get('secondFormGroup')?.get('localidade')?.value;
-    cliente.uf = this.formGroup.get('secondFormGroup')?.get('uf')?.value;
+    // cliente.logradouro = this.formGroup.get('secondFormGroup')?.get('logradouro')?.value;
+    // cliente.complemento = this.formGroup.get('secondFormGroup')?.get('complemento')?.value;
+    // cliente.bairro = this.formGroup.get('secondFormGroup')?.get('bairro')?.value;
+    // cliente.localidade = this.formGroup.get('secondFormGroup')?.get('localidade')?.value;
+    // cliente.uf = this.formGroup.get('secondFormGroup')?.get('uf')?.value;
 
     
     cliente.login = this.formGroup.get('thirdFormGroup')?.get('login')?.value;
@@ -85,17 +86,18 @@ export class RegisterComponent implements OnInit {
 
     if (cliente) {
       this.formGroup.patchValue({
+        id: cliente.id,
         firstFormGroup: {
           nome: cliente.nome || '',
           cpf: cliente.cpf || '',
         },
         secondFormGroup: {
           cep: cliente.cep || '',
-          logradouro: cliente.logradouro || '',
-          complemento: cliente.complemento || '',
-          bairro: cliente.bairro || '',
-          localidade: cliente.localidade || '',
-          uf: cliente.uf || '',
+          // logradouro: cliente.logradouro || '',
+          // complemento: cliente.complemento || '',
+          // bairro: cliente.bairro || '',
+          // localidade: cliente.localidade || '',
+          // uf: cliente.uf || '',
 
         },
         thirdFormGroup: {
@@ -106,14 +108,14 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  formatCpf() {
-    const cpfControl = this.formGroup.get('firstFormGroup')?.get('cpf');
-    if (cpfControl && cpfControl.value) {
-      const formattedCpf = cpfControl.value.replace(/\D/g, '') // Remove não dígitos
-        .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-      cpfControl.setValue(formattedCpf);
-    }
-  }
+  // formatCpf() {
+  //   const cpfControl = this.formGroup.get('firstFormGroup')?.get('cpf');
+  //   if (cpfControl && cpfControl.value) {
+  //     const formattedCpf = cpfControl.value.replace(/\D/g, '') // Remove não dígitos
+  //       .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+  //     cpfControl.setValue(formattedCpf);
+  //   }
+  // }
 
   cancelar() {
     this.router.navigateByUrl('/login');
@@ -183,21 +185,21 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  preencherEnderecoPeloCep() {
-    let cep: string = this.formGroup.get('secondFormGroup')?.get('enderecoCep')?.value;
+  // preencherEnderecoPeloCep() {
+  //   let cep: string = this.formGroup.get('secondFormGroup')?.get('enderecoCep')?.value;
 
-    this.cepService.getEnderecoByCep(cep).subscribe({
-      next: (enderecoViaCep) => {
-        this.formGroup.get('secondFormGroup')?.get('enderecoLogradouro')?.setValue(enderecoViaCep.logradouro);
-        this.formGroup.get('secondFormGroup')?.get('enderecoBairro')?.setValue(enderecoViaCep.bairro);
-        this.formGroup.get('secondFormGroup')?.get('enderecoCidade')?.setValue(enderecoViaCep.localidade);
-        this.formGroup.get('secondFormGroup')?.get('enderecoEstado')?.setValue(enderecoViaCep.uf);
-      },
-      error: (err) => {
-        console.log('Erro ao preencher cep: ' + JSON.stringify(err));
-      }
-    });
-  }
+  //   this.cepService.getEnderecoByCep(cep).subscribe({
+  //     next: (enderecoViaCep) => {
+  //       this.formGroup.get('secondFormGroup')?.get('enderecoLogradouro')?.setValue(enderecoViaCep.logradouro);
+  //       this.formGroup.get('secondFormGroup')?.get('enderecoBairro')?.setValue(enderecoViaCep.bairro);
+  //       this.formGroup.get('secondFormGroup')?.get('enderecoCidade')?.setValue(enderecoViaCep.localidade);
+  //       this.formGroup.get('secondFormGroup')?.get('enderecoEstado')?.setValue(enderecoViaCep.uf);
+  //     },
+  //     error: (err) => {
+  //       console.log('Erro ao preencher cep: ' + JSON.stringify(err));
+  //     }
+  //   });
+  // }
 
   errorMessages: { [controlName: string]: { [errorName: string]: string } } = {
     nome: {
@@ -206,7 +208,7 @@ export class RegisterComponent implements OnInit {
     },
     cpf: {
       required: 'O CPF é obrigatório.',
-      pattern: 'CPF deve seguir o formato 000.000.000-00',
+      // pattern: 'CPF deve seguir o formato 000.000.000-00',
       apiError: '',
     },
     email: {

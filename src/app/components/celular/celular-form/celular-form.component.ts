@@ -29,6 +29,8 @@ import { Camera } from '../../../models/camera.model';
 import { PortaSlot } from '../../../models/porta-slot.model';
 import { Serie } from '../../../models/serie.model';
 import { Processador } from '../../../models/processador.model';
+import { ConfimationDialogComponent } from '../../../dialog/confimation-dialog/confimation-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-celular-form',
@@ -62,7 +64,7 @@ export class CelularFormComponent implements OnInit {
     private celularService: CelularService,
     private processadorService: ProcessadorService,
     private serieService: SerieService,
-    // private dialog: MatDialog,
+    private dialog: MatDialog,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private location: Location,
@@ -263,6 +265,14 @@ export class CelularFormComponent implements OnInit {
     this.selectedFile = event.target.files[0];
 
     if (this.selectedFile) {
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+      if (!allowedTypes.includes(this.selectedFile.type)) {
+        this.snackBar.open('Apenas imagens nos formatos JPG, JPEG ou PNG são permitidas.', 'Fechar', { duration: 3000 });
+        this.selectedFile = null;
+        this.fileName = '';
+        this.imagePreview = null;
+        return;
+      }
       this.fileName = this.selectedFile.name;
       // carregando image preview
       const reader = new FileReader();
@@ -277,6 +287,7 @@ export class CelularFormComponent implements OnInit {
       .subscribe({
         next: () => {
           this.voltarPagina();
+          console.log('Imagem salva com sucesso');
         },
         error: err => {
           console.log('Erro ao fazer o upload da imagem');
@@ -323,11 +334,11 @@ export class CelularFormComponent implements OnInit {
     if (this.formGroup.valid) {
       const celular = this.formGroup.value;
       if (celular.id != null) {
-        // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        //   data: { message: 'Deseja realmente excluir este Livro? Não será possível reverter.' }
-        // });
-        // dialogRef.afterClosed().subscribe(result => {
-        //   if (result) {
+        const dialogRef = this.dialog.open(ConfimationDialogComponent, {
+          data: { message: 'Deseja realmente excluir este Livro? Não será possível reverter.' }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
         this.celularService.delete(celular).subscribe({
           next: () => {
             this.router.navigateByUrl('/admin/celulares');
@@ -340,8 +351,10 @@ export class CelularFormComponent implements OnInit {
           }
         });
       }
+    });
     }
   }
+}
 
   getErrorMessage(controlName: string, errors: ValidationErrors | null | undefined): string {
     if (!errors) {

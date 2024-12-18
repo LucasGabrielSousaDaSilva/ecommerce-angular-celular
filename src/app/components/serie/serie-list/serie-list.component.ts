@@ -23,7 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class SerieListComponent implements OnInit {
   totalRecords = 0;
-  pageSize = 2;
+  pageSize = 4;
   page = 0;
 
   displayedColumns : string[] = ['nome','anoLancamento','acao'];

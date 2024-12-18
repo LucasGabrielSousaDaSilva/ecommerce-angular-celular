@@ -34,7 +34,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 export class PortaSlotListComponent {
 
   totalRecords = 0;
-  pageSize = 2;
+  pageSize = 4;
   page = 0;
 
   portaSlots: PortaSlot[] = [];

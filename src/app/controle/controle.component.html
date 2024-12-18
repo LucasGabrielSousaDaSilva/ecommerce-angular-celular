@@ -6,6 +6,14 @@
     />
     <h1 class="titulo-pagina">Bem vindo a página de controle!</h1>
     <div class="content-container">
+      <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/celulares'">
+        <mat-card-header>
+          <mat-card-title class="titulo-card">Celulares</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Gerencie e visualize todos os celulares cadastrados em uma tabela organizada.</p>
+        </mat-card-content>
+      </mat-card>
       <mat-card class="cards-controle" appearance="outlined" [routerLink]="'/admin/cameras'">
         <mat-card-header>
           <mat-card-title class="titulo-card">Cameras</mat-card-title>

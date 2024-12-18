@@ -25,7 +25,7 @@ import { ConfimationDialogComponent } from '../../../dialog/confimation-dialog/c
 })
 export class LinhaListComponent implements OnInit {
   totalRecords = 0;
-  pageSize = 2;
+  pageSize = 4;
   page = 0;
 
   displayedColumns : string[] = ['nome','anoLancamento','acao'];

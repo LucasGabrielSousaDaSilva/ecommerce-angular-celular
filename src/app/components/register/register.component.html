@@ -21,7 +21,7 @@
                 <mat-error *ngIf="formGroup.get('firstFormGroup')?.get('cpf')?.invalid">
                     {{ getErrorMessage('cpf', formGroup.get('firstFormGroup')?.get('cpf')?.errors) }}
                 </mat-error>
-                <input class="input" matInput formControlName="cpf" placeholder="000.000.000-00" (input)="formatCpf()" required>
+                <input class="input" matInput formControlName="cpf" placeholder="000.000.000-00" required>
               </label>
 
               <!-- <label>
@@ -47,10 +47,10 @@
                 <mat-error *ngIf="formGroup.get('secondFormGroup')?.get('cep')?.invalid">
                     {{ getErrorMessage('cep', formGroup.get('secondFormGroup')?.get('cep')?.errors) }}
                 </mat-error>
-                <input class="input" matInput formControlName="cep" placeholder="" (blur)="preencherEnderecoPeloCep()" required>
+                <input class="input" matInput formControlName="cep" placeholder="" required>
               </label>
 
-              <label>
+              <!-- <label>
                 <span>Logradouro</span>
                 <mat-error *ngIf="formGroup.get('secondFormGroup')?.get('logradouro')?.invalid">
                     {{ getErrorMessage('logradouro', formGroup.get('secondFormGroup')?.get('logradouro')?.errors) }}
@@ -88,7 +88,7 @@
                       {{ getErrorMessage('uf', formGroup.get('secondFormGroup')?.get('uf')?.errors) }}
                 </mat-error>
                     <input class="input" matInput formControlName="uf" placeholder="" required>
-              </label>
+              </label> -->
             </div>
             <div class="step-buttons">
               <button mat-button matStepperPrevious>Voltar</button>
