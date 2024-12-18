@@ -32,7 +32,7 @@ import { Subscription } from 'rxjs';
 export class RealizarPagamentoComponent implements OnInit {
   currentStep: number = 1; // Controle do passo atual
   totalPedido: number = 0;
-  metodoPagamento: string = '';
+  metodoPagamento: number = 0;
   itensCarrinho: ItemCarrinho[] = [];
   idCliente: number = 1;
   // cartaoCredito: CartaoCredito = {
@@ -140,7 +140,7 @@ export class RealizarPagamentoComponent implements OnInit {
 
     const pedido = this.criarPedido(); // Cria o pedido com os dados do carrinho
 
-    this.carrinhoService.salvarPedido(this.idCliente, pedido.itens).subscribe({
+    this.carrinhoService.salvarPedido(this.metodoPagamento, pedido.itens).subscribe({
       next: () => {
         // Exibe a mensagem de sucesso e redireciona
         this.snackBar.open('Pagamento realizado com sucesso!!', 'Fechar', { duration: 3000 });
