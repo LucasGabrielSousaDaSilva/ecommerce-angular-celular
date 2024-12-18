@@ -1,1 +1,9 @@
-<p>novidades works!</p>
+<p>Gostou da novidade?</p>
+<button (click)="responder('sim')">Sim</button>
+<button (click)="responder('nao')">Não</button>
+
+<p *ngIf="resposta === 'sim'" class="resposta">Que bom que gostou!</p>
+<button *ngIf="resposta === 'nao'" class="resposta">
+    <a href="https://www.tecmundo.com.br/novidades">Tecnologia novidades</a>
+</button>
+<p *ngIf="resposta === 'nao'" class="resposta">Que pena! Vamos tentar melhorar.</p>

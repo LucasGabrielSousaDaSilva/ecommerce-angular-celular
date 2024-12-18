@@ -12,8 +12,6 @@ export const authClienteGuard: CanActivateFn = (route, state) => {
     authService.removeUsuarioLogado();
     router.navigate(['/login']);
     if(authService.getUsuarioTipo() === 'Admin'){
-      authService.removeToken();
-      authService.removeUsuarioLogado();
       alert('Você não tem permissão para acessar essa página!!!');
       router.navigate(['/admin/login']);
     }

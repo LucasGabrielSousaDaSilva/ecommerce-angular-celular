@@ -17,8 +17,8 @@
             <div class="inputForm">
               <mat-icon>person</mat-icon>
               <input matInput placeholder="Digite seu username" formControlName="username" type="text" required>
-              <mat-error *ngIf="loginForm.get('username')!.hasError('required')">O username é obrigatório</mat-error>
             </div>
+            <mat-error *ngIf="loginForm.get('username')!.hasError('required')">O username é obrigatório</mat-error>
             
             <div class="flex-column">
               <label>Password</label>
@@ -26,8 +26,8 @@
             <div class="inputForm">
               <mat-icon>lock</mat-icon>
               <input matInput placeholder="Digite sua senha" formControlName="senha" type="password" required>
-              <mat-error *ngIf="loginForm.get('senha')!.hasError('required')">A senha é obrigatória</mat-error>
             </div>
+            <mat-error *ngIf="loginForm.get('senha')!.hasError('required')">A senha é obrigatória</mat-error>
 
             <button class="button-submit" type="submit">Entrar</button>   
           </div>

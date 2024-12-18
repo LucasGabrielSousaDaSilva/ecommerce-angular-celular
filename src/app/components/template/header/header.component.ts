@@ -3,7 +3,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatBadge } from '@angular/material/badge';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SidebarService } from '../../../services/sidebar.service';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
@@ -22,7 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
 
   constructor(private sidebarService: SidebarService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
 
   }
@@ -43,5 +44,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.authService.removeToken();
     this.authService.removeUsuarioLogado();
+    this.router.navigate(['/admin/loginADM']); // Redireciona para a página de login
   }
 }

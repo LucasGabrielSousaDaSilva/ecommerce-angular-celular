@@ -65,6 +65,11 @@ export class RealizarPagamentoComponent implements OnInit {
     //     this.router.navigateByUrl('/login');
     //   }
     // });
+    const usuarioLogado = localStorage.getItem('usuario_logado');
+    if (!usuarioLogado) {
+      this.router.navigateByUrl('/user/login');
+      return;
+    }
 
     this.subscription.add(this.authService.getUsuarioLogado().subscribe(
       usuario => this.usuarioLogado = usuario

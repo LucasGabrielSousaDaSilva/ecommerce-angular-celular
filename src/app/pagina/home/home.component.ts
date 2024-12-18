@@ -14,18 +14,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     // Fetch data from Quarkus back-end
-    this.http.get<{ id: number; nome: string; funcao: string; email: string }[]>('/api/responsaveis')
-      .subscribe(
-        data => this.responsaveis = data,
-        error => console.error('Erro ao buscar os responsáveis:', error)
-      );
   }
 
   mostrarMensagem(): void {
     this.mensagem = 'Obrigado por visitar o nosso site!';
-  }
-
-  verDetalhes(id: number): void {
-    alert(`Exibindo detalhes do responsável com ID: ${id}`);
+    alert(this.mensagem);
   }
 }

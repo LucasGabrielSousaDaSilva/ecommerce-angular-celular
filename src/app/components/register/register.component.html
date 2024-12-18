@@ -1,34 +1,130 @@
 <!-- From Uiverse.io by ammarsaa  -->
  <div class="login-container">
-    <form class="form">
-        <p class="title">Register </p>
-        <p class="message">Signup now and get full access to our app. </p>
-            <div class="flex">
-            <label>
-                <input class="input" type="text" placeholder="" required="">
-                <span>Firstname</span>
-            </label>
+  <mat-card>
+    <mat-card-content>
+      <form [formGroup]="formGroup" (ngSubmit)="salvar()">
+        <mat-horizontal-stepper [linear]="true">
+          <!-- Etapa 1: Dados Pessoais -->
+          <mat-step [stepControl]="formGroup.get('firstFormGroup')!">
+            <ng-template matStepLabel>Dados Pessoais</ng-template>
+            <div [formGroupName]="'firstFormGroup'">
+              <label>
+                <span>Nome</span>
+                <mat-error *ngIf="formGroup.get('firstFormGroup')?.get('nome')?.invalid && formGroup.get('firstFormGroup')?.get('nome')?.touched">
+                    {{ getErrorMessage('nome', formGroup.get('firstFormGroup')?.get('nome')?.errors) }}
+                </mat-error>
+                <input class="input" matInput formControlName="nome" placeholder="" required>
+              </label>
 
-            <label>
-                <input class="input" type="text" placeholder="" required="">
-                <span>Lastname</span>
-            </label>
-        </div>  
-                
-        <label>
-            <input class="input" type="email" placeholder="" required="">
-            <span>Email</span>
-        </label> 
-            
-        <label>
-            <input class="input" type="password" placeholder="" required="">
-            <span>Password</span>
-        </label>
-        <label>
-            <input class="input" type="password" placeholder="" required="">
-            <span>Confirm password</span>
-        </label>
-        <button class="submit" routerLink="../user/login">Submit</button>
-        <p class="signin">Already have an acount ? <a href="#">Signin</a> </p>
-    </form>
+              <label>
+                <span>CPF</span>
+                <mat-error *ngIf="formGroup.get('firstFormGroup')?.get('cpf')?.invalid">
+                    {{ getErrorMessage('cpf', formGroup.get('firstFormGroup')?.get('cpf')?.errors) }}
+                </mat-error>
+                <input class="input" matInput formControlName="cpf" placeholder="000.000.000-00" (input)="formatCpf()" required>
+              </label>
+
+              <!-- <label>
+                <input class="input" matInput formControlName="email" placeholder="" required>
+                <span>Email</span>
+                <mat-error *ngIf="formGroup.get('firstFormGroup')?.get('email')?.invalid && formGroup.get('firstFormGroup')?.get('email')?.touched">
+                  {{ getErrorMessage('email', formGroup.get('firstFormGroup')?.get('email')?.errors) }}
+                </mat-error>
+              </label> -->
+            </div>
+            <div class="step-buttons">
+              <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
+              <button mat-button matStepperNext>Próximo</button>
+            </div>
+          </mat-step>
+
+          <!-- Etapa 2: Endereço -->
+          <mat-step [stepControl]="formGroup.get('secondFormGroup')!">
+            <ng-template matStepLabel>Endereço</ng-template>
+            <div [formGroupName]="'secondFormGroup'">
+              <label>
+                <span>CEP</span>
+                <mat-error *ngIf="formGroup.get('secondFormGroup')?.get('cep')?.invalid">
+                    {{ getErrorMessage('cep', formGroup.get('secondFormGroup')?.get('cep')?.errors) }}
+                </mat-error>
+                <input class="input" matInput formControlName="cep" placeholder="" (blur)="preencherEnderecoPeloCep()" required>
+              </label>
+
+              <label>
+                <span>Logradouro</span>
+                <mat-error *ngIf="formGroup.get('secondFormGroup')?.get('logradouro')?.invalid">
+                    {{ getErrorMessage('logradouro', formGroup.get('secondFormGroup')?.get('logradouro')?.errors) }}
+                </mat-error>
+                <input class="input" matInput formControlName="logradouro" placeholder="" required>
+              </label>
+
+              <label>
+                <span>Complemento</span>
+                <mat-error *ngIf="formGroup.get('secondFormGroup')?.get('complemento')?.invalid">
+                    {{ getErrorMessage('complemento', formGroup.get('secondFormGroup')?.get('complemento')?.errors) }}
+                </mat-error>
+                <input class="input" matInput formControlName="complemento" placeholder="" required>
+              </label>
+
+              <label>
+                <span>Bairro</span>
+                <mat-error *ngIf="formGroup.get('secondFormGroup')?.get('bairro')?.invalid">
+                    {{ getErrorMessage('bairro', formGroup.get('secondFormGroup')?.get('bairro')?.errors) }}
+                </mat-error>
+                <input class="input" matInput formControlName="bairro" placeholder="" required>
+              </label>
+
+              <label>
+                <span>Localidade</span>
+                <mat-error *ngIf="formGroup.get('secondFormGroup')?.get('localidade')?.invalid">
+                      {{ getErrorMessage('localidade', formGroup.get('secondFormGroup')?.get('localidade')?.errors) }}
+                </mat-error>
+                    <input class="input" matInput formControlName="localidade" placeholder="" required>
+              </label>
+
+              <label>
+                <span>UF</span>
+                <mat-error *ngIf="formGroup.get('secondFormGroup')?.get('uf')?.invalid">
+                      {{ getErrorMessage('uf', formGroup.get('secondFormGroup')?.get('uf')?.errors) }}
+                </mat-error>
+                    <input class="input" matInput formControlName="uf" placeholder="" required>
+              </label>
+            </div>
+            <div class="step-buttons">
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
+              <button mat-button matStepperNext>Próximo</button>
+            </div>
+          </mat-step>
+
+          <!-- Etapa 3: Login -->
+          <mat-step [stepControl]="formGroup.get('thirdFormGroup')!">
+            <ng-template matStepLabel>Login</ng-template>
+            <div [formGroupName]="'thirdFormGroup'">
+              <label>
+                <span>Login</span>
+                <mat-error *ngIf="formGroup.get('thirdFormGroup')?.get('login')?.invalid">
+                      {{ getErrorMessage('login', formGroup.get('thirdFormGroup')?.get('login')?.errors) }}
+                </mat-error>
+                    <input class="input" matInput formControlName="login" placeholder="" required>
+              </label>
+
+              <label>
+                <span>Senha</span>
+                <mat-error *ngIf="formGroup.get('thirdFormGroup')?.get('senha')?.invalid">
+                      {{ getErrorMessage('senha', formGroup.get('thirdFormGroup')?.get('senha')?.errors) }}
+                </mat-error>
+                    <input class="input" matInput formControlName="senha" type="password" placeholder="" required>
+              </label>
+            </div>
+            <div class="step-buttons">
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
+              <button mat-button type="submit">Salvar</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -2,7 +2,8 @@
   display: flex;
   background-color: #2d79f3;
   justify-content: center;
-  padding: 50px;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .container-login-adm{
@@ -10,14 +11,13 @@ width: 100vh;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-align-items: center;
-margin-top: 10%;
 
 
 & .titulo-pagina{
   font-size: 50px;
   margin-bottom: 5%;
   letter-spacing: 10px;
+  text-align: center;
 }
 }
 

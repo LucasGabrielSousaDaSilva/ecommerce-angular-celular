@@ -5,8 +5,19 @@
     align-items: center;
     min-height: 100vh;
     background: linear-gradient(to right, #4b9fe4, #77ec59);
-  }
-  
+}
+
+mat-card {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+mat-card-content {
+  padding: 20px;
+}
+
 .form {
     display: flex;
     flex-direction: column;
@@ -117,6 +128,11 @@
   
   .input {
     font-size: medium;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
   
   .submit {
@@ -145,3 +161,58 @@
       opacity: 0;
     }
   }
+
+.step-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button[mat-button],
+button[mat-raised-button] {
+  min-width: 120px;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+button[mat-raised-button] {
+  background: #f16d4c;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+button[mat-raised-button]:hover {
+  background: #009EFD;
+}
+
+mat-horizontal-stepper {
+  margin-bottom: 20px;
+}
+
+mat-step-header {
+  background: #f7f7f7;
+}
+
+mat-step-header.mat-active {
+  background: #2AF598;
+  color: white;
+}
+
+mat-form-field {
+  margin-bottom: 16px;
+}
+
+mat-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+mat-error {
+  font-size: 12px;
+  color: red;
+}
+
+span{
+  color: #ffffff;
+}

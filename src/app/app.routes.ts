@@ -62,7 +62,7 @@ export const routes: Routes = [
         // canActivate: [authGuard],
         children: [
 
-    {path: '', pathMatch: 'full', redirectTo: 'controle'},
+    {path: '', pathMatch: 'full', redirectTo: 'loginADM' },
 
     // Usuarios
     {path: 'clientes/edit/:id', component: ClienteFormComponent, resolve:{cliente: clienteResolver}, canActivate: [authGuard] },
@@ -74,36 +74,36 @@ export const routes: Routes = [
 
     // Produtos
     { path: 'controle', component: ControleComponent, title: 'Controle', canActivate: [authGuard] },
-    {path: 'cameras/edit/:id',component: CameraFormComponent, resolve:{camera: cameraResolver}},
-    {path: 'cameras',component: CameraListComponent, title: 'Lista de Cameras'},
-    {path: 'cameras/new',component: CameraFormComponent, title: 'Nova Camera'},
-    {path: 'portaSlots/edit/:id',component: PortaSlotFormComponent, resolve:{portaSlot: portaSlotResolver}},
-    {path: 'portaSlots',component: PortaSlotListComponent, title: 'Lista de Portas'},
+    {path: 'cameras/edit/:id',component: CameraFormComponent, resolve:{camera: cameraResolver}, canActivate: [authGuard]},
+    {path: 'cameras',component: CameraListComponent, title: 'Lista de Cameras', canActivate: [authGuard]},
+    {path: 'cameras/new',component: CameraFormComponent, title: 'Nova Camera', canActivate: [authGuard]},
+    {path: 'portaSlots/edit/:id',component: PortaSlotFormComponent, resolve:{portaSlot: portaSlotResolver}, canActivate: [authGuard]},
+    {path: 'portaSlots',component: PortaSlotListComponent, title: 'Lista de Portas', canActivate: [authGuard]},
     {path: 'portaSlots/new',component: PortaSlotFormComponent, title: 'Nova Porta'},
-    {path: 'telas/edit/:id', component: TelaFormComponent, resolve: { tela: telaResolver }},
-    {path: 'telas', component: TelaListComponent, title: 'Lista de Telas'},
-    {path: 'telas/new', component: TelaFormComponent, title: 'Novo Tela'},
-    {path: 'processadores/edit/:id', component: ProcessadorFormComponent, resolve:{ processador: processadorResolver }},
-    {path: 'processadores', component: ProcessadorListComponent, title: 'Lista de processadores'},
-    {path: 'processadores/new', component: ProcessadorFormComponent, title: 'Novo processadore'},
-    {path: 'sensores', component: SensorListComponent, title: 'Lista de Sensores'},
-    {path: 'sensores/new', component: SensorFormComponent, title: 'Novo Sensor'},
-    {path: 'sensores/edit/:id', component: SensorFormComponent, resolve:{sensor: sensorResolver}},
-    {path: 'series', component: SerieListComponent, title: 'Lista de Series'},
-    {path: 'series/new', component: SerieFormComponent, title: 'Nova Serie'},
-    {path: 'series/edit/:id', component: SerieFormComponent, resolve:{serie: serieResolver}},
-    {path: 'linhas', component: LinhaListComponent, title: 'Lista de Linhas'},
-    {path: 'linhas/new', component: LinhaFormComponent, title: 'Nova Linha'},
-    {path: 'linhas/edit/:id', component: LinhaFormComponent, resolve:{linha: linhaResolver}},
+    {path: 'telas/edit/:id', component: TelaFormComponent, resolve: { tela: telaResolver }, canActivate: [authGuard] },
+    {path: 'telas', component: TelaListComponent, title: 'Lista de Telas', canActivate: [authGuard] },
+    {path: 'telas/new', component: TelaFormComponent, title: 'Novo Tela', canActivate: [authGuard] },
+    {path: 'processadores/edit/:id', component: ProcessadorFormComponent, resolve:{ processador: processadorResolver }, canActivate: [authGuard] },
+    {path: 'processadores', component: ProcessadorListComponent, title: 'Lista de processadores', canActivate: [authGuard] },
+    {path: 'processadores/new', component: ProcessadorFormComponent, title: 'Novo processadore',  canActivate: [authGuard] },
+    {path: 'sensores', component: SensorListComponent, title: 'Lista de Sensores', canActivate: [authGuard] },
+    {path: 'sensores/new', component: SensorFormComponent, title: 'Novo Sensor', canActivate: [authGuard] },
+    {path: 'sensores/edit/:id', component: SensorFormComponent, resolve:{sensor: sensorResolver}, canActivate: [authGuard]},
+    {path: 'series', component: SerieListComponent, title: 'Lista de Series', canActivate: [authGuard] },
+    {path: 'series/new', component: SerieFormComponent, title: 'Nova Serie', canActivate: [authGuard] },
+    {path: 'series/edit/:id', component: SerieFormComponent, resolve:{serie: serieResolver}, canActivate: [authGuard]},
+    {path: 'linhas', component: LinhaListComponent, title: 'Lista de Linhas', canActivate: [authGuard] },
+    {path: 'linhas/new', component: LinhaFormComponent, title: 'Nova Linha', canActivate: [authGuard] },
+    {path: 'linhas/edit/:id', component: LinhaFormComponent, resolve:{linha: linhaResolver}, canActivate: [authGuard]},
 
     // Celulares
-    {path: 'celulares',component: CelularListComponent, title: 'Lista de Celulares'},
-    {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular'},
-    {path: 'celulares/edit/:id',component: CelularFormComponent, resolve:{ celular: celularResolver}},
+    {path: 'celulares',component: CelularListComponent, title: 'Lista de Celulares', canActivate: [authGuard]},
+    {path: 'celulares/new',component: CelularFormComponent, title: 'Novo Celular', canActivate: [authGuard]},
+    {path: 'celulares/edit/:id',component: CelularFormComponent, resolve:{ celular: celularResolver}, canActivate: [authGuard]},
 
     // Login ADM
     { path: 'loginADM', component: LoginADMComponent, title: 'Login'},
-    { path: 'registerADM', component: RegisterADMComponent, title: 'Register'},
+    { path: 'registerADM', component: RegisterADMComponent, title: 'Register', canActivate: [authGuard] },
 
         ]
     },
@@ -123,13 +123,13 @@ export const routes: Routes = [
             { path: 'alterarUsername', component: AlterarUsernameComponent, title: 'Alterando Username', canActivate: [authGuard]},            
             { path: 'alterarSenha', component: AlterarSenhaComponent, title: 'Alterando Senha', canActivate: [authGuard]},
             { path: 'meuPerfil', component: ClientePerfilComponent, title: 'Meu Perfil', canActivate: [authGuard]},
-            { path: 'meuPedido', component: ClientePedidosComponent, title: 'Meus Pedidos' },
+            { path: 'meuPedido', component: ClientePedidosComponent, title: 'Meus Pedidos' , canActivate: [authGuard]},
 
             // Carrinho
             { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho', canActivate: [authGuard] },
             { path: 'realizarPagamento', component: RealizarPagamentoComponent, title: 'Realizar Pagamento', canActivate: [authGuard] },
             { path: 'acompanharPedido', component: AcompanharPedidoComponent, title: 'Acompanhar Pedido', canActivate: [authGuard] },
-            { path: 'finalizarVenda', component: FinalizarVendaComponent, title: 'Finalizar Pedido'},
+            { path: 'finalizarVenda', component: FinalizarVendaComponent, title: 'Finalizar Pedido', canActivate: [authGuard] },
             { path: 'venda', component: VendaComponent, title: 'Finalizar Venda' },
             
         ]
@@ -139,15 +139,15 @@ export const routes: Routes = [
     component: HomeComponentComponent,
     title: 'e-commerce',
     children: [
-        { path: '', pathMatch: 'full', redirectTo: 'home' },
+        {path: '', pathMatch: 'full', redirectTo: 'home' },
 
-        { path: 'home', component: HomeComponent, title: 'Home' },
+        {path: 'home', component: HomeComponent, title: 'Home' },
         {path: 'novidades', component: NovidadesComponent, title: 'Novidades'},
         {path: 'promocoes', component: PromocoesComponent, title: 'Promoções'},
 
         // Login e Registro
-        { path: 'login', component: LoginComponent, title: 'Login' },
-        { path: 'register', component: RegisterComponent, title: 'Register'}
+        {path: 'login', component: LoginComponent, title: 'Login' },
+        {path: 'register', component: RegisterComponent, title: 'Register'}
     ]
 }
 ];
