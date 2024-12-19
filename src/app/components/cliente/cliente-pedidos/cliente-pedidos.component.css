@@ -4,4 +4,10 @@
     align-items: center;
     height: 100vh; /* Ajuste conforme necessário */
   }
+
+  p {
+    font-size: 18px;
+    margin: 20px 0;
+    color: #afb7b9;
+  }
   
