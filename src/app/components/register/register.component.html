@@ -5,7 +5,7 @@
       <form [formGroup]="formGroup" (ngSubmit)="salvar()">
               <mat-form-field appearance="fill" class="full-width-input">
                 <mat-label>Nome</mat-label>
-                <input matInput type="text" formControlName="nome">
+                <input matInput type="text" formControlName="nome" placeholder="Nome" required>
                 <mat-error *ngIf="formGroup.get('nome') 
                               && formGroup.get('nome')?.invalid
                               && formGroup.get('nome')?.touched">
@@ -14,7 +14,8 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="full-width-input">
                 <mat-label>CEP</mat-label>
-                <input matInput type="text" formControlName="cep">
+                <input matInput type="text" formControlName="cep" placeholder="00000-000" 
+                (input)="formatCep()" maxlength="9" required>
                 <mat-error *ngIf="formGroup.get('cep') 
                               && formGroup.get('cep')?.invalid
                               && formGroup.get('cep')?.touched">
@@ -23,7 +24,8 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="full-width-input">
                 <mat-label>CPF</mat-label>
-                <input matInput type="text" formControlName="cpf">
+                <input matInput formControlName="cpf" placeholder="000.000.000-00" 
+                (input)="formatCpf()" maxlength="14" required>
                 <mat-error *ngIf="formGroup.get('cpf') 
                               && formGroup.get('cpf')?.invalid
                               && formGroup.get('cpf')?.touched">
@@ -32,7 +34,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="full-width-input">
                 <mat-label>LOGIN</mat-label>
-                <input matInput type="text" formControlName="login">
+                <input matInput type="text" formControlName="login" placeholder="Login" required>
                 <mat-error *ngIf="formGroup.get('login') 
                               && formGroup.get('login')?.invalid
                               && formGroup.get('login')?.touched">
@@ -41,18 +43,18 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="full-width-input">
                 <mat-label>SENHA</mat-label>
-                <input matInput type="password" formControlName="senha">
+                <input matInput type="password" formControlName="senha" placeholder="Senha" required>
                 <mat-error *ngIf="formGroup.get('senha') 
                               && formGroup.get('senha')?.invalid
                               && formGroup.get('senha')?.touched">
                     O senha é obrigatorio.
                 </mat-error>
-                <div class="step-buttons">
-                  <button mat-button matStepperPrevious>Voltar</button>
-                  <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
-                  <button mat-button type="submit" (click)="salvar()">Salvar</button>
-                </div>
-            </mat-form-field>
+              </mat-form-field>
+              <div class="step-buttons">
+                <!-- <button mat-button matStepperPrevious>Voltar</button> -->
+                <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
+                <button mat-button type="submit" (click)="salvar()">Salvar</button>
+              </div>
         </form>
       </mat-card-content>
         <!-- <mat-horizontal-stepper [linear]="true"> -->
@@ -73,7 +75,7 @@
                 <mat-error *ngIf="formGroup.get('firstFormGroup')?.get('cpf')?.invalid">
                     {{ getErrorMessage('cpf', formGroup.get('firstFormGroup')?.get('cpf')?.errors) }}
                 </mat-error>
-                <input class="input" matInput formControlName="cpf" placeholder="000.000.000-00" required>
+                <input class="input" matInput formControlName="cpf" placeholder="000.000.000-00" (input)="formatCpf()"  required>
               </label> -->
 
               <!-- <label>

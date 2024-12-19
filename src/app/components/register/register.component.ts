@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
       id:['', Validators.required],
       nome:['', Validators.required],
       cep:['', Validators.required],
-      cpf:['' , Validators.required],
+      cpf:['' , Validators.required, Validators.pattern(/\d{3}\.\d{3}\.\d{3}-\d{2}/)],
       login:['', Validators.required],
       senha:['', Validators.required]
     });
@@ -111,14 +111,23 @@ export class RegisterComponent implements OnInit {
       })
   }
 
-  // formatCpf() {
-  //   const cpfControl = this.formGroup.get('firstFormGroup')?.get('cpf');
-  //   if (cpfControl && cpfControl.value) {
-  //     const formattedCpf = cpfControl.value.replace(/\D/g, '') // Remove não dígitos
-  //       .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-  //     cpfControl.setValue(formattedCpf);
-  //   }
-  // }
+  formatCpf() {
+    const cpfControl = this.formGroup.get('cpf');
+    if (cpfControl && cpfControl.value) {
+      const formattedCpf = cpfControl.value.replace(/\D/g, '') // Remove não dígitos
+        .replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+      cpfControl.setValue(formattedCpf);
+    }
+  }
+
+  formatCep() {
+    const cepControl = this.formGroup.get('cep');
+    if (cepControl && cepControl.value) {
+      const formattedCep = cepControl.value.replace(/\D/g, '') // Remove não dígitos
+        .replace(/(\d{5})(\d{3})/, '$1-$2');
+      cepControl.setValue(formattedCep);
+    }
+  }
 
   cancelar() {
     this.router.navigateByUrl('/login');
@@ -211,7 +220,7 @@ export class RegisterComponent implements OnInit {
     },
     cpf: {
       required: 'O CPF é obrigatório.',
-      // pattern: 'CPF deve seguir o formato 000.000.000-00',
+      pattern: 'CPF deve seguir o formato 000.000.000-00',
       apiError: '',
     },
     email: {
