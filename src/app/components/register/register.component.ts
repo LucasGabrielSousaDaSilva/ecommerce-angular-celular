@@ -140,7 +140,7 @@ export class RegisterComponent implements OnInit {
       console.log("cadastro cliente: " + cliente)
       this.clienteService.insert(cliente).subscribe({
         next: () => {
-          this.router.navigateByUrl('/user/ecommerce')
+          this.router.navigateByUrl('/user/login');
         },
         error: (error) => {
           console.log('Erro ao Salvar: ' + JSON.stringify(error));
@@ -193,7 +193,7 @@ export class RegisterComponent implements OnInit {
     } else if (errorResponse.status < 400) {
       alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
     } else if (errorResponse.status >= 500) {
-      alert('Erro interno do servidor.');
+      // alert('Erro interno do servidor.');
     }
   }
 
@@ -223,11 +223,6 @@ export class RegisterComponent implements OnInit {
       pattern: 'CPF deve seguir o formato 000.000.000-00',
       apiError: '',
     },
-    email: {
-      required: 'O e-mail é obrigatório.',
-      email: 'O e-mail deve estar em um formato válido.',
-      apiError: '',
-    },
     login: {
       required: 'O login é obrigatório.',
       apiError: '',
@@ -236,26 +231,6 @@ export class RegisterComponent implements OnInit {
       required: 'A senha é obrigatória.',
       minlength: 'A senha deve ter pelo menos 6 caracteres.',
       apiError: '',
-    },
-    logradouro: {
-      required: 'O logradouro é obrigatório.',
-      apiError: '',
-    },
-    complemento: {
-      required: 'O complemento é obrigatório.',
-      apiError: '',
-    },
-    bairro: {
-      required: 'O bairro é obrigatório.',
-      apiError: '',
-    },
-    localidade: {
-      required: 'A cidade é obrigatória.',
-      apiError: '',
-    },
-    uf: {
-      required: 'O estado é obrigatório.',
-      apiError: '',
-    },
+    }
   };
 }
