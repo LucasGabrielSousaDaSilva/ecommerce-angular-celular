@@ -20,18 +20,27 @@
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Nome: </mat-label>
                             <input matInput placeholder="Digite seu nome" formControlName="nome" [disabled]="true">
+                            {{formGroup.get('nome')?.value}}
                         </mat-form-field>
                     </div>
-                    <div class="campo_dados_pessoais">
+                    <!-- <div class="campo_dados_pessoais">
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Email: </mat-label>
                             <input matInput placeholder="Digite seu email" formControlName="email" [disabled]="true">
+                        </mat-form-field>
+                    </div> -->
+                    <div class="campo_dados_pessoais">
+                        <mat-form-field appearance="outline" style="width: 100%" class="campos">
+                            <mat-label>CEP: </mat-label>
+                            <input matInput placeholder="Digite seu CEP" formControlName="cep" [disabled]="true">
+                            {{formGroup.get('cep')?.value}}
                         </mat-form-field>
                     </div>
                     <div class="campo_dados_pessoais">
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>CPF: </mat-label>
                             <input matInput placeholder="Digite seu CPF" formControlName="cpf" [disabled]="true">
+                            {{formGroup.get('cpf')?.value}}
                         </mat-form-field>
                     </div>
                     <div class="campo_dados_pessoais">
@@ -54,6 +63,7 @@
                         <mat-form-field appearance="outline" style="width: 100%" class="campos">
                             <mat-label>Username: </mat-label>
                             <input matInput placeholder="Digite seu username" formControlName="login" [disabled]="true">
+                            {{formGroup.get('login')?.value}}
                         </mat-form-field>
                     </div>
                     <div class="botoes">
