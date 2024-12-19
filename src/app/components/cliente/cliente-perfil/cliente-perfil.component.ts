@@ -79,11 +79,11 @@ export class ClientePerfilComponent implements OnInit {
       cpf: [cliente.cpf || '', Validators.required],
       login: [cliente.login || '', Validators.required],
       senha: [cliente.senha || '', Validators.required],
-      logradouro: [cliente.logradouro || '', Validators.required],
-      complemento: [cliente.complemento || ''],
-      bairro: [cliente.bairro || '', Validators.required],
-      localidade: [cliente.localidade || '', Validators.required],
-      uf: [cliente.uf || '', Validators.required]
+      // logradouro: [cliente.logradouro || '', Validators.required],
+      // complemento: [cliente.complemento || ''],
+      // bairro: [cliente.bairro || '', Validators.required],
+      // localidade: [cliente.localidade || '', Validators.required],
+      // uf: [cliente.uf || '', Validators.required]
     });
   }
 
