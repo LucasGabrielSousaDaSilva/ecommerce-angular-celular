@@ -1,62 +1,65 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from '../../../services/cliente.service';
-import { MatCardModule } from '@angular/material/card';
-import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ItemCarrinho } from '../../../models/item-carrinho.model';
-import { VendaService } from '../../../services/venda.service';
 import { CarrinhoService } from '../../../services/carrinho.service';
-import { Venda } from '../../../models/venda.model';
-
+import { AuthService } from '../../../services/auth.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-cliente-pedidos',
   standalone: true,
-  imports: [MatCardModule, CommonModule, MatProgressSpinnerModule],
+  imports: [
+    MatCardModule, MatButtonModule, MatProgressSpinnerModule,
+    CommonModule, NgFor
+  ],
   templateUrl: './cliente-pedidos.component.html',
   styleUrls: ['./cliente-pedidos.component.css']
 })
 export class ClientePedidosComponent implements OnInit {
-  loading: boolean = false;
-  pedidos: Venda[] = [];
-  idCliente: number = 1;
+  pedidos: any[] = [];
+  loading: boolean = true;
+  usuarioLogado: any;
 
-  constructor(
-    private clienteService: ClienteService,
-    private carrinhoService: CarrinhoService
-  ) {}
+  constructor(private carrinhoService: CarrinhoService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.buscarPedidos();
-    this.pedidosRealizados();
-  }
-
-  buscarPedidos(): void {
-    this.loading = true;
-    this.clienteService.getPedidosCliente().subscribe({
-      next: (pedidos: Venda[]) => {
-        this.pedidos = pedidos;
-        this.loading = false;
-      },
-      error: (err: any) => {
-        console.error('Erro ao buscar pedidos:', err);
+    this.authService.getUsuarioLogado().subscribe((usuario) => {
+      this.usuarioLogado = usuario;
+      if (this.usuarioLogado) {
+        this.carregarPedidos();
+      } else {
         this.loading = false;
       }
     });
   }
 
-  pedidosRealizados(): void {
-
+  carregarPedidos(): void {
+    this.carrinhoService.pedidosRealizados(this.usuarioLogado.id).subscribe({
+      next: (data) => {
+        this.pedidos = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar pedidos:', err);
+        this.loading = false;
+      }
+    });
   }
 
-  verDetalhesPedido(id: number): void {
-    console.log('Ver detalhes do pedido:', id);
-    // Lógica para exibir ou redirecionar para os detalhes do pedido
+  verDetalhesPedido(pedidoId: number): void {
+    console.log(`Visualizar detalhes do pedido ID: ${pedidoId}`);
   }
 
-  cancelarPedido(id: number): void {
-    console.log('Cancelar pedido:', id);
-    // Lógica para cancelar o pedido
+  cancelarPedido(pedidoId: number): void {
+    this.carrinhoService.cancelarPedido().subscribe({
+      next: () => {
+        console.log(`Pedido ID ${pedidoId} cancelado com sucesso!`);
+        this.carregarPedidos();
+      },
+      error: (err) => {
+        console.error('Erro ao cancelar pedido:', err);
+      }
+    });
   }
-
 }

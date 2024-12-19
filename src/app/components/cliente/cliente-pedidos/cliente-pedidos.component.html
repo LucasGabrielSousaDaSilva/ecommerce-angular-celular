@@ -1,59 +1,25 @@
-<div class="container">
-    <!-- Loading Spinner -->
-    <div *ngIf="loading" class="loading-indicator">
-      <mat-progress-spinner
-        mode="indeterminate"
-        color="primary"
-        diameter="50">
-      </mat-progress-spinner>
-      <p>Carregando pedidos...</p>
-    </div>
+<div class="pedidos-container">
+  <h2>Pedidos Realizados</h2>
 
-        <!-- <div *ngIf="loading">Carregando...</div>
-    <div *ngIf="!loading && pedidos.length === 0">Nenhum pedido encontrado.</div>
-    <div *ngIf="!loading && pedidos.length > 0">
-      <ul>
-        <li *ngFor="let pedido of pedidos"> -->
-          <!-- Exibir detalhes do pedido -->
-          <!-- Pedido ID: {{ pedido.id }} - Produto: {{ pedido.nome }} - Quantidade: {{ pedido.quantidade }}
-          <button (click)="verDetalhesPedido(pedido.id)">Ver Detalhes</button>
-          <button (click)="cancelarPedido(pedido.id)">Cancelar Pedido</button>
-        </li>
-      </ul>
-    </div> -->
-  
-    <!-- Lista de Pedidos -->
-    <div *ngIf="!loading && pedidos.length > 0" class="cards-wrapper">
-      <mat-card *ngFor="let pedido of pedidos" class="card">
-        <!-- Título do Pedido -->
-        <mat-card-header>
-          <div mat-card-avatar class="pedido-avatar"></div>
-          <mat-card-title>Pedido #{{ pedido.celulares }}</mat-card-title>
-          <mat-card-subtitle>Forma: {{ pedido.formaPagamento }}</mat-card-subtitle>
-        </mat-card-header>
-  
-        <!-- Detalhes do Pedido -->
-        <mat-card-content>
-          <!-- <p><strong>Data do Pedido:</strong> {{ pedido.data| date }}</p> -->
-          <!-- <p><strong>Quantidade</strong> {{ pedido.quantidade| date }}</p>
-          <p><strong>Total:</strong> {{ pedido.subTotal| currency : "BRL" : "symbol" : "1.2-2" }}</p>
-          <p><strong>Itens:</strong></p> -->
-          <!-- <ul>
-            <li *ngFor="let item of pedido.itens">
-              {{ item.titulo }} - {{ item.quantidade }}x
-            </li>
-          </ul> -->
-        </mat-card-content>
-  
-        <!-- Ações -->
-        <mat-card-footer class="card-footer">          
-        </mat-card-footer>
-      </mat-card>
-    </div>
-  
-    <!-- Mensagem para Nenhum Pedido -->
-    <div *ngIf="!loading && pedidos.length === 0" class="no-pedidos">
-      <p>Você ainda não possui pedidos.</p>
-    </div>
+  <div *ngIf="loading" class="loading-spinner">
+    <mat-spinner></mat-spinner>
   </div>
-  
+
+  <div *ngIf="!loading && !usuarioLogado" class="sem-usuario">
+    <p>Você precisa estar logado para visualizar seus pedidos.</p>
+  </div>
+
+  <div *ngIf="!loading && usuarioLogado && pedidos.length === 0" class="sem-pedidos">
+    <p>Você ainda não realizou nenhum pedido.</p>
+  </div>
+
+  <div *ngIf="!loading && usuarioLogado && pedidos.length > 0" class="pedidos-lista">
+    <mat-card *ngFor="let pedido of pedidos" class="pedido-card">
+      <mat-card-content>
+        <p><strong>Forma de Pagamento:</strong> {{ pedido.formaPagamento }}</p>
+        <p><strong>Forma de Pagamento:</strong> {{ pedido.valorFinal }}</p>
+        <p><strong>Forma de Pagamento:</strong> {{ pedido.data }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
